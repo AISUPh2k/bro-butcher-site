@@ -143,6 +143,24 @@ p{margin:0;}
   cursor:pointer; position:relative;
 }
 .icon-btn:hover{border-color:var(--blood);}
+.menu-btn{display:none;}
+.menu-btn .i-close,.menu-btn[aria-expanded="true"] .i-open{display:none;}
+.menu-btn[aria-expanded="true"] .i-close{display:block;}
+@media (max-width:860px){
+  .main-bar .wrap{position:relative; justify-content:space-between; padding-block:12px;}
+  .menu-btn{display:flex;}
+  .main-nav{
+    display:none; position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; gap:0; font-size:.95rem;
+    background:var(--bg); border-bottom:1px solid var(--line);
+    padding:4px clamp(18px,4vw,48px) 12px;
+  }
+  .main-nav.is-open{display:flex;}
+  .main-nav a{padding:14px 0; border-bottom:1px solid var(--line);}
+  .main-nav a:last-child{border-bottom:0;}
+  .header-actions{gap:10px;}
+}
+@media (max-width:600px){.utility-bar{display:none;}}
 .cart-badge{
   position:absolute; top:-5px; right:-5px;
   background:var(--blood); color:var(--ink);
@@ -313,6 +331,12 @@ footer{padding:clamp(40px,6vw,64px) 0 32px;}
     <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <rect x="2" y="9" width="11" height="7.5"/><path d="M13 11.5h4l3.2 3v2h-7.2z"/><circle cx="7" cy="18.3" r="1.6"/><circle cx="16.8" cy="18.3" r="1.6"/>
     </symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
+    </symbol>
     <symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <rect x="3" y="6" width="17" height="12.5" rx="2"/><path d="M15.5 11.3h4v3.9h-4a1.95 1.95 0 010-3.9z"/>
     </symbol>
@@ -326,7 +350,7 @@ footer{padding:clamp(40px,6vw,64px) 0 32px;}
   </div></div>
   <div class="main-bar"><div class="wrap">
     <a class="logo" href="#">БРО</a>
-    <nav class="main-nav">
+    <nav class="main-nav" id="main-nav">
       <a href="#catalog">Говядина</a>
       <a href="#catalog">Баранина</a>
       <a href="#catalog">Птица</a>
@@ -339,6 +363,10 @@ footer{padding:clamp(40px,6vw,64px) 0 32px;}
       <button class="icon-btn" aria-label="Корзина">
         <svg class="icon"><use href="#i-cart"/></svg>
         <span class="cart-badge">2</span>
+      </button>
+      <button class="icon-btn menu-btn" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">
+        <svg class="icon i-open"><use href="#i-menu"/></svg>
+        <svg class="icon i-close"><use href="#i-close"/></svg>
       </button>
     </div>
   </div></div>
@@ -508,3 +536,14 @@ footer{padding:clamp(40px,6vw,64px) 0 32px;}
     </div>
   </div>
 </footer>
+
+<script>
+const menuBtn = document.querySelector('.menu-btn');
+const mainNav = document.getElementById('main-nav');
+function setMenu(open) {
+  mainNav.classList.toggle('is-open', open);
+  menuBtn.setAttribute('aria-expanded', open);
+}
+menuBtn.addEventListener('click', () => setMenu(!mainNav.classList.contains('is-open')));
+mainNav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+</script>
