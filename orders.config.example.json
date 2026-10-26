@@ -1,0 +1,11 @@
+{
+  "_note": "Скопировать в orders.config.json и заполнить. Пароль — «пароль приложения» почтового ящика, не основной. Файл не публиковать.",
+  "mode": "smtp",
+  "smtp_host": "smtp.yandex.ru",
+  "smtp_port": 465,
+  "security": "ssl",
+  "user": "ящик-отправитель@yandex.ru",
+  "password": "пароль-приложения",
+  "from": "ящик-отправитель@yandex.ru",
+  "to": ["ndem4@mail.ru"]
+}

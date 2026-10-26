@@ -1,0 +1,8 @@
+# сборка
+dist/
+__pycache__/
+# секреты и персональные данные — не публиковать
+admin.secret.json
+orders.config.json
+orders/
+data/backups/

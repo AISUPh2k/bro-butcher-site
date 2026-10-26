@@ -1,0 +1,75 @@
+{
+  "name": "БРО",
+  "full_name": "Мясная лавка БРО",
+  "slogan": "Сделай добро — накорми БРО!",
+  "base_url": "https://myaso-sobakam-bro.ru/",
+  "phone": "+7 (925) 007-18-00",
+  "phone_raw": "+79250071800",
+  "whatsapp": "79250071800",
+  "email": "ndem4@mail.ru",
+  "vk": "https://vk.com/myasodl9sobak",
+  "telegram": "https://t.me/ppBR0",
+  "address": "Московская область, Раменский район, п. Родники",
+  "hours": "Пн–Пт, 10:00–20:00",
+  "founded": 2018,
+  "expert": {
+    "name": "Наталья",
+    "role": "Зоодиетолог, автор рецептур БРО"
+  },
+  "delivery": {
+    "min_order": 3000,
+    "free_from": 5000,
+    "fee": 350,
+    "outside_per_km": 30,
+    "window": "с 19:00 до 23:00",
+    "timed_fee_from": 1500
+  },
+  "metrika_id": 76300360,
+  "payment": "Наличными курьеру после получения",
+  "hotel": {
+    "title": "Зоогостиница для собак и кошек",
+    "hours": "",
+    "prices": [],
+    "address": "",
+    "notes": []
+  },
+  "operator": {
+    "name": "",
+    "inn": "",
+    "ogrn": "",
+    "address": ""
+  },
+  "privacy_email": "myaso-sobakam-bro@yandex.ru",
+  "policy_date": "19.10.2026",
+  "slides_note": "Слайды-объявления на главной после основного баннера. theme: olive | burgundy | light. link: адрес страницы или \"whatsapp\". img: фото из static/img/products (необязательно), иначе icon. until: ГГГГ-ММ-ДД — после этой даты слайд скрывается.",
+  "slides": [
+    {
+      "theme": "olive",
+      "eyebrow": "Зоогостиница",
+      "title": "Присмотрим за питомцем, пока вы в отъезде",
+      "text": "Для собак и кошек. Подробности и запись — на странице гостиницы или в WhatsApp.",
+      "button": "Подробнее",
+      "link": "hotel.html",
+      "icon": "home"
+    },
+    {
+      "theme": "burgundy",
+      "eyebrow": "Бесплатно",
+      "title": "Первая консультация зоодиетолога",
+      "text": "Подберём рацион, миксы и расфасовку под вашу собаку: возраст, вес, порода, здоровье.",
+      "button": "Написать в WhatsApp",
+      "link": "whatsapp",
+      "wa_text": "Здравствуйте! Хочу перевести собаку на натуральное питание, нужна консультация.",
+      "img": "miks-sanek.jpg"
+    },
+    {
+      "theme": "light",
+      "eyebrow": "Доставка",
+      "title": "Бесплатно от 5 000 ₽ по Москве",
+      "text": "Привозим вечером, с 19:00 до 23:00. Оплата наличными после получения.",
+      "button": "Условия доставки",
+      "link": "delivery.html",
+      "icon": "truck"
+    }
+  ]
+}

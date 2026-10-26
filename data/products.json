@@ -1,0 +1,5210 @@
+[
+ {
+  "slug": "obrez-govyazhya-v-kubikah",
+  "name": "Обрезь говяжья в кубиках",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    185
+   ],
+   [
+    "0,7 кг",
+    245
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "obrez-govyazhya-v-kubikah.jpg",
+  "popular": 11,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/obrez-govyazhya-v-kubikah"
+ },
+ {
+  "slug": "vymya-govyazhe-stejk",
+  "name": "Вымя говяжье стейк",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "1 кг",
+    220
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "vymya-govyazhe-stejk.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/vymya-govyazhe-stejk"
+ },
+ {
+  "slug": "vymya-govyazhe-obezzhirenoe",
+  "name": "Вымя говяжье обезжиренное",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    165
+   ],
+   [
+    "0,7 кг",
+    200
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "vymya-govyazhe-obezzhirenoe.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/vymya-govyazhe-obezzhirenoe"
+ },
+ {
+  "slug": "govyadina-bezkostnaya-melkij-kusok",
+  "name": "Говядина бескостная мелкий кусок",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "1 кг",
+    400
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "govyadina-bezkostnaya-melkij-kusok.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/govyadina-bezkostnaya-melkij-kusok"
+ },
+ {
+  "slug": "govyadina-kuskovaya-stejk",
+  "name": "Говядина кусковая стейк",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    293
+   ],
+   [
+    "0,7 кг",
+    327
+   ],
+   [
+    "1 кг",
+    400
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "govyadina-kuskovaya-stejk.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/govyadina-kuskovaya-stejk"
+ },
+ {
+  "slug": "grudnoj-hryash-s-saharnoj-kostochkoj",
+  "name": "Грудной хрящ с сахарной косточкой",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "1 кг",
+    150
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [
+   "Хрящ грудной говяжий — полезная добавка к собачьему рациону. Он может как быть лакомством, так и включаться в ежедневный рацион. В грудном хряще содержится много кальция в легкоусвояемом виде, а также хондроитин и глюкозамин. Все компоненты полезны собакам: они укрепляют кости и суставы, у молодых животных способствуют нормальному развитию скелета. В сушеном виде грудной говяжий хрящ — отличное лакомство. Нарезан крупными кусками."
+  ],
+  "veg": false,
+  "kbju": null,
+  "img": "grudnoj-hryash-s-saharnoj-kostochkoj.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/grudnoj-hryash-s-saharnoj-kostochkoj"
+ },
+ {
+  "slug": "gulyash",
+  "name": "Гуляш",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    310
+   ],
+   [
+    "0,7 кг",
+    393
+   ],
+   [
+    "1 кг",
+    500
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "gulyash.jpg",
+  "popular": 10,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/gulyash"
+ },
+ {
+  "slug": "gulyash-govyazhij-postnyj",
+  "name": "Гуляш говяжий (постный)",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    310
+   ],
+   [
+    "0,7 кг",
+    388
+   ],
+   [
+    "1 кг",
+    500
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "gulyash-govyazhij-postnyj.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/gulyash-govyazhij-postnyj"
+ },
+ {
+  "slug": "zhilka-govyazhya-myagkaya-rublenaya",
+  "name": "Жилка говяжья мягкая рубленая",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    195
+   ],
+   [
+    "0,7 кг",
+    260
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "zhilka-govyazhya-myagkaya-rublenaya.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/zhilka-govyazhya-myagkaya-rublenaya"
+ },
+ {
+  "slug": "zhilka-myasnaya-myagkaya-stejk",
+  "name": "Жилка мясная мягкая стейк",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    73
+   ],
+   [
+    "0,7 кг",
+    107
+   ],
+   [
+    "1 кг",
+    180
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "zhilka-myasnaya-myagkaya-stejk.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/zhilka-myasnaya-myagkaya-stejk"
+ },
+ {
+  "slug": "kaltyk-govyazhij",
+  "name": "Калтык (говядина)",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    185
+   ],
+   [
+    "0,7 кг",
+    229
+   ],
+   [
+    "1 кг",
+    290
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "kaltyk-govyazhij.jpg",
+  "popular": 17,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/kaltyk-govyazhij"
+ },
+ {
+  "slug": "kolenye-chashechki-govyazhi",
+  "name": "Коленные чашечки говяжьи",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    105
+   ],
+   [
+    "0,7 кг",
+    137
+   ],
+   [
+    "1 кг",
+    180
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "kolenye-chashechki-govyazhi.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/kolenye-chashechki-govyazhi"
+ },
+ {
+  "slug": "kost-grudnaya-saharnaya",
+  "name": "Кость грудная сахарная",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    100
+   ],
+   [
+    "0,7 кг",
+    126
+   ],
+   [
+    "1 кг",
+    150
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "kost-grudnaya-saharnaya.jpg",
+  "popular": 12,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/kost-grudnaya-saharnaya"
+ },
+ {
+  "slug": "lyogkoe-govyazhe",
+  "name": "Лёгкое говяжье",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    180
+   ],
+   [
+    "0,7 кг",
+    230
+   ],
+   [
+    "1 кг",
+    290
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "lyogkoe-govyazhe.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/lyogkoe-govyazhe"
+ },
+ {
+  "slug": "legkoe-govyazhe-stejk",
+  "name": "Легкое говяжье стейк",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    163
+   ],
+   [
+    "0,7 кг",
+    197
+   ],
+   [
+    "1 кг",
+    270
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "legkoe-govyazhe-stejk.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/legkoe-govyazhe-stejk"
+ },
+ {
+  "slug": "myaso-golov",
+  "name": "Мясо голов (говядина)",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    215
+   ],
+   [
+    "0,7 кг",
+    277
+   ],
+   [
+    "1 кг",
+    350
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "myaso-golov.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/myaso-golov"
+ },
+ {
+  "slug": "myaso-golov-govyazhe-so-shekoj",
+  "name": "Мясо голов говяжье со щекой",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    293
+   ],
+   [
+    "0,7 кг",
+    327
+   ],
+   [
+    "1 кг",
+    400
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "myaso-golov-govyazhe-so-shekoj.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/myaso-golov-govyazhe-so-shekoj"
+ },
+ {
+  "slug": "nos-govyazhij-v-raspile",
+  "name": "Нос говяжий в распиле",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    140
+   ],
+   [
+    "0,7 кг",
+    190
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "nos-govyazhij-v-raspile.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/nos-govyazhij-v-raspile"
+ },
+ {
+  "slug": "nos-govyazhij-opalennyj",
+  "name": "Нос говяжий опалённый",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    75
+   ],
+   [
+    "0,7 кг",
+    137
+   ],
+   [
+    "1 кг",
+    210
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "nos-govyazhij-opalennyj.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/nos-govyazhij-opalennyj"
+ },
+ {
+  "slug": "obrez-govyazhya-lyuks",
+  "name": "Обрезь говяжья «Люкс»",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    170
+   ],
+   [
+    "0,7 кг",
+    228
+   ],
+   [
+    "1 кг",
+    310
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/obrez-govyazhya-lyuks"
+ },
+ {
+  "slug": "obrez-zhilovanaya-stejk",
+  "name": "Обрезь корпусная",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/obrez-zhilovanaya-stejk"
+ },
+ {
+  "slug": "obrez-so-vseh-chastej-tushi-krs",
+  "name": "Обрезь корпусная жилка/жир 30%",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    213
+   ],
+   [
+    "0,7 кг",
+    247
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/obrez-so-vseh-chastej-tushi-krs"
+ },
+ {
+  "slug": "obrez-myasnaya-govyazhya-s-zhilkoj",
+  "name": "Обрезь мясная говяжья с жилкой",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    130
+   ],
+   [
+    "0,7 кг",
+    180
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/obrez-myasnaya-govyazhya-s-zhilkoj"
+ },
+ {
+  "slug": "obrez-govyazhya-s-zhilkoj-stejk",
+  "name": "Обрезь щеки постная",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "1 кг",
+    390
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/obrez-govyazhya-s-zhilkoj-stejk"
+ },
+ {
+  "slug": "pechen-govyazhya",
+  "name": "Печень говяжья",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    165
+   ],
+   [
+    "0,7 кг",
+    217
+   ],
+   [
+    "1 кг",
+    280
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/pechen-govyazhya"
+ },
+ {
+  "slug": "pikalnoe-myaso",
+  "name": "Пикальное мясо",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    220
+   ],
+   [
+    "0,7 кг",
+    290
+   ],
+   [
+    "1 кг",
+    380
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "pikalnoe-myaso.jpg",
+  "popular": 23,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/pikalnoe-myaso"
+ },
+ {
+  "slug": "podyazychnyj-srez-lyuks",
+  "name": "Подъязычный срез люкс",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    290
+   ],
+   [
+    "0,7 кг",
+    340
+   ],
+   [
+    "1 кг",
+    400
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "podyazychnyj-srez-lyuks.jpg",
+  "popular": 15,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/podyazychnyj-srez-lyuks"
+ },
+ {
+  "slug": "pochki-govyazhi",
+  "name": "Почки говяжьи",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    140
+   ],
+   [
+    "0,7 кг",
+    190
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "pochki-govyazhi.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/pochki-govyazhi"
+ },
+ {
+  "slug": "pochki-govyazhi-stejk",
+  "name": "Почки говяжьи стейк",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "1 кг",
+    220
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "pochki-govyazhi-stejk.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/pochki-govyazhi-stejk"
+ },
+ {
+  "slug": "ragu-kostno-hryashevoe-govyadina",
+  "name": "Рагу мясо-хрящевое говяжье, без жира и костей",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    213
+   ],
+   [
+    "0,7 кг",
+    270
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "ragu-kostno-hryashevoe-govyadina.jpg",
+  "popular": 22,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/ragu-kostno-hryashevoe-govyadina"
+ },
+ {
+  "slug": "rubec-govyazhij",
+  "name": "Рубец говяжий (кубик распил)",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    135
+   ],
+   [
+    "0,7 кг",
+    175
+   ],
+   [
+    "1 кг",
+    230
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 8,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/rubec-govyazhij"
+ },
+ {
+  "slug": "rubec-govyazhij-stejk",
+  "name": "Рубец говяжий стейк",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    105
+   ],
+   [
+    "0,7 кг",
+    145
+   ],
+   [
+    "1 кг",
+    200
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "rubec-govyazhij-stejk.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/rubec-govyazhij-stejk"
+ },
+ {
+  "slug": "semenniki-govyazhi",
+  "name": "Семенники говяжьи",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    205
+   ],
+   [
+    "0,7 кг",
+    245
+   ],
+   [
+    "1 кг",
+    300
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "semenniki-govyazhi.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/semenniki-govyazhi"
+ },
+ {
+  "slug": "serdce-govyazhe-stejk",
+  "name": "Сердце говяжье стейк",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "1 кг",
+    450
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "serdce-govyazhe-stejk.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/serdce-govyazhe-stejk"
+ },
+ {
+  "slug": "sychug-govyazhij-ne-zhirnyj",
+  "name": "Сычуг говяжий нежирный",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    115
+   ],
+   [
+    "0,7 кг",
+    180
+   ],
+   [
+    "1 кг",
+    240
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "sychug-govyazhij-ne-zhirnyj.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/sychug-govyazhij-ne-zhirnyj"
+ },
+ {
+  "slug": "ushi-govyazhi",
+  "name": "Уши говяжьи",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    173
+   ],
+   [
+    "0,7 кг",
+    207
+   ],
+   [
+    "1 кг",
+    280
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "ushi-govyazhi.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/ushi-govyazhi"
+ },
+ {
+  "slug": "hryash-grudnoj-govyazhij",
+  "name": "Хрящ грудной говяжий",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    185
+   ],
+   [
+    "0,7 кг",
+    225
+   ],
+   [
+    "1 кг",
+    280
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [
+   "Степные коровы, без гормонов и химии."
+  ],
+  "veg": false,
+  "kbju": null,
+  "img": "hryash-grudnoj-govyazhij.jpg",
+  "popular": 13,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/hryash-grudnoj-govyazhij"
+ },
+ {
+  "slug": "hryash-lopatochnyj-belorussiya",
+  "name": "Хрящ лопаточный",
+  "cat": "beef",
+  "tags": [
+   "beef"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    205
+   ],
+   [
+    "0,7 кг",
+    245
+   ],
+   [
+    "1 кг",
+    300
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "hryash-lopatochnyj-belorussiya.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/hryash-lopatochnyj-belorussiya"
+ },
+ {
+  "slug": "farsh-govyazhij-ne-zhirnyj-svezhij",
+  "name": "Фарш говяжий нежирный",
+  "cat": "farsh",
+  "tags": [
+   "farsh",
+   "beef"
+  ],
+  "options": [
+   [
+    "1 кг",
+    270
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [
+   "Рубленый, нежирный, хорошо подходит для выкорма щенков."
+  ],
+  "veg": false,
+  "kbju": null,
+  "img": "farsh-govyazhij-ne-zhirnyj-svezhij.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/farsh-govyazhij-ne-zhirnyj-svezhij"
+ },
+ {
+  "slug": "nosy-govyazhi",
+  "name": "Носы говяжьи мясо-хрящевые, неопалённые",
+  "cat": "beef",
+  "tags": [
+   "beef",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    35
+   ],
+   [
+    "0,7 кг",
+    79
+   ],
+   [
+    "1 кг",
+    140
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/govyadina/nosy-govyazhi"
+ },
+ {
+  "slug": "liver-s-serdcem",
+  "name": "Ливер с сердцем",
+  "cat": "lamb",
+  "tags": [
+   "lamb"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    263
+   ],
+   [
+    "0,7 кг",
+    300
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "liver-s-serdcem.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/baranina/liver-s-serdcem"
+ },
+ {
+  "slug": "miks-barash-1",
+  "name": "Микс Бараш 1 премиум",
+  "cat": "premium",
+  "tags": [
+   "mix",
+   "lamb",
+   "premium"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    225
+   ],
+   [
+    "0,7 кг",
+    309
+   ],
+   [
+    "1 кг",
+    420
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь баранья — 40%",
+   "Калтык бараний — 20%",
+   "Сердце баранье — 20%",
+   "Почки бараньи — 20%",
+   "Семена льна"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-barash-1.jpg",
+  "popular": 4,
+  "old_url": "https://myaso-sobakam-bro.ru/lyuks/miks-barash-1"
+ },
+ {
+  "slug": "miks-barash-2",
+  "name": "Микс Бараш 2 премиум",
+  "cat": "premium",
+  "tags": [
+   "mix",
+   "lamb",
+   "premium"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    225
+   ],
+   [
+    "0,7 кг",
+    309
+   ],
+   [
+    "1 кг",
+    420
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь баранья — 30%",
+   "Трахея баранья — 15%",
+   "Сердце баранье — 20%",
+   "Шеи индейки — 20%",
+   "Рубец бараний — 15%",
+   "Амарант"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-barash-2.jpg",
+  "popular": 5,
+  "old_url": "https://myaso-sobakam-bro.ru/lyuks/miks-barash-2"
+ },
+ {
+  "slug": "rubec-baranij-ne-zhirnyj",
+  "name": "Рубец бараний",
+  "cat": "lamb",
+  "tags": [
+   "lamb"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    173
+   ],
+   [
+    "0,7 кг",
+    210
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "rubec-baranij-ne-zhirnyj.jpg",
+  "popular": 7,
+  "old_url": "https://myaso-sobakam-bro.ru/baranina/rubec-baranij-ne-zhirnyj"
+ },
+ {
+  "slug": "rubec-baranij-obezzhirennyj",
+  "name": "Рубец бараний обезжиренный",
+  "cat": "lamb",
+  "tags": [
+   "lamb"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    160
+   ],
+   [
+    "0,7 кг",
+    210
+   ],
+   [
+    "1 кг",
+    270
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "rubec-baranij-obezzhirennyj.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/baranina/rubec-baranij-obezzhirennyj"
+ },
+ {
+  "slug": "rubec-baranij-stejk",
+  "name": "Рубец бараний стейк",
+  "cat": "lamb",
+  "tags": [
+   "lamb"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    153
+   ],
+   [
+    "0,7 кг",
+    190
+   ],
+   [
+    "1 кг",
+    230
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "rubec-baranij-stejk.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/baranina/rubec-baranij-stejk"
+ },
+ {
+  "slug": "serdce-barane",
+  "name": "Сердце баранье",
+  "cat": "lamb",
+  "tags": [
+   "lamb",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    255
+   ],
+   [
+    "0,7 кг",
+    350
+   ],
+   [
+    "1 кг",
+    480
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "serdce-barane.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/baranina/serdce-barane"
+ },
+ {
+  "slug": "traheya-baranya-myasnaya-stejk",
+  "name": "Трахея баранья мясная стейк",
+  "cat": "lamb",
+  "tags": [
+   "lamb"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    183
+   ],
+   [
+    "0,7 кг",
+    220
+   ],
+   [
+    "1 кг",
+    260
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "traheya-baranya-myasnaya-stejk.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/baranina/traheya-baranya-myasnaya-stejk"
+ },
+ {
+  "slug": "kaltyk-baranij",
+  "name": "Калтык (баранина)",
+  "cat": "lamb",
+  "tags": [
+   "lamb"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    205
+   ],
+   [
+    "0,7 кг",
+    249
+   ],
+   [
+    "1 кг",
+    310
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/baranina/kaltyk-baranij"
+ },
+ {
+  "slug": "traheya-myasnaya-baranya",
+  "name": "Трахея мясная баранья",
+  "cat": "lamb",
+  "tags": [
+   "lamb",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    210
+   ],
+   [
+    "0,7 кг",
+    274
+   ],
+   [
+    "1 кг",
+    350
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "traheya-myasnaya-baranya.jpg",
+  "popular": 9,
+  "old_url": "https://myaso-sobakam-bro.ru/baranina/traheya-myasnaya-baranya"
+ },
+ {
+  "slug": "liver-baranij-svezhij",
+  "name": "Ливер бараний свежий",
+  "cat": "lamb",
+  "tags": [
+   "lamb",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    140
+   ],
+   [
+    "0,7 кг",
+    174
+   ],
+   [
+    "1 кг",
+    220
+   ]
+  ],
+  "in_stock": false,
+  "composition": [
+   "Лёгкое",
+   "Печень",
+   "Сердце"
+  ],
+  "notes": [
+   "Нежирный. Вес одного комплекта 1–1,2 кг."
+  ],
+  "veg": false,
+  "kbju": null,
+  "img": "liver-baranij-svezhij.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/baranina/liver-baranij-svezhij"
+ },
+ {
+  "slug": "golovy-utinye1",
+  "name": "Головы утиные",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    115
+   ],
+   [
+    "0,7 кг",
+    147
+   ],
+   [
+    "1 кг",
+    180
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "golovy-utinye1.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/utka/golovy-utinye1"
+ },
+ {
+  "slug": "golovy-utinye-rublenye",
+  "name": "Головы утиные рубленые",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    140
+   ],
+   [
+    "0,7 кг",
+    190
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "golovy-utinye-rublenye.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/utka/golovy-utinye-rublenye"
+ },
+ {
+  "slug": "grebeshki-kurinye",
+  "name": "Гребешки куриные",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    245
+   ],
+   [
+    "0,7 кг",
+    301
+   ],
+   [
+    "1 кг",
+    380
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "grebeshki-kurinye.jpg",
+  "popular": 18,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/kurica/grebeshki-kurinye"
+ },
+ {
+  "slug": "zheludki-indejki",
+  "name": "Желудки индейки",
+  "cat": "poultry",
+  "tags": [
+   "poultry",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    185
+   ],
+   [
+    "0,7 кг",
+    253
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "zheludki-indejki.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/indejka/zheludki-indejki"
+ },
+ {
+  "slug": "zheludki-utinye",
+  "name": "Желудки утиные",
+  "cat": "poultry",
+  "tags": [
+   "poultry",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    135
+   ],
+   [
+    "0,7 кг",
+    180
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "zheludki-utinye.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/utka/zheludki-utinye"
+ },
+ {
+  "slug": "miks-utochka-1",
+  "name": "Микс Уточка 1",
+  "cat": "premium",
+  "tags": [
+   "premium",
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    305
+   ],
+   [
+    "0,7 кг",
+    389
+   ],
+   [
+    "1 кг",
+    500
+   ]
+  ],
+  "in_stock": false,
+  "composition": [
+   "Грудка утиная — 40%",
+   "Желудки утиные — 20%",
+   "Сердце утиное — 30%",
+   "Головы утиные резаные — 10%",
+   "Амарант"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-utochka-1.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/lyuks/miks-utochka-1"
+ },
+ {
+  "slug": "miks-utochka-2",
+  "name": "Микс Уточка 2",
+  "cat": "premium",
+  "tags": [
+   "premium",
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    325
+   ],
+   [
+    "0,7 кг",
+    409
+   ],
+   [
+    "1 кг",
+    520
+   ]
+  ],
+  "in_stock": false,
+  "composition": [
+   "Грудка утиная — 40%",
+   "Желудки утиные — 20%",
+   "Шеи утиные — 10%",
+   "Печень утиная — 10%",
+   "Сердце утиное — 20%",
+   "Семена льна"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-utochka-2.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/lyuks/miks-utochka-2"
+ },
+ {
+  "slug": "miks-utochka-3",
+  "name": "Микс Уточка 3",
+  "cat": "premium",
+  "tags": [
+   "premium",
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    265
+   ],
+   [
+    "0,7 кг",
+    349
+   ],
+   [
+    "1 кг",
+    460
+   ]
+  ],
+  "in_stock": false,
+  "composition": [
+   "Говядина — 50%",
+   "Рагу утиное — 10%",
+   "Желудки утиные — 20%",
+   "Сердце утиное — 20%",
+   "Лососевое масло"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-utochka-3.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/lyuks/miks-utochka-3"
+ },
+ {
+  "slug": "ragu-utinoe-bez-trubchatyh-kostej",
+  "name": "Рагу утиное мясное без трубчатых костей",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    140
+   ],
+   [
+    "0,7 кг",
+    186
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "ragu-utinoe-bez-trubchatyh-kostej.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/utka/ragu-utinoe-bez-trubchatyh-kostej"
+ },
+ {
+  "slug": "serdechki-kurinye",
+  "name": "Сердечки куриные",
+  "cat": "poultry",
+  "tags": [
+   "poultry",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    210
+   ],
+   [
+    "0,7 кг",
+    284
+   ],
+   [
+    "1 кг",
+    380
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "serdechki-kurinye.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/kurica/serdechki-kurinye"
+ },
+ {
+  "slug": "stejki-goleni-indejki",
+  "name": "Стейки голени индейки",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    244
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "stejki-goleni-indejki.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/indejka/stejki-goleni-indejki"
+ },
+ {
+  "slug": "supovoj-nabor",
+  "name": "Суповой набор",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "1 кг",
+    180
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/perepela/supovoj-nabor"
+ },
+ {
+  "slug": "farsh-iz-utinyh-shej",
+  "name": "Фарш из утиных шей",
+  "cat": "farsh",
+  "tags": [
+   "farsh",
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    165
+   ],
+   [
+    "0,7 кг",
+    221
+   ],
+   [
+    "1 кг",
+    290
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "farsh-iz-utinyh-shej.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/farsh/farsh-iz-utinyh-shej"
+ },
+ {
+  "slug": "farsh-kurinyj-pishevoj",
+  "name": "Фарш индейки",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    170
+   ],
+   [
+    "0,7 кг",
+    224
+   ],
+   [
+    "1 кг",
+    290
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/indejka/farsh-kurinyj-pishevoj"
+ },
+ {
+  "slug": "file-indejki",
+  "name": "Филе индейки",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    205
+   ],
+   [
+    "0,7 кг",
+    277
+   ],
+   [
+    "1 кг",
+    380
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "file-indejki.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/indejka/file-indejki"
+ },
+ {
+  "slug": "cyplyata-sutochnye",
+  "name": "Цыплята суточные",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    150
+   ],
+   [
+    "0,7 кг",
+    180
+   ],
+   [
+    "1 кг",
+    220
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "cyplyata-sutochnye.jpg",
+  "popular": 26,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/kurica/cyplyata-sutochnye"
+ },
+ {
+  "slug": "shei-utinye-opt",
+  "name": "Шеи утиные",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    185
+   ],
+   [
+    "0,7 кг",
+    217
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "shei-utinye-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/utka/shei-utinye-opt"
+ },
+ {
+  "slug": "shejki-kurinye",
+  "name": "Шейки куриные",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    125
+   ],
+   [
+    "0,7 кг",
+    157
+   ],
+   [
+    "1 кг",
+    200
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/kurica/shejki-kurinye"
+ },
+ {
+  "slug": "shejki-utinye",
+  "name": "Шейки утиные",
+  "cat": "poultry",
+  "tags": [
+   "poultry",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    155
+   ],
+   [
+    "0,7 кг",
+    195
+   ],
+   [
+    "1 кг",
+    250
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "shejki-utinye.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/utka/shejki-utinye"
+ },
+ {
+  "slug": "pechen-kurinaya",
+  "name": "Печень куриная",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    105
+   ],
+   [
+    "0,7 кг",
+    145
+   ],
+   [
+    "1 кг",
+    200
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/kurica/pechen-kurinaya"
+ },
+ {
+  "slug": "lapki-perepelinye",
+  "name": "Лапки перепелиные",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "1 кг",
+    60
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/perepela/lapki-perepelinye"
+ },
+ {
+  "slug": "ragu-myasnoe-iz-sheek-indejki",
+  "name": "Рагу мясное из шеек индейки",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    248
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "ragu-myasnoe-iz-sheek-indejki.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/indejka/ragu-myasnoe-iz-sheek-indejki"
+ },
+ {
+  "slug": "shei-indejki",
+  "name": "Шеи индейки",
+  "cat": "poultry",
+  "tags": [
+   "poultry"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    205
+   ],
+   [
+    "0,7 кг",
+    245
+   ],
+   [
+    "1 кг",
+    300
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "shei-indejki.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/indejka/shei-indejki"
+ },
+ {
+  "slug": "zheludki",
+  "name": "Желудки куриные",
+  "cat": "poultry",
+  "tags": [
+   "poultry",
+   "offal"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    200
+   ],
+   [
+    "0,7 кг",
+    242
+   ],
+   [
+    "1 кг",
+    300
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ptica/kurica/zheludki"
+ },
+ {
+  "slug": "farsh-iz-krolika",
+  "name": "Фарш из кролика",
+  "cat": "rabbit",
+  "tags": [
+   "rabbit"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    205
+   ],
+   [
+    "0,7 кг",
+    255
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/krolik/farsh-iz-krolika"
+ },
+ {
+  "slug": "miks-rublenyj-bez-ovoshej-mr-1-govyadina",
+  "name": "Микс рубленый без овощей MR-1 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    223
+   ],
+   [
+    "0,7 кг",
+    276
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-rublenyj-bez-ovoshej-mr-1-govyadina.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-rublenyj-bez-ovoshej-mr-1-govyadina"
+ },
+ {
+  "slug": "menyu-1",
+  "name": "Меню 1 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    300
+   ],
+   [
+    "0,7 кг",
+    365
+   ],
+   [
+    "1 кг",
+    450
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "menyu-1.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/lyuks/menyu-1"
+ },
+ {
+  "slug": "menyu-2-govyadina",
+  "name": "Меню 2 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    300
+   ],
+   [
+    "0,7 кг",
+    365
+   ],
+   [
+    "1 кг",
+    450
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "menyu-2-govyadina.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/lyuks/menyu-2-govyadina"
+ },
+ {
+  "slug": "menyu-3-govyadina",
+  "name": "Меню 3 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    300
+   ],
+   [
+    "0,7 кг",
+    365
+   ],
+   [
+    "1 кг",
+    450
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "menyu-3-govyadina.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/lyuks/menyu-3-govyadina"
+ },
+ {
+  "slug": "menyu-5-govyadina",
+  "name": "Меню 5 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    300
+   ],
+   [
+    "0,7 кг",
+    365
+   ],
+   [
+    "1 кг",
+    450
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "menyu-5-govyadina.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/lyuks/menyu-5-govyadina"
+ },
+ {
+  "slug": "miks-rich-standart",
+  "name": "Микс Рич Стандарт",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    195
+   ],
+   [
+    "0,7 кг",
+    259
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Мясо голов — 40%",
+   "Рубец говяжий — 20%",
+   "Вымя — 20%",
+   "Почки — 20%"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-rich-standart.jpg",
+  "popular": 27,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miks-rich-standart"
+ },
+ {
+  "slug": "miks-abramovich",
+  "name": "Микс «Абрамович» премиум",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    225
+   ],
+   [
+    "0,7 кг",
+    309
+   ],
+   [
+    "1 кг",
+    420
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина постная — 50%",
+   "Сердце говяжье — 20%",
+   "Подъязычный срез «люкс» — 15%",
+   "Рагу из шей индейки — 15%",
+   "Лососевое масло"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-abramovich.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-abramovich"
+ },
+ {
+  "slug": "miks-borzyj",
+  "name": "Микс «Борзый»",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    205
+   ],
+   [
+    "0,7 кг",
+    275
+   ],
+   [
+    "1 кг",
+    370
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь постная",
+   "Мясо пищевода",
+   "Сердце говяжье",
+   "Рубец говяжий"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-borzyj.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-borzyj"
+ },
+ {
+  "slug": "buch-lakomkin",
+  "name": "Микс «Буч Лакомкин»",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    110
+   ],
+   [
+    "0,7 кг",
+    208
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь говяжья",
+   "Головы утиные резаные",
+   "Печень говяжья",
+   "Жилка говяжья",
+   "Фарш утиный"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "buch-lakomkin.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/buch-lakomkin"
+ },
+ {
+  "slug": "gosha-lakomkin",
+  "name": "Микс «Гоша Лакомкин»",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    110
+   ],
+   [
+    "0,7 кг",
+    208
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь говяжья",
+   "Рагу хрящевое",
+   "Легкое",
+   "Почки",
+   "Вымя",
+   "Головы утиные резаные"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "gosha-lakomkin.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/gosha-lakomkin"
+ },
+ {
+  "slug": "miks-lyalya",
+  "name": "Микс «Ляля»",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    150
+   ],
+   [
+    "0,7 кг",
+    248
+   ],
+   [
+    "1 кг",
+    380
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь с жилкой говяжья",
+   "Почки говяжьи",
+   "Рубец говяжий",
+   "Желудки утиные",
+   "Сердце говяжье",
+   "Головы утиные резаные"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-lyalya.jpg",
+  "popular": 2,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-lyalya"
+ },
+ {
+  "slug": "petya-lakomkin",
+  "name": "Микс «Петя Лакомкин»",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    110
+   ],
+   [
+    "0,7 кг",
+    208
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Шеи куриные",
+   "Желудки куриные",
+   "Кожа куриная",
+   "Фарш индейки"
+  ],
+  "notes": [
+   "Куриная кожа помогает увеличить энергетическую плотность питания, а также является источником жирных кислот семейства ОМЕГА-6 - линолиевой жирной кислоты. Линолиевая кислота помогает сохранять водный баланс кожи, ее защитные свойства и целостность."
+  ],
+  "veg": false,
+  "kbju": null,
+  "img": "petya-lakomkin.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/petya-lakomkin"
+ },
+ {
+  "slug": "roma-lakomkin",
+  "name": "Микс «Рома Лакомкин»",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    110
+   ],
+   [
+    "0,7 кг",
+    208
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь говяжья",
+   "Почки говяжьи",
+   "Вымя",
+   "Рубец говяжий",
+   "Фарш говяжий нежирный"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "roma-lakomkin.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/roma-lakomkin"
+ },
+ {
+  "slug": "miks-sanek",
+  "name": "Микс «Санёк»",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    250
+   ],
+   [
+    "0,7 кг",
+    300
+   ],
+   [
+    "1 кг",
+    370
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-sanek.jpg",
+  "popular": 1,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-sanek"
+ },
+ {
+  "slug": "miks-fedya",
+  "name": "Микс «Федя»",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    200
+   ],
+   [
+    "0,7 кг",
+    270
+   ],
+   [
+    "1 кг",
+    370
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-fedya.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-fedya"
+ },
+ {
+  "slug": "miks-vajs-premium",
+  "name": "Микс Вайс Премиум",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    260
+   ],
+   [
+    "0,7 кг",
+    358
+   ],
+   [
+    "1 кг",
+    490
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Мясо голов — 40%",
+   "Сердце говяжье — 20%",
+   "Рубец — 20%",
+   "Мясо хрящевое рагу — 10%",
+   "Шеи утиные — 10%"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-vajs-premium.jpg",
+  "popular": 30,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miks-vajs-premium"
+ },
+ {
+  "slug": "miks-guf-standart",
+  "name": "Микс Гуф Стандарт",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    195
+   ],
+   [
+    "0,7 кг",
+    259
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь говяжья — 40%",
+   "Нос говяжий — 20%",
+   "Рубец бараний — 20%",
+   "Фарш индейки мясокостный — 20%"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-guf-standart.jpg",
+  "popular": 28,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miks-guf-standart"
+ },
+ {
+  "slug": "miks-premium-bif",
+  "name": "Микс Премиум Биф",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    260
+   ],
+   [
+    "0,7 кг",
+    358
+   ],
+   [
+    "1 кг",
+    490
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина 1 сорт — 50%",
+   "Сердце — 20%",
+   "Почки — 10%",
+   "Рубец — 10%",
+   "Лёгкое — 5%",
+   "Печень — 5%"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-premium-bif.jpg",
+  "popular": 32,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miks-premium-bif"
+ },
+ {
+  "slug": "miks-premium-bif-plyus",
+  "name": "Микс Премиум Биф Плюс",
+  "cat": "mix",
+  "tags": [
+   "premium",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    260
+   ],
+   [
+    "0,7 кг",
+    358
+   ],
+   [
+    "1 кг",
+    490
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина 1 сорт — 50%",
+   "Сердце — 10%",
+   "Почки — 10%",
+   "Рубец — 10%",
+   "Легкое — 5%",
+   "Печень — 5%",
+   "Шеи индейки — 10%"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-premium-bif-plyus.jpg",
+  "popular": 33,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miks-premium-bif-plyus"
+ },
+ {
+  "slug": "miks-reks-standart",
+  "name": "Микс Рекс Стандарт",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    195
+   ],
+   [
+    "0,7 кг",
+    259
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь говяжья — 40%",
+   "Почки говяжьи — 20%",
+   "Рагу утиное — 20%",
+   "Фарш говяжий нежирный — 20%"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-reks-standart.jpg",
+  "popular": 29,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miks-reks-standart"
+ },
+ {
+  "slug": "miks-rublenyj-bez-ovoshej-mr-3-govyadina",
+  "name": "Микс рубленый без овощей MR-2 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    225
+   ],
+   [
+    "0,7 кг",
+    273
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-rublenyj-bez-ovoshej-mr-3-govyadina.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-rublenyj-bez-ovoshej-mr-3-govyadina"
+ },
+ {
+  "slug": "miks-rublenyj-bez-ovoshej",
+  "name": "Микс рубленый без овощей MR-3 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    220
+   ],
+   [
+    "0,7 кг",
+    270
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-rublenyj-bez-ovoshej.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-rublenyj-bez-ovoshej"
+ },
+ {
+  "slug": "miks-rublenyj-bez-ovoshej-mr-4",
+  "name": "Микс рубленый без овощей MR-4 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    220
+   ],
+   [
+    "0,7 кг",
+    272
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-rublenyj-bez-ovoshej-mr-4.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-rublenyj-bez-ovoshej-mr-4"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro-16",
+  "name": "Микс рубленый с овощами RO-16 (курица)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    195
+   ],
+   [
+    "0,7 кг",
+    251
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Желудки куриные",
+   "Шейки (курица)",
+   "Сердечки (курица)",
+   "Яблоко",
+   "Морковь"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-ro-16"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro-17",
+  "name": "Микс рубленый с овощами RO-17",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    180
+   ],
+   [
+    "0,7 кг",
+    245
+   ],
+   [
+    "1 кг",
+    330
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Шеи индейки",
+   "Желудки утиные",
+   "Говядина",
+   "Тыква",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-ro-17"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro-18",
+  "name": "Микс рубленый с овощами RO-18 (утка, перепела)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    195
+   ],
+   [
+    "0,7 кг",
+    259
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Перепелка",
+   "Мясо утки",
+   "Яблоко",
+   "Морковь"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-ro-18"
+ },
+ {
+  "slug": "miks-utinyj-standart",
+  "name": "Микс Утиный Стандарт",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    200
+   ],
+   [
+    "0,7 кг",
+    274
+   ],
+   [
+    "1 кг",
+    370
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Сердце утиное — 30%",
+   "Желудки утиные — 30%",
+   "Фарш утиный пищевой — 20%",
+   "Рагу мясо-костное утиное — 20%"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-utinyj-standart.jpg",
+  "popular": 3,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miks-utinyj-standart"
+ },
+ {
+  "slug": "myasnoj-miks-10",
+  "name": "Мясной микс 10",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    210
+   ],
+   [
+    "0,7 кг",
+    264
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина",
+   "Шейки куриные",
+   "Филе куриное"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/myasnoj-miks-10"
+ },
+ {
+  "slug": "assorti",
+  "name": "Ассорти стандарт",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    210
+   ],
+   [
+    "0,7 кг",
+    280
+   ],
+   [
+    "1 кг",
+    370
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Нос говяжий",
+   "Обрезь говяжья",
+   "Утиные желудки"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "assorti.jpg",
+  "popular": 19,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/assorti"
+ },
+ {
+  "slug": "miks-17",
+  "name": "Микс Бараш 3 стандарт",
+  "cat": "mix",
+  "tags": [
+   "mix",
+   "lamb"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    210
+   ],
+   [
+    "0,7 кг",
+    280
+   ],
+   [
+    "1 кг",
+    370
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Баранина",
+   "Рубец бараний"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-17.jpg",
+  "popular": 6,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-17"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro10",
+  "name": "Микс рубленый с овощами RO-10 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    248
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина",
+   "Вымя",
+   "Морковь",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-ro10.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r%D0%BE10"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro-19",
+  "name": "Микс рубленый с овощами RO-19 (кролик, индейка)",
+  "cat": "mix",
+  "tags": [
+   "mix",
+   "rabbit"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    260
+   ],
+   [
+    "1 кг",
+    350
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Мясо кролика",
+   "Шейки кролика",
+   "Индейка",
+   "Яблоко",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-ro-19.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-ro-19"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro-20",
+  "name": "Микс рубленый с овощами RO-20 (говядина, индейка)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    193
+   ],
+   [
+    "0,7 кг",
+    258
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Пикало (говядина)",
+   "Жилка (говядина)",
+   "Шейки индейки",
+   "Морковь",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-ro-20"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro11",
+  "name": "Микс рубленый с овощами RO-11 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    248
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина",
+   "Почки (говядина)",
+   "Легкое (говядина)",
+   "Вымя обезжиренное",
+   "Яблоко",
+   "Морковь"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-ro11.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r%D0%BE11"
+ },
+ {
+  "slug": "miks-19",
+  "name": "Мясной микс 19 стандарт",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    195
+   ],
+   [
+    "0,7 кг",
+    259
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина",
+   "Шеи индейки",
+   "Печень (говядина)"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-19"
+ },
+ {
+  "slug": "miks-lakomka-obrez-govyazhya-ekonom-lyogkoe-nos-govyazhij-rubec-cena-2kg-250",
+  "name": "Мясной микс 20 «Лакомка»",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    220
+   ],
+   [
+    "0,7 кг",
+    274
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Обрезь говяжья эконом",
+   "Лёгкое",
+   "Нос говяжий",
+   "Рубец"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-lakomka-obrez-govyazhya-ekonom-lyogkoe-nos-govyazhij-rubec-cena-2kg-250.jpg",
+  "popular": 14,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-lakomka-obrez-govyazhya-ekonom-lyogkoe-nos-govyazhij-rubec-cena-2kg-250"
+ },
+ {
+  "slug": "miks-5",
+  "name": "Мясной микс 5 стандарт",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    210
+   ],
+   [
+    "0,7 кг",
+    280
+   ],
+   [
+    "1 кг",
+    370
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Сердце говяжье",
+   "Обрезь",
+   "Баранина"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-5.jpg",
+  "popular": 21,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-5"
+ },
+ {
+  "slug": "miks-8",
+  "name": "Мясной микс 8 (говядина, рубец)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    220
+   ],
+   [
+    "0,7 кг",
+    286
+   ],
+   [
+    "1 кг",
+    370
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Пикало (говядина)",
+   "Обрезь (говядина)",
+   "Рубец (говядина)"
+  ],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-8.jpg",
+  "popular": 24,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-bez-ovoshej/miks-8"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-r1",
+  "name": "Мясной микс рубленый с овощами RO-1 (говядина, баранина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    175
+   ],
+   [
+    "0,7 кг",
+    239
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Трахея баранья",
+   "Баранина",
+   "Подъязычный срез (говядина)",
+   "Кабачок",
+   "Морковь"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-r1.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r1"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro-15",
+  "name": "Мясной микс рубленый с овощами RO-15 (баранина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    195
+   ],
+   [
+    "0,7 кг",
+    258
+   ],
+   [
+    "1 кг",
+    340
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Трахея баранья мясная",
+   "Рубец бараний обезжиренный",
+   "Сердце (баранина)",
+   "Морковь",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-ro-15"
+ },
+ {
+  "slug": "miks-rublenyj-r2",
+  "name": "Мясной микс рубленый с овощами RO-2 (говядина, курица, рубец)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    185
+   ],
+   [
+    "0,7 кг",
+    245
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Рубец обезжиренный",
+   "Говядина",
+   "Желудки куриные очищенные",
+   "Тыква",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-r2.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-r2"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-r2",
+  "name": "Мясной микс рубленый с овощами RO-3 (говядина, баранина, рубец)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    244
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Рубец обезжиренный",
+   "Говядина",
+   "Трахея баранья мясная",
+   "Перец болгарский",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-r2.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r2"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-r3",
+  "name": "Мясной микс рубленый с овощами RO-4 (говядина, рубец, курица)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    185
+   ],
+   [
+    "0,7 кг",
+    245
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Рубец обезжиренный",
+   "Шейки куриные",
+   "Говядина",
+   "Тыква",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-r3.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r3"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-r4",
+  "name": "Мясной микс рубленый с овощами RO-5 (говядина, рубец)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    193
+   ],
+   [
+    "0,7 кг",
+    250
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Рубец обезжиренный",
+   "Говядина",
+   "Морковь",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-r4.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r4"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-r5",
+  "name": "Мясной микс рубленый с овощами RO-6 (рубец)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    252
+   ],
+   [
+    "1 кг",
+    330
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Рубец обезжиренный",
+   "Трахея баранья мясная",
+   "Сердечки куриные",
+   "Тыква",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-r5.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r5"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro-7",
+  "name": "Мясной микс рубленый с овощами RO-7 (говядина, утка)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    252
+   ],
+   [
+    "1 кг",
+    330
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина",
+   "Спинки утиные мясные",
+   "Желудки утиные",
+   "Тыква",
+   "Яблоко"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-ro-7.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-ro-7"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro8",
+  "name": "Мясной микс рубленый с овощами RO-8 (говядина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    252
+   ],
+   [
+    "1 кг",
+    330
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина",
+   "Трахея говяжья",
+   "Пикало",
+   "Тыква",
+   "Морковь"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "miks-rublenyj-s-ovoshami-ro8.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-ro8"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro9",
+  "name": "Мясной микс рубленый с овощами RO-9 (говядина, утка)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    180
+   ],
+   [
+    "0,7 кг",
+    242
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Говядина",
+   "Шеи утиные",
+   "Сердце (говядина)",
+   "Морковь",
+   "Огурец"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-ro9"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro12",
+  "name": "Мясной микс рубленый с овощами RO-12 (баранина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    248
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Баранина",
+   "Рубец бараний обезжиренный",
+   "Морковь",
+   "Кабачок"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r%D0%BE12"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro13",
+  "name": "Мясной микс рубленый с овощами RO-13 (баранина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    190
+   ],
+   [
+    "0,7 кг",
+    248
+   ],
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Баранина",
+   "Почки",
+   "Легкое",
+   "Яблоко",
+   "Морковь"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r%D0%BE13"
+ },
+ {
+  "slug": "miks-rublenyj-s-ovoshami-ro14",
+  "name": "Мясной микс рубленый с овощами RO-14 (баранина)",
+  "cat": "mix",
+  "tags": [
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    200
+   ],
+   [
+    "0,7 кг",
+    258
+   ],
+   [
+    "1 кг",
+    330
+   ]
+  ],
+  "in_stock": true,
+  "composition": [
+   "Трахея баранья мясная",
+   "Почки (баранина)",
+   "Печень (баранина)",
+   "Тыква",
+   "Огурец"
+  ],
+  "notes": [],
+  "veg": true,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/miksy/miksy-s-ovoshami/miks-rublenyj-s-ovoshami-r%D0%BE14"
+ },
+ {
+  "slug": "miks-bez-kostochek-ekonom",
+  "name": "Микс без косточек «эконом»",
+  "cat": "mix",
+  "tags": [
+   "econom",
+   "mix"
+  ],
+  "options": [
+   [
+    "0,5 кг",
+    180
+   ],
+   [
+    "0,7 кг",
+    234
+   ],
+   [
+    "1 кг",
+    300
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "miks-bez-kostochek-ekonom.jpg",
+  "popular": 20,
+  "old_url": "https://myaso-sobakam-bro.ru/ekonom/miks-bez-kostochek-ekonom"
+ },
+ {
+  "slug": "vymya-sushenoe",
+  "name": "Вымя сушеное",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    150
+   ],
+   [
+    "1 кг",
+    1500
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 39,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/vymya-sushenoe"
+ },
+ {
+  "slug": "golovy-utinye-sushenye",
+  "name": "Головы утиные сушеные",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    120
+   ],
+   [
+    "1 кг",
+    1200
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 38,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/golovy-utinye-sushenye"
+ },
+ {
+  "slug": "zheludki-utinye-sushenye",
+  "name": "Желудки утиные сушеные",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    160
+   ],
+   [
+    "1 кг",
+    1600
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 37,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/zheludki-utinye-sushenye"
+ },
+ {
+  "slug": "zhilka-baranya-sushenaya",
+  "name": "Жилка баранья сушеная",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    130
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "zhilka-baranya-sushenaya.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/zhilka-baranya-sushenaya"
+ },
+ {
+  "slug": "kozha-treski",
+  "name": "Кожа трески",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    220
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "kozha-treski.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/kozha-treski"
+ },
+ {
+  "slug": "kolennye-chashechki-sushenye",
+  "name": "Коленные чашечки сушеные",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    135
+   ],
+   [
+    "1 кг",
+    1350
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 41,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/kolennye-chashechki-sushenye"
+ },
+ {
+  "slug": "koren-bychij-sushenyj",
+  "name": "Корень бычий сушеный",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    370
+   ],
+   [
+    "1 кг",
+    3700
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 44,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/koren-bychij-sushenyj"
+ },
+ {
+  "slug": "legkoe-barane-sushenoe",
+  "name": "Легкое баранье сушеное",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    185
+   ],
+   [
+    "1 кг",
+    1850
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 45,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/legkoe-barane-sushenoe"
+ },
+ {
+  "slug": "legkoe-govyazhe-sushenoe-kubik-1sm",
+  "name": "Легкое говяжье сушеное (кубик 1см)",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    175
+   ],
+   [
+    "1 кг",
+    1750
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 46,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/legkoe-govyazhe-sushenoe-kubik-1sm"
+ },
+ {
+  "slug": "nos-govyazhij-sushenyj",
+  "name": "Нос говяжий сушеный",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    180
+   ],
+   [
+    "1 кг",
+    1800
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 34,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/nos-govyazhij-sushenyj"
+ },
+ {
+  "slug": "pechen-govyazhya-sushenaya",
+  "name": "Печень говяжья сушеная",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    150
+   ],
+   [
+    "1 кг",
+    1500
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 40,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/pechen-govyazhya-sushenaya"
+ },
+ {
+  "slug": "pikalo-govyazhe-sushenoe",
+  "name": "Пикало говяжье сушеное",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    230
+   ],
+   [
+    "1 кг",
+    2300
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/pikalo-govyazhe-sushenoe"
+ },
+ {
+  "slug": "pyatachki-svinye-sushenye",
+  "name": "Пятачки свиные сушеные",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    160
+   ],
+   [
+    "1 кг",
+    1600
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/pyatachki-svinye-sushenye"
+ },
+ {
+  "slug": "rubec-baranij-sushenyj",
+  "name": "Рубец бараний сушеный",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    170
+   ],
+   [
+    "1 кг",
+    1700
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/rubec-baranij-sushenyj"
+ },
+ {
+  "slug": "rubec-govyazhij-sushenyj",
+  "name": "Рубец говяжий сушеный",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    160
+   ],
+   [
+    "1 кг",
+    1600
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/rubec-govyazhij-sushenyj"
+ },
+ {
+  "slug": "stanovaya-zhila-govyazhya",
+  "name": "Становая жила говяжья сушеная",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    160
+   ],
+   [
+    "1 кг",
+    1600
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 42,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/stanovaya-zhila-govyazhya"
+ },
+ {
+  "slug": "traheya-baranya-sushenaya",
+  "name": "Трахея баранья сушеная",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    150
+   ],
+   [
+    "1 кг",
+    1500
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/traheya-baranya-sushenaya"
+ },
+ {
+  "slug": "traheya-govyazhya-sushenaya",
+  "name": "Трахея говяжья сушеная",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    160
+   ],
+   [
+    "1 кг",
+    1600
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "traheya-govyazhya-sushenaya.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/traheya-govyazhya-sushenaya"
+ },
+ {
+  "slug": "ushi-barani-sushenye",
+  "name": "Уши бараньи сушеные",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    140
+   ],
+   [
+    "1 кг",
+    1400
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/ushi-barani-sushenye"
+ },
+ {
+  "slug": "ushi-govyazhi-sushenye",
+  "name": "Уши говяжьи сушеные",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    190
+   ],
+   [
+    "1 кг",
+    1900
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/ushi-govyazhi-sushenye"
+ },
+ {
+  "slug": "ushi-krolika-sushenye",
+  "name": "Уши кролика сушеные",
+  "cat": "treats",
+  "tags": [
+   "treats",
+   "rabbit"
+  ],
+  "options": [
+   [
+    "100 г",
+    210
+   ],
+   [
+    "1 кг",
+    2100
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/ushi-krolika-sushenye"
+ },
+ {
+  "slug": "ushi-svinye-sushenye-lepestok",
+  "name": "Уши свиные сушеные (лепесток)",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    160
+   ],
+   [
+    "1 кг",
+    1600
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/ushi-svinye-sushenye-lepestok"
+ },
+ {
+  "slug": "hryash-lopatochnyj-baranij-sushenyj",
+  "name": "Хрящ лопаточный бараний сушеный",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    130
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "hryash-lopatochnyj-baranij-sushenyj.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/hryash-lopatochnyj-baranij-sushenyj"
+ },
+ {
+  "slug": "hryash-lopatochnyj-sushenyj",
+  "name": "Хрящ лопаточный сушеный",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    160
+   ],
+   [
+    "1 кг",
+    1600
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 43,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/hryash-lopatochnyj-sushenyj"
+ },
+ {
+  "slug": "shei-indejki-sushenye",
+  "name": "Шеи индейки сушеные",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    150
+   ],
+   [
+    "1 кг",
+    1500
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 35,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/shei-indejki-sushenye"
+ },
+ {
+  "slug": "shejki-utinye-sushenye",
+  "name": "Шейки утиные сушеные",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    160
+   ],
+   [
+    "1 кг",
+    1600
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "",
+  "popular": 36,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/shejki-utinye-sushenye"
+ },
+ {
+  "slug": "lyogkoe-govyazhe-lakomstvo",
+  "name": "Лёгкое говяжье сушеное (кубик 1.5 см)",
+  "cat": "treats",
+  "tags": [
+   "treats"
+  ],
+  "options": [
+   [
+    "100 г",
+    160
+   ],
+   [
+    "1 кг",
+    1600
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "lyogkoe-govyazhe-lakomstvo.jpg",
+  "popular": 25,
+  "old_url": "https://myaso-sobakam-bro.ru/suhoj-korm/lyogkoe-govyazhe-lakomstvo"
+ },
+ {
+  "slug": "obrez-s-zhilkoj-ekonom",
+  "name": "Обрезь с жилкой «эконом»",
+  "cat": "econom",
+  "tags": [
+   "econom"
+  ],
+  "options": [
+   [
+    "1 кг",
+    150
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "obrez-s-zhilkoj-ekonom.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/ekonom/obrez-s-zhilkoj-ekonom"
+ },
+ {
+  "slug": "vymya-govyazhe",
+  "name": "Вымя говяжье, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    150
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "vymya-govyazhe.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/vymya-govyazhe"
+ },
+ {
+  "slug": "golovy-kurinye-rublenye-opt",
+  "name": "Головы куриные рубленые, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    90
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "golovy-kurinye-rublenye-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/golovy-kurinye-rublenye-opt"
+ },
+ {
+  "slug": "golovy-utinye-opt",
+  "name": "Головы утиные, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    95
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "golovy-utinye-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/golovy-utinye-opt"
+ },
+ {
+  "slug": "golovy-utinye-rublenye-opt",
+  "name": "Головы утиные рубленые, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    90
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "golovy-utinye-rublenye-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/golovy-utinye-rublenye-opt"
+ },
+ {
+  "slug": "grebeshki-kurinye-opt",
+  "name": "Гребешки куриные, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    300
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "grebeshki-kurinye-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/grebeshki-kurinye-opt"
+ },
+ {
+  "slug": "zheludki-indejki-pishevye-opt",
+  "name": "Желудки индейки пищевые, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    240
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "zheludki-indejki-pishevye-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/indejka1/zheludki-indejki-pishevye-opt"
+ },
+ {
+  "slug": "zheludki-utinye-opt",
+  "name": "Желудки утиные, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    200
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "zheludki-utinye-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/utka1/zheludki-utinye-opt"
+ },
+ {
+  "slug": "zhilka-myagkaya-rublenaya-govyazhya-opt",
+  "name": "Жилка говяжья мягкая рубленая,, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    200
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "zhilka-myagkaya-rublenaya-govyazhya-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/zhilka-myagkaya-rublenaya-govyazhya-opt"
+ },
+ {
+  "slug": "lakomka-opt",
+  "name": "Лакомка, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    300
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "lakomka-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/lakomka-opt"
+ },
+ {
+  "slug": "lyogkoe-govyazhe-opt",
+  "name": "Лёгкое говяжье, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    150
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "lyogkoe-govyazhe-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/govyadina1/lyogkoe-govyazhe-opt"
+ },
+ {
+  "slug": "lopatka-baranya-pishevaya-opt",
+  "name": "Лопатка баранья (пищевая), опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    290
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "lopatka-baranya-pishevaya-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/baranina1/lopatka-baranya-pishevaya-opt"
+ },
+ {
+  "slug": "myakot-govyazhya-opt",
+  "name": "Мякоть говяжья, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    320
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "myakot-govyazhya-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/govyadina1/myakot-govyazhya-opt"
+ },
+ {
+  "slug": "obrez-baranya-opt",
+  "name": "Обрезь баранья, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    200
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "obrez-baranya-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/obrez-baranya-opt"
+ },
+ {
+  "slug": "obrez-govyazhya-myasnaya-opt",
+  "name": "Обрезь говяжья мясная, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    220
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "obrez-govyazhya-myasnaya-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/govyadina1/obrez-govyazhya-myasnaya-opt"
+ },
+ {
+  "slug": "obrez-govyazhya-opt",
+  "name": "Обрезь говяжья, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    140
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "obrez-govyazhya-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/obrez-govyazhya-opt"
+ },
+ {
+  "slug": "obrez-serdca-govyazhego-myasnaya-opt",
+  "name": "Обрезь сердца говяжьего, мясная, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    170
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "obrez-serdca-govyazhego-myasnaya-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/obrez-serdca-govyazhego-myasnaya-opt"
+ },
+ {
+  "slug": "podyazychnyj-srez-opt",
+  "name": "Подъязычный срез (говядина), опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    280
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "podyazychnyj-srez-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/govyadina1/podyazychnyj-srez-opt"
+ },
+ {
+  "slug": "traheya-baranya-myasnaya-opt",
+  "name": "Трахея баранья мясная, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    170
+   ]
+  ],
+  "in_stock": false,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "traheya-baranya-myasnaya-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/traheya-baranya-myasnaya-opt"
+ },
+ {
+  "slug": "shei-indejki-opt",
+  "name": "Шеи индейки, опт",
+  "cat": "opt",
+  "tags": [
+   "opt"
+  ],
+  "options": [
+   [
+    "1 кг",
+    200
+   ]
+  ],
+  "in_stock": true,
+  "composition": [],
+  "notes": [],
+  "veg": false,
+  "kbju": null,
+  "img": "shei-indejki-opt.jpg",
+  "popular": null,
+  "old_url": "https://myaso-sobakam-bro.ru/opt-ot-100-kg/shei-indejki-opt"
+ }
+]
