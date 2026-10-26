@@ -1,6 +1,6 @@
 # Сайт БРО + админка + приём заказов (tools/admin_server.py) в одном контейнере.
 FROM python:3.12-slim
-RUN pip install --no-cache-dir pillow==11.0.0
+RUN pip install --no-cache-dir pillow==11.0.0 fpdf2==2.8.9
 WORKDIR /app
 RUN chown 1000:1000 /app
 # владелец 1000 — как пользователь в compose.yaml: сборка пишет dist/ внутри /app

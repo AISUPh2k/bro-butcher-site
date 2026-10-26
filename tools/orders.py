@@ -4,7 +4,7 @@
   "mode": "smtp"   — отправлять письмо через SMTP (Яндекс/Mail.ru: пароль приложения, не основной);
   "mode": "outbox" — не отправлять, а складывать письма в orders/outbox/*.eml (для проверки).
 Журнал заказов: orders/<год>/<номер>.json. Это персональные данные клиентов — в dist/ не попадают.
-Только stdlib, чтобы потом перенести в облачную функцию.
+Только stdlib + fpdf2 для PDF-накладной во вложении (нет fpdf2 — письмо уходит без PDF).
 """
 import datetime, html, json, os, re, smtplib, ssl, threading, time
 from email.message import EmailMessage
@@ -16,6 +16,7 @@ CONFIG = os.environ.get('BRO_ORDERS_CONFIG') or os.path.join(ROOT, 'orders.confi
 LOCK = threading.Lock()
 RATE = {}  # ip -> [время заказов]
 RATE_MAX, RATE_WINDOW = 5, 600
+MSK = datetime.timezone(datetime.timedelta(hours=3), 'MSK')  # время в заказах — московское, где бы ни стоял сервер
 
 
 class OrderError(Exception):
@@ -184,6 +185,115 @@ def mail_html(o):
 </div></body></html>'''
 
 
+# ---------------------------------------------------------------- PDF-накладная
+FONTS = os.path.join(ROOT, 'tools/fonts')
+INK, SOFT, FAINT, BURG, BRASS, CREAM, LINE = (59, 42, 32), (107, 90, 71), (134, 115, 95), (110, 36, 48), (176, 141, 87), (243, 237, 224), (217, 207, 191)
+
+
+def mail_pdf(o):
+    """Накладная A4 для печати: телефон крупно, таблица с колонкой для отметок при сборке. None — нет fpdf2."""
+    try:
+        from fpdf import FPDF
+        from fpdf.enums import TableBordersLayout
+    except ImportError:
+        return None
+    class Sheet(FPDF):
+        def footer(self):  # номер заказа на каждой странице — если позиций много и лист не один
+            self.set_y(-10); self.set_font('golos', '', 8); self.set_text_color(*FAINT)
+            self.cell(0, 5, f'Заказ №{o["number"]} · стр. {self.page_no()} из {{nb}}', align='R')
+    pdf = Sheet(format='A4', unit='mm')
+    pdf.set_margins(14, 12, 14); pdf.set_auto_page_break(True, 14)
+    for fam, style, f in (('golos', '', 'GolosText-400'), ('golos', 'B', 'GolosText-600'),
+                          ('oswald', '', 'Oswald-500'), ('oswald', 'B', 'Oswald-700'), ('rub', '', 'Rub-Regular'), ('rub', 'B', 'Rub-Bold'), ('box', '', 'Box')):
+        pdf.add_font(fam, style, os.path.join(FONTS, f + '.ttf'))
+    pdf.set_fallback_fonts(['rub', 'box'], exact_match=False)  # знаки ₽ и □
+    pdf.set_title(f'Заказ №{o["number"]}'); pdf.set_author('Мясная лавка БРО')
+    pdf.add_page()
+    W = pdf.epw
+    t = lambda v: str(v).replace('\u00a0', ' ')
+
+    def label(text, color=FAINT):
+        pdf.set_font('golos', '', 7.5); pdf.set_text_color(*color); pdf.set_char_spacing(0.6)
+        pdf.cell(0, 4, text.upper(), new_x='LMARGIN', new_y='NEXT'); pdf.set_char_spacing(0)
+
+    # шапка
+    y0 = pdf.get_y()
+    pdf.set_font('oswald', 'B', 22); pdf.set_text_color(*BURG); pdf.cell(60, 9, 'БРО')
+    pdf.set_font('oswald', 'B', 20); pdf.set_text_color(*INK); pdf.cell(0, 9, f'Заказ №{o["number"]}', align='R', new_x='LMARGIN', new_y='NEXT')
+    pdf.set_font('golos', '', 7.5); pdf.set_text_color(*FAINT); pdf.set_char_spacing(0.6); pdf.cell(60, 5, 'МЯСНАЯ ЛАВКА · НАКЛАДНАЯ'); pdf.set_char_spacing(0)
+    pdf.set_font('golos', '', 9.5); pdf.set_text_color(*SOFT); pdf.cell(0, 5, o['created_human'], align='R', new_x='LMARGIN', new_y='NEXT')
+    pdf.ln(5)
+
+    # клиент
+    box_y = pdf.get_y(); pdf.set_x(pdf.l_margin + 5); pdf.set_y(box_y + 4)
+    inner = lambda: pdf.set_x(pdf.l_margin + 5)
+    def block():
+        inner(); label('Клиент'); inner()
+        pdf.set_font('golos', 'B', 13); pdf.set_text_color(*INK); pdf.multi_cell(W - 10, 6.5, t(o['name']), new_x='LMARGIN', new_y='NEXT')
+        inner(); pdf.set_font('oswald', 'B', 24); pdf.cell(W - 10, 11, o['phone'], link=f'tel:{o["phone_raw"]}', new_x='LMARGIN', new_y='NEXT')
+        pdf.ln(1); inner(); label('Адрес доставки'); inner()
+        pdf.set_font('golos', '', 11.5); pdf.set_text_color(*INK)
+        pdf.multi_cell(W - 10, 6, t(o['address']) + ('  · за МКАД' if o['zone'] == 'out' else ''), new_x='LMARGIN', new_y='NEXT')
+        inner(); pdf.set_font('golos', '', 9); pdf.set_text_color(*SOFT)
+        pdf.multi_cell(W - 10, 5, t(f'Доставка {o["window"]} · {o["payment"]}'), new_x='LMARGIN', new_y='NEXT')
+    with pdf.offset_rendering() as dummy:  # сначала меряем высоту, потом рисуем фон
+        dummy.set_y(box_y + 4); block(); h = dummy.get_y() - box_y + 4
+    pdf.set_fill_color(*CREAM); pdf.rect(pdf.l_margin, box_y, W, h, style='F', round_corners=True, corner_radius=2)
+    pdf.set_y(box_y + 4); block(); pdf.set_y(box_y + h + 4)
+
+    # комментарий
+    if o['comment']:
+        cy = pdf.get_y()
+        def cblock():
+            inner(); label('Комментарий клиента', (138, 107, 60)); inner()
+            pdf.set_font('golos', '', 11); pdf.set_text_color(*INK); pdf.multi_cell(W - 10, 5.5, t(o['comment']), new_x='LMARGIN', new_y='NEXT')
+        with pdf.offset_rendering() as dummy:
+            dummy.set_y(cy + 3); cblock(); ch = dummy.get_y() - cy + 3
+        pdf.set_draw_color(*BRASS); pdf.set_line_width(0.4)
+        pdf.rect(pdf.l_margin, cy, W, ch, style='D', round_corners=True, corner_radius=2)
+        pdf.set_y(cy + 3); cblock(); pdf.set_y(cy + ch + 4)
+
+    # товары
+    pdf.ln(2); pdf.set_draw_color(*LINE); pdf.set_line_width(0.25)
+    pdf.set_font('golos', '', 10); pdf.set_text_color(*INK); pdf.set_fill_color(255, 255, 255)
+    from fpdf.fonts import FontFace
+    hstyle = FontFace(family='golos', emphasis='', size_pt=7.5, color=SOFT)
+    with pdf.table(col_widths=(7, 74, 20, 15, 22, 24, 12), text_align=('LEFT', 'LEFT', 'LEFT', 'CENTER', 'RIGHT', 'RIGHT', 'CENTER'),
+                   borders_layout=TableBordersLayout.HORIZONTAL_LINES, headings_style=hstyle, line_height=6.5,
+                   padding=(1.6, 1.2), first_row_as_headings=True) as table:
+        row = table.row()
+        for h_ in ('№', 'ТОВАР', 'ФАСОВКА', 'КОЛ-ВО', 'ЦЕНА', 'СУММА', 'СОБР.'): row.cell(h_)
+        for n, i in enumerate(o['items'], 1):
+            row = table.row()
+            row.cell(str(n), style=FontFace(color=FAINT))
+            row.cell(t(i['name']), style=FontFace(emphasis='BOLD'))
+            row.cell(t(i['option']))
+            row.cell(str(i['qty']), style=FontFace(emphasis='BOLD', size_pt=12))
+            row.cell(t(rub(i['price'])))
+            row.cell(t(rub(i['sum'])), style=FontFace(emphasis='BOLD'))
+            row.cell('□', style=FontFace(size_pt=15, color=INK))  # клеточка для отметки при сборке
+    pdf.ln(3)
+
+    # итог
+    x = pdf.l_margin + W - 80
+    def trow(k, v, big=False):
+        pdf.set_x(x)
+        pdf.set_font('golos', 'B' if big else '', 12 if big else 10); pdf.set_text_color(*(INK if big else SOFT)); pdf.cell(40, 7 if big else 6, k)
+        pdf.set_font('oswald' if big else 'golos', 'B' if big else '', 17 if big else 10); pdf.set_text_color(*INK)
+        pdf.cell(40, 7 if big else 6, t(v), align='R', new_x='LMARGIN', new_y='NEXT')
+    trow('Товары', rub(o['goods'])); trow('Доставка', delivery_text(o))
+    pdf.set_draw_color(*INK); pdf.set_line_width(0.5); pdf.line(x, pdf.get_y() + 1, x + 80, pdf.get_y() + 1); pdf.ln(2.5)
+    trow('Итого к оплате', total_text(o), big=True)
+    if o['price_changed']:
+        pdf.ln(2); pdf.set_font('golos', '', 8.5); pdf.set_text_color(164, 36, 59)
+        pdf.multi_cell(0, 4.5, 'Цены на сайте изменились, пока клиент оформлял заказ — суммы пересчитаны по текущим ценам.', new_x='LMARGIN', new_y='NEXT')
+
+    # подписи
+    pdf.ln(12); pdf.set_font('golos', '', 9.5); pdf.set_text_color(*SOFT)
+    pdf.cell(W / 2, 6, 'Собрал: ______________________'); pdf.cell(W / 2, 6, 'Получил: ______________________', align='R')
+    return bytes(pdf.output())
+
+
 def make_message(o, cfg):
     m = EmailMessage()
     m['Subject'] = f'Заказ №{o["number"]} — {total_text(o)} — {o["name"]}, {o["phone"]}'.replace(' ', ' ')
@@ -192,6 +302,9 @@ def make_message(o, cfg):
     m['Message-ID'] = make_msgid(domain=cfg['from'].split('@')[-1])
     m.set_content(mail_text(o))
     m.add_alternative(mail_html(o), subtype='html')
+    pdf = mail_pdf(o)
+    if pdf: m.add_attachment(pdf, maintype='application', subtype='pdf', filename=f'Заказ-{o["number"]}.pdf')
+    else: print('orders: fpdf2 не установлен — письмо без PDF (pip install fpdf2)', flush=True)
     return m
 
 
@@ -204,6 +317,8 @@ def send(o, cfg):
                 f'<b>Тема:</b> {html.escape(m["Subject"])}<br><b>От:</b> {html.escape(m["From"])}<br><b>Кому:</b> {html.escape(m["To"])}</div>')
         preview = mail_html(o).replace('<div class="sheet"', head + '<div class="sheet"', 1)  # то же письмо, но открывается в браузере
         open(os.path.join(d, f'{o["number"]}.html'), 'w', encoding='utf-8').write(preview)
+        for part in m.iter_attachments():
+            open(os.path.join(d, part.get_filename()), 'wb').write(part.get_content())
         return
     host, port = cfg['smtp_host'], int(cfg.get('smtp_port', 465))
     if cfg.get('security', 'ssl') == 'ssl':
@@ -232,7 +347,7 @@ def place(d, ip):
     cfg = load_config()
     with LOCK:
         if not rate_ok(ip): raise OrderError('Слишком много заказов подряд. Позвоните нам, пожалуйста')
-        now = datetime.datetime.now()
+        now = datetime.datetime.now(MSK)
         o.update(number=next_number(), created=now.isoformat(timespec='seconds'),
                  created_human=now.strftime('%d.%m.%Y %H:%M'), status='new', mail='pending')
         save(o)
