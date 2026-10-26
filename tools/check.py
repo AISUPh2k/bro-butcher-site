@@ -32,7 +32,8 @@ for dp, _, fs in os.walk(DIST):
         p = P(); p.feed(open(path, encoding='utf-8').read())
         rel = os.path.relpath(path, DIST)
         stub = 'Страница переехала' in p.title
-        if not stub and (not p.title.strip() or not p.desc):
+        service = rel.startswith('admin' + os.sep)  # демо-админка: noindex, description не нужен
+        if not stub and not service and (not p.title.strip() or not p.desc):
             bad.append(f'{rel}: нет title или description')
         for ref in p.refs:
             u = urlsplit(ref)
