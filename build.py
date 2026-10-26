@@ -29,7 +29,7 @@ CATS = [  # key, название, короткое описание
     ('farsh', 'Фарш', 'Рубленое мясо'),
     ('treats', 'Лакомства', 'Сушёные, для дрессировки'),
     ('econom', 'Эконом', 'Выгодные позиции'),
-    ('opt', 'Опт', 'От 100 кг'),
+    ('cats', 'Для кошек', 'Мясо и миксы для кошек'),
 ]
 CAT_NAME = {k: n for k, n, _ in CATS}
 
@@ -83,7 +83,7 @@ def icon(name, cls='icon'):
 # ---------------------------------------------------------------- layout
 NAV = [('catalog.html', 'Каталог', 'catalog'), ('catalog.html?cat=mix', 'Миксы', 'mix'),
        ('catalog.html?cat=treats', 'Лакомства', 'treats'), ('delivery.html', 'Доставка и оплата', 'delivery'),
-       ('hotel.html', 'Зоогостиница', 'hotel'), ('about.html', 'О нас', 'about'), ('faq.html', 'Вопросы', 'faq')]
+       ('catalog.html?cat=cats', 'Для кошек', 'cats'), ('hotel.html', 'Зоогостиница', 'hotel'), ('about.html', 'О нас', 'about')]
 
 def header(r, active):
     nav = '\n'.join(f'<a href="{r}{h}"{" aria-current=\"page\"" if k == active else ""}>{t}</a>' for h, t, k in NAV)
@@ -123,8 +123,7 @@ def footer(r):
       <div class="footer-col"><h2>Покупателям</h2><ul>
         <li><a href="{r}delivery.html">Доставка и оплата</a></li>
         <li><a href="{r}about.html">О нас</a></li>
-        <li><a href="{r}faq.html">Вопросы и ответы</a></li>
-        <li><a href="{r}catalog.html?cat=opt">Опт от 100 кг</a></li>
+        <li><a href="{r}hotel.html">Зоогостиница</a></li>
         <li><a href="{r}cart.html">Корзина</a></li>
       </ul></div>
       <div class="footer-col"><h2>Контакты</h2><ul class="contacts">
@@ -325,11 +324,12 @@ def slider_controls():
 def build_home():
     r = ''
     tiles = ''
-    for k, n, sub in [c for c in CATS if c[0] in ('mix', 'premium', 'beef', 'lamb', 'poultry', 'offal', 'treats', 'opt')]:
+    for k, n, sub in [c for c in CATS if c[0] in ('mix', 'premium', 'beef', 'lamb', 'poultry', 'offal', 'treats', 'cats')]:
         items = sorted([p for p in PRODUCTS if in_cat(p, k)], key=sort_key)
         pic = next((p for p in items if p['img']), None)
-        img = picture('', pic['img'], '', '(max-width:900px) 48vw, 290px') if pic else ''
-        tiles += f'<a class="tile" href="catalog.html?cat={k}">{img}<span class="tile-text"><b>{n}</b><small>{sub} · {len(items)}</small></span></a>\n'
+        img = picture('', pic['img'], '', '(max-width:900px) 48vw, 290px') if pic else f'<span class="tile-ph" aria-hidden="true">{icon("leaf")}</span>'
+        count = len(items) if items else 'скоро'
+        tiles += f'<a class="tile" href="catalog.html?cat={k}">{img}<span class="tile-text"><b>{n}</b><small>{sub} · {count}</small></span></a>\n'
     hits = sorted([p for p in PRODUCTS if p['in_stock'] and 'opt' not in p['tags'] and p['img']], key=sort_key)[:8]
     first = f'Здравствуйте! Хочу перевести собаку на натуральное питание, нужна консультация.'
     body = f'''<section class="hero-slider" id="heroSlider" aria-roledescription="carousel" aria-label="Главное и объявления">
@@ -441,8 +441,8 @@ def build_catalog():
     chips = '<button type="button" class="chip is-active" data-filter="all" aria-pressed="true">Все <small>' + str(len(PRODUCTS)) + '</small></button>'
     for k, n, _ in CATS:
         cnt = sum(1 for p in PRODUCTS if in_cat(p, k))
-        if cnt:
-            chips += f'<button type="button" class="chip" data-filter="{k}" aria-pressed="false">{n} <small>{cnt}</small></button>'
+        if cnt or k == 'cats':  # «Для кошек» показываем и пустым — раздел наполняется через админку
+            chips += f'<button type="button" class="chip" data-filter="{k}" aria-pressed="false">{n} <small>{cnt or "скоро"}</small></button>'
     body = f'''<section class="page-head">
   <div class="wrap">
     <nav class="crumbs" aria-label="Навигация"><a href="index.html">Главная</a><span>Каталог</span></nav>
@@ -464,10 +464,11 @@ def build_catalog():
     <div class="pgrid" id="catalogGrid">
 {"".join(card(p, r) for p in items)}
     </div>
+    <div class="empty" id="catsSoon" hidden><p>Раздел для кошек скоро появится. Пока можно <a href="{wa_link("Здравствуйте! Интересует питание для кошки: ")}" target="_blank" rel="noopener">спросить нас в WhatsApp</a> — подберём.</p></div>
     <div class="empty" id="catalogEmpty" hidden><p>Ничего не нашлось. Попробуйте другой запрос или <a href="{wa_link("Здравствуйте! Ищу для собаки: ")}" target="_blank" rel="noopener">спросите нас в WhatsApp</a>: подберём замену.</p></div>
   </div>
 </section>'''
-    page('catalog.html', 'Каталог мяса для собак', 'Каталог мяса для собак: миксы зоодиетолога, говядина, баранина, птица, субпродукты, сушёные лакомства, опт от 100 кг.', body, 'catalog')
+    page('catalog.html', 'Каталог мяса для собак', 'Каталог мяса для собак: миксы зоодиетолога, говядина, баранина, птица, субпродукты, сушёные лакомства, питание для кошек.', body, 'catalog')
 
 def build_product(p):
     r = '../'
@@ -598,12 +599,7 @@ def build_delivery():
     </div>
   </div>
 </section>
-<section class="section">
-  <div class="wrap prose narrow">
-    <h2>Опт от 100 кг</h2>
-    <p>Для питомников, приютов и заводчиков — оптовые цены за килограмм при заказе от 100 кг. <a href="catalog.html?cat=opt">Оптовый прайс</a> в каталоге, условия уточняйте в WhatsApp.</p>
-  </div>
-</section>'''
+'''
     page('delivery.html', 'Доставка и оплата', f'Доставка мяса для собак по Москве {D["window"]}: бесплатно от {D["free_from"]} ₽ в пределах МКАД, минимальный заказ {D["min_order"]} ₽. Оплата после получения.', body, 'delivery')
 
 def build_about():
@@ -619,8 +615,7 @@ def build_about():
   <div class="wrap two-col">
     <div class="prose">
       <h2>Что мы делаем</h2>
-      <p>Говядина, баранина, птица, кролик и субпродукты для натурального кормления, готовые миксы — с овощами и без, сушёные лакомства. Всё фасуем порциями по 0,5, 0,7 и 1 кг.</p>
-      <p>Для питомников и заводчиков есть опт от 100 кг.</p>
+      <p>Говядина, баранина, птица, кролик и субпродукты для натурального кормления, готовые миксы — с овощами и без, сушёные лакомства. Фасуем порциями — вес и цена указаны у каждого товара.</p>
     </div>
     <div class="prose">
       <h2>Где мы</h2>
@@ -630,18 +625,6 @@ def build_about():
   </div>
 </section>'''
     page('about.html', 'О нас', 'Мясная лавка БРО: своё производство в Подмосковье, мясо пилим без разморозки, миксы составляет зоодиетолог.', body, 'about')
-
-FAQ = [
-    ('Мясо сырое или как-то обработано?', 'Мясо и миксы — сырые, свежемороженые, без термической обработки. Лакомства — сушёные.'),
-    ('Что значит «без разморозки»?', 'Мясо приходит с бойни замороженными блоками по 20 кг. Мы пилим блоки на кубики прямо в замороженном виде и сразу фасуем. Мясо ни разу не оттаивает и не замораживается повторно, поэтому сохраняет сок и структуру.'),
-    ('Кто составляет миксы?', 'Все рецептуры составляет наш зоодиетолог Наталья. Она же рассчитывает пищевую ценность миксов — по любой позиции можно спросить её в WhatsApp.'),
-    ('Как перевести собаку на натуральное питание?', 'Начните с бесплатной консультации: расскажите о возрасте, весе, породе и особенностях здоровья собаки, и зоодиетолог подберёт рацион и миксы.'),
-    ('Как хранить и размораживать?', 'Храните в морозильной камере. Перед кормлением переложите порцию в холодильник, чтобы она оттаяла постепенно. Размороженное мясо повторно не замораживайте — для этого и есть фасовка по 0,5 и 0,7 кг.'),
-    ('Подходит ли мясо щенкам?', 'Да. Например, нежирный говяжий фарш хорошо подходит для выкорма щенков. Рацион для щенка лучше подобрать вместе с зоодиетологом.'),
-    ('Какой минимальный заказ и сколько стоит доставка?', f'Минимальный заказ — {D["min_order"]} ₽. Доставка по Москве в пределах МКАД бесплатна от {D["free_from"]} ₽, иначе — {D["fee"]} ₽. За МКАД +{D["outside_per_km"]} ₽ за километр. Привозим {D["window"]}.'),
-    ('Как оплатить?', 'Наличными курьеру после получения заказа, без предоплаты.'),
-    ('Можно ли купить оптом?', 'Да, от 100 кг — оптовый прайс есть в каталоге в разделе «Опт». Условия уточняйте в WhatsApp.'),
-]
 
 def build_privacy():
     op = SITE.get('operator', {})
@@ -706,24 +689,6 @@ def build_privacy():
 </section>'''
     page('privacy.html', 'Политика обработки персональных данных', 'Политика мясной лавки БРО в отношении обработки персональных данных пользователей сайта.', body)
 
-def build_faq():
-    items = ''.join(f'<details class="faq-item"><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in FAQ)
-    ld = {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
-        {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in FAQ]}
-    body = f'''<section class="page-head">
-  <div class="wrap">
-    <nav class="crumbs" aria-label="Навигация"><a href="index.html">Главная</a><span>Вопросы и ответы</span></nav>
-    <h1>Вопросы и ответы</h1>
-  </div>
-</section>
-<section class="section">
-  <div class="wrap narrow">
-    <div class="faq">{items}</div>
-    <div class="ask-box"><p>Не нашли ответ?</p>{wa_btn("Здравствуйте! У меня вопрос.", "Спросить в WhatsApp")}</div>
-  </div>
-</section>'''
-    page('faq.html', 'Вопросы и ответы', 'Ответы на частые вопросы: как хранить мясо, кто составляет миксы, условия доставки и оплаты.', body, 'faq',
-         extra_head=f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n')
 
 def build_hotel():
     h = SITE['hotel']
@@ -732,23 +697,36 @@ def build_hotel():
     if h.get('address'): rows += f'<div class="term"><span class="term-num">{icon("pin")}</span><h2>Адрес</h2><p>{e(h["address"])}</p></div>'
     prices = ''.join(f'<li><span>{e(n)}</span><b>{e(v)}</b></li>' for n, v in h.get('prices', []))
     prices = f'<div class="info-block"><h2>Стоимость</h2><ul class="price-list">{prices}</ul></div>' if prices else ''
-    notes = ''.join(f'<p>{e(n)}</p>' for n in h.get('notes', []))
-    msg = 'Здравствуйте! Хочу записать питомца в зоогостиницу. Вид и порода: , даты: '
+    text = ''.join(f'<p>{e(t)}</p>' for t in h.get('text', []))
+    feats = ''.join(f'<li>{icon(ic)}<span>{e(t)}</span></li>' for ic, t in h.get('features', []))
+    photo = (picture('', h['img'], 'Зоогостиница БРО', '(max-width:860px) 92vw, 520px', cls='hotel-photo')
+             if h.get('img') else f'<div class="hotel-art" aria-hidden="true">{icon("home")}</div>')
+    msg = 'Здравствуйте! Хочу забронировать место в зоогостинице. Питомец (вид, порода): , даты: '
+    book = f'''<div class="hotel-book">
+      <p><b>Забронировать место</b><span>Напишите вид и породу питомца и даты — ответим и всё расскажем.</span></p>
+      <div class="hotel-book-btns">{wa_btn(msg, "Написать в WhatsApp")}<a class="btn btn-ghost-dark" href="tel:{SITE["phone_raw"]}">{icon("phone")}{SITE["phone"]}</a></div>
+    </div>'''
     body = f'''<section class="page-head">
   <div class="wrap">
     <nav class="crumbs" aria-label="Навигация"><a href="index.html">Главная</a><span>Зоогостиница</span></nav>
-    <h1>{e(h["title"])}</h1>
-    <p class="lede">Присмотрим за собакой или кошкой, пока вы в отпуске или командировке. Чтобы записаться, напишите нам в WhatsApp: вид и породу питомца и даты.</p>
+    <p class="eyebrow">{e(h["title"])}</p>
+    <h1>{e(h.get("tagline") or h["title"])}</h1>
   </div>
 </section>
-<section class="section">
+<section class="section hotel">
+  <div class="wrap hotel-grid">
+    <div class="prose hotel-text">{text}
+      {f'<ul class="hotel-feats">{feats}</ul>' if feats else ''}
+    </div>
+    <div class="hotel-visual">{photo}</div>
+  </div>
   <div class="wrap">
     {f'<div class="terms">{rows}</div>' if rows else ''}
-    {f'<div class="product-details">{prices}{f"<div class=\'info-block prose\'>{notes}</div>" if notes else ""}</div>' if (prices or notes) else ''}
-    <div class="ask-box"><p>Запись и вопросы — в WhatsApp: {SITE["phone"]}</p>{wa_btn(msg, "Записаться")}</div>
+    {f'<div class="product-details">{prices}</div>' if prices else ''}
+    {book}
   </div>
 </section>'''
-    page('hotel.html', h['title'], f'{h["title"]} от мясной лавки БРО. Запись через WhatsApp {SITE["phone"]}.', body, 'hotel')
+    page('hotel.html', h['title'], f'{h["title"]}: тёплые номера, забота, игры и натуральное питание. Бронирование по телефону и в WhatsApp {SITE["phone"]}.', body, 'hotel')
 
 def build_404():
     body = f'''<section class="page-head center"><div class="wrap narrow">
@@ -779,8 +757,8 @@ OLD_PAGES = {  # старые адреса OpenCart -> новые страниц
     'miksy': 'catalog.html?cat=mix', 'miksy-bez-ovoshej': 'catalog.html?cat=mix', 'miksy-s-ovoshami': 'catalog.html?cat=mix',
     'miksy/miksy-bez-ovoshej': 'catalog.html?cat=mix', 'miksy/miksy-s-ovoshami': 'catalog.html?cat=mix',
     'lyuks': 'catalog.html?cat=premium', 'subprodukty': 'catalog.html?cat=offal', 'farsh': 'catalog.html?cat=farsh',
-    'suhoj-korm': 'catalog.html?cat=treats', 'ekonom': 'catalog.html?cat=econom', 'opt-ot-100-kg': 'catalog.html?cat=opt',
-    'o-nas': 'about.html', 'oplata-dostavka': 'delivery.html', 'faq': 'faq.html', 'uslugi': 'index.html', 'privacy': 'privacy.html',
+    'suhoj-korm': 'catalog.html?cat=treats', 'ekonom': 'catalog.html?cat=econom', 'opt-ot-100-kg': 'catalog.html',
+    'o-nas': 'about.html', 'oplata-dostavka': 'delivery.html', 'faq': 'delivery.html', 'uslugi': 'index.html', 'privacy': 'privacy.html',
 }
 
 def write_redirects():
@@ -788,7 +766,7 @@ def write_redirects():
     targets = dict(OLD_PAGES)
     for p in ALL_PRODUCTS:
         old = (p.get('old_url') or '').replace(SITE['base_url'], '').strip('/')
-        if old: targets[old] = f'catalog.html?cat={p["cat"]}' if p.get('hidden') else f'p/{p["slug"]}.html'
+        if old: targets[old] = (f'catalog.html?cat={p["cat"]}' if p['cat'] in CAT_NAME else 'catalog.html') if p.get('hidden') else f'p/{p["slug"]}.html'
     for old, new in targets.items():
         old = urllib.parse.unquote(old)
         r = '../' * (old.count('/') + 1)
@@ -823,7 +801,7 @@ def write_admin_demo():
 def main():
     if os.path.exists(DIST): shutil.rmtree(DIST)
     shutil.copytree(os.path.join(ROOT, 'static'), os.path.join(DIST, 'static'))
-    build_home(); build_catalog(); build_cart(); build_delivery(); build_about(); build_faq(); build_hotel(); build_privacy(); build_404()
+    build_home(); build_catalog(); build_cart(); build_delivery(); build_about(); build_hotel(); build_privacy(); build_404()
     for p in PRODUCTS: build_product(p)
     write_data_js(); write_seo()
     n_redirects = write_redirects()

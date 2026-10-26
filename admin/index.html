@@ -44,7 +44,17 @@ a{color:var(--burgundy);}
 .tabs{display:flex; gap:6px; margin-right:auto;}
 .tab{border:0; background:none; padding:10px 16px; border-radius:999px; cursor:pointer; font-weight:600; color:var(--soft);}
 .tab[aria-selected="true"]{background:var(--ink); color:var(--surface);}
-.top-links{display:flex; gap:16px; align-items:center; font-size:.92rem;}
+.top-links{display:flex; gap:16px; align-items:center; font-size:.92rem; white-space:nowrap;}
+@media (max-width:600px){
+  .top-in{gap:8px; padding:8px 12px; flex-wrap:nowrap;}
+  .top .logo{font-size:1.2rem;}
+  .tabs{gap:2px;} .tab{padding:8px 11px; font-size:.9rem;}
+  .top-links{gap:10px; font-size:.86rem;} .top-links .wide{display:none;}
+  .list-col{top:56px;}
+  main{padding-top:14px;}
+  .card{padding:16px;}
+  .savebar-in{padding:10px 12px; gap:10px;} .savebar .status{font-size:.84rem;}
+}
 
 main{max-width:1280px; margin:0 auto; padding:20px 16px 120px;}
 .layout{display:grid; grid-template-columns:minmax(300px,380px) 1fr; gap:20px; align-items:start;}
@@ -160,7 +170,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
       <button class="tab" role="tab" data-tab="products" aria-selected="true">Товары</button>
       <button class="tab" role="tab" data-tab="slides" aria-selected="false">Объявления</button>
     </nav>
-    <div class="top-links"><a href="../" target="_blank" rel="noopener">Открыть сайт ↗</a><button class="btn-link" id="logout" type="button">Выйти</button></div>
+    <div class="top-links"><a href="../" target="_blank" rel="noopener"><span class="wide">Открыть </span>сайт ↗</a><button class="btn-link" id="logout" type="button">Выйти</button></div>
   </div></header>
 
   <main>

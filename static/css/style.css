@@ -220,6 +220,8 @@ button{font:inherit; color:inherit;}
 @media (max-width:900px){.tiles{grid-template-columns:repeat(2,1fr); gap:12px;}}
 .tile{position:relative; display:block; aspect-ratio:4/3; border-radius:var(--radius); overflow:hidden; background:var(--surface-2); isolation:isolate;}
 .tile img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.tile-ph{position:absolute; inset:0; display:grid; place-items:center; background:var(--olive);}
+.tile-ph .icon{width:34%; height:auto; color:var(--brass); stroke-width:1; margin-bottom:18%;}
 .tile::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(59,42,32,0) 35%,rgba(42,26,20,.85)); z-index:1;}
 .tile-text{position:absolute; left:16px; right:16px; bottom:14px; z-index:2; color:var(--on-dark); display:flex; flex-direction:column;}
 .tile-text b{font:700 1.3rem/1.1 'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.03em;}
@@ -399,13 +401,6 @@ button{font:inherit; color:inherit;}
 .term-num{font:700 2rem/1 'Oswald',sans-serif; color:var(--burgundy);}
 .term h2{font-size:1rem; margin-top:12px;}
 .term p{margin-top:8px; font-size:.88rem; color:var(--ink-soft);}
-.faq{display:flex; flex-direction:column; gap:10px;}
-.faq-item{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:0 20px;}
-.faq-item summary{cursor:pointer; list-style:none; padding:18px 30px 18px 0; font-weight:600; position:relative;}
-.faq-item summary::-webkit-details-marker{display:none;}
-.faq-item summary::after{content:"+"; position:absolute; right:0; top:50%; transform:translateY(-50%); font:500 1.5rem 'Oswald',sans-serif; color:var(--burgundy);}
-.faq-item[open] summary::after{content:"–";}
-.faq-item p{padding-bottom:18px; color:var(--ink-soft); line-height:1.65;}
 .ask-box{margin-top:32px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; padding:22px; border:1.5px dashed var(--brass); border-radius:var(--radius);}
 .ask-box p{font-weight:600;}
 
@@ -516,3 +511,27 @@ button{font:inherit; color:inherit;}
 .order-done h2{font-size:clamp(1.6rem,3vw,2.2rem);}
 .order-done p:not(.eyebrow){margin:14px auto 24px; color:var(--ink-soft); max-width:46ch;}
 .order-done:focus{outline:none;}
+
+/* ---------- зоогостиница ---------- */
+.section.hotel{padding-top:clamp(8px,2vw,24px);}
+.hotel-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(28px,5vw,64px); align-items:start;}
+@media (max-width:860px){.hotel-grid{grid-template-columns:1fr;}}
+.hotel-text p{font-size:1.05rem; line-height:1.65;}
+.hotel .hotel-feats{list-style:none; margin:24px 0 0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+@media (max-width:560px){.hotel .hotel-feats{grid-template-columns:1fr;}}
+.hotel-feats li{display:flex; gap:12px; align-items:flex-start; padding:14px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); font-weight:600; font-size:.94rem; line-height:1.35;}
+.hotel-feats .icon{flex:none; width:24px; height:24px; color:var(--olive);}
+.hotel-photo{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:18px 120px 18px 18px; border:1px solid var(--line-strong); box-shadow:var(--shadow);}
+.hotel-art{aspect-ratio:4/5; border-radius:18px 120px 18px 18px; background:var(--olive); display:grid; place-items:center;}
+.hotel-art .icon{width:40%; height:auto; color:var(--brass); stroke-width:.9;}
+@media (max-width:860px){.hotel-photo{aspect-ratio:4/3; border-radius:18px 64px 18px 18px;} .hotel-art{display:none;}}
+.hotel-book{margin-top:clamp(28px,4vw,44px); display:flex; justify-content:space-between; align-items:center; gap:18px 28px; flex-wrap:wrap;
+  background:var(--olive); color:#f4f2e2; border-radius:18px; padding:clamp(20px,3vw,32px);}
+.hotel-book p{display:flex; flex-direction:column; gap:4px;}
+.hotel-book b{font:500 1.5rem 'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.02em;}
+.hotel-book span{color:#dcdcc0; max-width:46ch;}
+.hotel-book-btns{display:flex; gap:10px; flex-wrap:wrap;}
+.hotel-book .btn-primary{background:var(--brass); color:#2a1d10;}
+.hotel-book .btn-primary:hover{background:#c09c63;}
+.btn-ghost-dark{border:1.5px solid rgba(244,242,226,.45); color:#f4f2e2; background:transparent;}
+.btn-ghost-dark:hover{border-color:#f4f2e2;}

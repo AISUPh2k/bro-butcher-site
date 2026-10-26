@@ -224,7 +224,6 @@
     var state = { cat: params.get('cat') || 'all', q: params.get('q') || '' };
     if (!chips.some(function (c) { return c.getAttribute('data-filter') === state.cat; })) state.cat = 'all';
     search.value = state.q;
-    if (state.cat === 'opt') inStock.checked = false;
 
     function plural(n) {
       var m10 = n % 10, m100 = n % 100;
@@ -239,7 +238,7 @@
       var words = q.split(/\s+/).filter(Boolean);
       cards.forEach(function (card) {
         var tags = card.getAttribute('data-tags').split(' ');
-        var catOk = state.cat === 'all' ? tags.indexOf('opt') === -1 : tags.indexOf(state.cat) !== -1;
+        var catOk = state.cat === 'all' || tags.indexOf(state.cat) !== -1;
         var text = card.getAttribute('data-name') + ' ' + (card.textContent || '').toLowerCase();
         var qOk = words.every(function (w) { return text.indexOf(w) !== -1; });
         var stOk = !inStock.checked || card.getAttribute('data-stock') === '1';
@@ -256,7 +255,9 @@
         return +a.getAttribute('data-pop') - +b.getAttribute('data-pop');
       }).forEach(function (c) { grid.appendChild(c); });
       found.textContent = plural(shown);
-      empty.hidden = shown > 0;
+      var soon = $('#catsSoon'), catsEmpty = state.cat === 'cats' && shown === 0;
+      if (soon) soon.hidden = !catsEmpty;
+      empty.hidden = shown > 0 || catsEmpty;
       var p = new URLSearchParams();
       if (state.cat !== 'all') p.set('cat', state.cat);
       if (state.q) p.set('q', state.q);
