@@ -68,7 +68,7 @@
   },
   "privacy_email": "myaso-sobakam-bro@yandex.ru",
   "policy_date": "19.10.2026",
-  "slides_note": "Слайды-объявления на главной после основного баннера. theme: olive | burgundy | light. link: адрес страницы или \"whatsapp\". img: фото из static/img/products (необязательно), иначе icon. until: ГГГГ-ММ-ДД — после этой даты слайд скрывается.",
+  "slides_note": "Слайды-объявления на главной после основного баннера. theme: olive | burgundy | light. link: адрес страницы или \"whatsapp\". img: фото из static/img/products (необязательно), иначе icon. until: ГГГГ-ММ-ДД — после этой даты слайд скрывается. art: \"hotel\" — оформление арка+печать+карточки (картинка, если есть, встаёт в арку).",
   "slides": [
     {
       "theme": "olive",
@@ -77,7 +77,8 @@
       "text": "Тёплые номера, заботливые руки, игры и натуральное питание нашего производства. Рядом 24/7.",
       "button": "Забронировать",
       "link": "hotel.html",
-      "icon": "home"
+      "icon": "home",
+      "art": "hotel"
     },
     {
       "theme": "burgundy",

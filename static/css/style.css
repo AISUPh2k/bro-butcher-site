@@ -535,3 +535,37 @@ button{font:inherit; color:inherit;}
 .hotel-book .btn-primary:hover{background:#c09c63;}
 .btn-ghost-dark{border:1.5px solid rgba(244,242,226,.45); color:#f4f2e2; background:transparent;}
 .btn-ghost-dark:hover{border-color:#f4f2e2;}
+
+/* ---------- слайд зоогостиницы: арка, печать, карточки ---------- */
+.slide-art.hotel-arch{position:relative; aspect-ratio:auto; display:block; overflow:visible; border:0; background:none; border-radius:0;
+  width:min(100%, 390px); justify-self:center; padding:18px 0 6px;}
+.arch{position:relative; aspect-ratio:4/5; filter:drop-shadow(0 18px 30px rgba(0,0,0,.28));}
+.arch-ill{display:block; width:100%; height:100%;}
+.arch-bg{fill:var(--surface);}
+.arch-house{stroke:var(--olive);}
+.arch-heart{fill:var(--pomegranate);}
+.arch-paws{fill:var(--brass); opacity:.75;}
+.arch-photo{width:100%; height:100%; object-fit:cover; border-radius:999px 999px 14px 14px / 50% 50% 14px 14px;}
+.arch-stamp{position:absolute; top:0; right:-6px; width:104px; height:104px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:var(--brass); color:#2a1d10; transform:rotate(10deg); box-shadow:0 0 0 5px rgba(243,237,224,.25), 0 10px 22px -8px rgba(0,0,0,.4);
+  font:500 .72rem/1.1 'Oswald',sans-serif; letter-spacing:.14em; text-transform:uppercase; text-align:center;}
+.arch-stamp b{font-size:1.7rem; letter-spacing:.02em; line-height:1;}
+.arch-notes{list-style:none; margin:0; padding:0;}
+.arch-notes li{position:absolute; display:flex; align-items:center; gap:10px; max-width:230px; padding:10px 14px; border-radius:14px;
+  background:var(--surface); color:var(--ink); font-weight:600; font-size:.84rem; line-height:1.25; box-shadow:0 12px 26px -12px rgba(0,0,0,.45);}
+.arch-notes .icon{flex:none; width:22px; height:22px; color:var(--olive);}
+.arch-notes li:nth-child(1){left:-56px; top:30%;}
+.arch-notes li:nth-child(2){right:-48px; top:63%;}
+.arch-notes li:nth-child(3){right:-24px; bottom:3%;}
+@media (prefers-reduced-motion:no-preference){
+  .slide:not([inert]) .arch-notes li{animation:notein .6s calc(.25s + var(--i) * .18s) both cubic-bezier(.2,.8,.3,1);}
+  .slide:not([inert]) .arch-stamp{animation:stampin .7s .1s both cubic-bezier(.2,.8,.3,1.3);}
+}
+@keyframes notein{from{opacity:0; transform:translateY(14px);}}
+@keyframes stampin{from{opacity:0; transform:rotate(-25deg) scale(.6);}}
+@media (max-width:860px){
+  .slide-art.hotel-arch{width:min(62%, 260px); padding-top:14px;}
+  .arch-notes li{font-size:.76rem; padding:8px 11px; max-width:190px;}
+  .arch-notes li:nth-child(1){left:-30%; top:28%;} .arch-notes li:nth-child(2){right:-32%; top:60%;} .arch-notes li:nth-child(3){display:none;}
+  .arch-stamp{width:76px; height:76px; right:-18%;} .arch-stamp b{font-size:1.25rem;}
+}

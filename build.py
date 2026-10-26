@@ -280,6 +280,28 @@ def wa_btn(text, label, cls='btn btn-primary'):
 TODAY = datetime.date.today().isoformat()
 SLIDES = [sl for sl in SITE.get('slides', []) if not sl.get('off') and (not sl.get('until') or sl['until'] >= TODAY)]
 
+# иллюстрация для слайда гостиницы, пока нет фото: домик с сердцем и следы лап к двери
+PAW = '<g><ellipse cx="0" cy="6" rx="9" ry="7.5"/><ellipse cx="-9" cy="-6" rx="3.6" ry="4.6"/><ellipse cx="-3.2" cy="-11" rx="3.6" ry="4.6"/><ellipse cx="3.2" cy="-11" rx="3.6" ry="4.6"/><ellipse cx="9" cy="-6" rx="3.6" ry="4.6"/></g>'
+HOTEL_SVG = ('<svg class="arch-ill" viewBox="0 0 400 500" aria-hidden="true">'
+    '<path class="arch-bg" d="M0 500V200a200 200 0 0 1 400 0v300z"/>'
+    '<g class="arch-house" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M96 246 200 158l104 88"/><path d="M122 226v132h156V226"/><path d="M178 358v-50a22 22 0 0 1 44 0v50"/></g>'
+    '<path class="arch-heart" d="M200 236c-12-14-34-10-34 7 0 14 19 24 34 36 15-12 34-22 34-36 0-17-22-21-34-7z"/>'
+    '<g class="arch-paws">'
+    + ''.join(f'<g transform="translate({x} {y}) rotate({r}) scale({k})">{PAW}</g>' for x, y, r, k in
+              ((70, 478, -32, 1.25), (118, 452, -26, 1.2), (140, 412, -18, 1.1), (186, 396, -6, 1.05)))
+    + '</g></svg>')
+
+def hotel_art(sl):
+    feats = [f for f in SITE['hotel'].get('features', []) if '24/7' not in f[1]][:3]
+    notes = ''.join(f'<li style="--i:{n}">{icon(ic)}<span>{e(t)}</span></li>' for n, (ic, t) in enumerate(feats))
+    inner = (picture('', sl['img'], 'Зоогостиница БРО', '(max-width:860px) 80vw, 420px', cls='arch-photo') if sl.get('img') else HOTEL_SVG)
+    return f'''<div class="slide-art hotel-arch">
+      <div class="arch">{inner}</div>
+      <span class="arch-stamp" aria-hidden="true">Рядом<br><b>24/7</b></span>
+      <ul class="arch-notes">{notes}</ul>
+    </div>'''
+
 def slides_html():
     out = ''
     for i, sl in enumerate(SLIDES, 2):
@@ -289,7 +311,9 @@ def slides_html():
         else:
             href = sl['link']
             ext = ' target="_blank" rel="noopener"' if href.startswith('http') else ''
-        if sl.get('img'):
+        if sl.get('art') == 'hotel':
+            art = hotel_art(sl)
+        elif sl.get('img'):
             art = f'<div class="slide-art has-img">{picture("", sl["img"], "", "(max-width:860px) 92vw, 560px")}</div>'
         else:
             art = f'<div class="slide-art" aria-hidden="true">{icon(sl.get("icon", "gift"))}</div>'
