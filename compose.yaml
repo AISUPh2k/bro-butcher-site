@@ -1,0 +1,16 @@
+# Запуск в локальной сети:  docker compose up -d --build   →  http://<IP компьютера>:8100/
+# Данные (товары, фото, объявления, заказы, пароль, настройки почты) живут на диске, а не в контейнере.
+services:
+  bro:
+    build: .
+    container_name: bro-site
+    restart: unless-stopped
+    user: "${UID:-1000}:${GID:-1000}"
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./data:/app/data
+      - ./static/img/products:/app/static/img/products
+      - ./orders:/app/orders
+      - ./admin.secret.json:/app/admin.secret.json
+      - ./orders.config.json:/app/orders.config.json:ro

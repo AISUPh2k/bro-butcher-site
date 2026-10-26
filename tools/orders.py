@@ -27,10 +27,12 @@ def rub(n):
 
 
 def fmt_phone(raw):
+    """Строго +7 и 10 цифр (11 цифр вместе с 7). Иначе — None."""
+    raw = raw.strip()
     d = re.sub(r'\D', '', raw)
-    if len(d) == 11 and d[0] in '78': d = d[1:]
-    if len(d) == 10: return f'+7 ({d[:3]}) {d[3:6]}-{d[6:8]}-{d[8:]}', '+7' + d
-    return raw.strip(), '+' + d if d else ''
+    if not raw.startswith('+7') or len(d) != 11: return None, None
+    d = d[1:]
+    return f'+7 ({d[:3]}) {d[3:6]}-{d[6:8]}-{d[8:]}', '+7' + d
 
 
 def clean(v, maxlen):
@@ -53,7 +55,8 @@ def build_order(d, products, site):
     if d.get('website'): raise OrderError('Неверный запрос')  # скрытое поле-ловушка для ботов
     name, address, comment = clean(d.get('name'), 80), clean(d.get('address'), 300), clean(d.get('comment'), 1000)
     phone, phone_raw = fmt_phone(clean(d.get('phone'), 40))
-    if len(name) < 2 or len(address) < 5 or len(re.sub(r'\D', '', phone_raw)) < 11:
+    if not phone: raise OrderError('Телефон должен начинаться с +7 и содержать 11 цифр')
+    if len(name) < 2 or len(address) < 5:
         raise OrderError('Заполните имя, телефон и адрес')
     if not d.get('consent'): raise OrderError('Нужно согласие на обработку персональных данных')
     zone = 'out' if d.get('zone') == 'out' else 'mkad'

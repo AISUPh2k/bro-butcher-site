@@ -473,11 +473,16 @@ button{font:inherit; color:inherit;}
 .footer-bottom{margin-top:40px; padding-top:20px; border-top:1px solid rgba(243,237,224,.14); font-size:.8rem; color:#a8977f; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
 
 /* ---------- toast ---------- */
-.toast{position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); z-index:60; background:var(--ink); color:var(--on-dark); padding:12px 14px 12px 18px; border-radius:999px; box-shadow:0 10px 30px -10px rgba(0,0,0,.5); display:flex; gap:14px; align-items:center; font-size:.9rem; max-width:calc(100vw - 32px);}
-.toast a{color:#e8c98f; font-weight:600; white-space:nowrap;}
+.toast{position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); z-index:60;
+  width:min(440px, calc(100vw - 24px)); box-sizing:border-box; background:var(--ink); color:var(--on-dark); padding:12px 12px 12px 16px; border-radius:14px;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.5); display:flex; gap:12px; align-items:center; font-size:.9rem; line-height:1.35;}
+.toast:not([hidden]){animation:toastin .2s ease-out;}
+@keyframes toastin{from{opacity:0; transform:translate(-50%,8px);}}
+.toast > span{flex:1; min-width:0; overflow-wrap:anywhere;}
+.toast a{flex:none; color:#2a1d10; background:var(--brass); font-weight:600; white-space:nowrap; padding:8px 12px; border-radius:9px; font-size:.84rem;}
 
 /* ---------- mobile cart bar ---------- */
-.toast small{display:block; color:#cdb9a2; font-size:.78rem; margin-top:2px;}
+.toast small{display:block; color:#cdb9a2; font-size:.8rem; margin-top:3px;}
 .cartbar{display:none;}
 @media (max-width:760px){
   .cartbar:not([hidden]){display:flex; position:fixed; left:10px; right:10px; bottom:calc(10px + env(safe-area-inset-bottom,0px)); z-index:50;

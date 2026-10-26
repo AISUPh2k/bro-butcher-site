@@ -299,7 +299,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             return self.send(400, {'error': str(ex)})
         if o['mail'] != 'sent':
             sys.stderr.write(f'ЗАКАЗ {o["number"]}: письмо не ушло — {o.get("mail_error")}\n')
-            return self.send(502, {'error': 'Заказ сохранён, но уведомление не отправилось', 'number': o['number'], 'fallback': True})
+            return self.send(502, {'error': 'Не получилось отправить заказ', 'fallback': True})
         self.send(200, {'ok': True, 'number': o['number'], 'total': o['total'], 'out': o['zone'] == 'out'})
 
     def login(self):
@@ -312,8 +312,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
             return self.send(403, {'error': 'Неверный пароль'})
         FAILS['n'] = 0
         t = secrets.token_urlsafe(32); SESSIONS[t] = time.time() + SESSION_TTL
-        local = (self.headers.get('Host') or '').split(':')[0] in ('127.0.0.1', 'localhost', '[::1]')
-        cookie = f'bro_admin={t}; Path=/; Max-Age={SESSION_TTL}; HttpOnly; SameSite=Strict' + ('' if local else '; Secure')
+        # Secure — только когда сайт отдаётся по HTTPS (за прокси); в локальной сети и на localhost это обычный HTTP
+        https = self.headers.get('X-Forwarded-Proto') == 'https' or os.environ.get('BRO_COOKIE_SECURE') == '1'
+        cookie = f'bro_admin={t}; Path=/; Max-Age={SESSION_TTL}; HttpOnly; SameSite=Strict' + ('; Secure' if https else '')
         self.send(200, {'ok': True}, extra=[('Set-Cookie', cookie)])
 
     def product(self):
@@ -363,7 +364,8 @@ def main():
         set_password(pw); print('Пароль сохранён в', SECRET); return
     if not os.path.exists(SECRET): sys.exit('Сначала задайте пароль: python3 tools/admin_server.py --password')
     host = os.environ.get('BRO_ADMIN_HOST', '127.0.0.1'); port = int(os.environ.get('BRO_ADMIN_PORT', '8100'))
-    run_build()  # всегда: собрать корзину с приёмом заказов через этот сервер
+    ok, log = run_build()  # всегда: собрать корзину с приёмом заказов через этот сервер
+    if not ok: sys.exit('Сайт не собрался:\n' + log)
     srv = http.server.ThreadingHTTPServer((host, port), Handler)
     print(f'Админка: http://{host}:{port}/admin/   сайт: http://{host}:{port}/')
     try: srv.serve_forever()

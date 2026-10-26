@@ -541,7 +541,7 @@ def build_cart():
       <form class="checkout" id="checkout" novalidate>
         <h2>Оформление</h2>
         <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7" required></div>
+        <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (900) 123-45-67" maxlength="18" required></div>
         <div class="field"><label for="f-addr">Адрес доставки</label><input id="f-addr" name="address" autocomplete="street-address" required></div>
         <fieldset class="field"><legend>Зона доставки</legend>
           <label class="radio"><input type="radio" name="zone" value="mkad" checked> Москва в пределах МКАД</label>
@@ -810,6 +810,16 @@ def write_seo():
     robots = 'User-agent: *\nDisallow: /\n' if PREVIEW else f'User-agent: *\nDisallow: /cart.html\nSitemap: {base}sitemap.xml\n'
     open(os.path.join(DIST, 'robots.txt'), 'w').write(robots)
 
+def write_admin_demo():
+    """Показ на GitHub Pages: админка без сервера (window.BRO_DEMO) с данными сайта в admin/state.json."""
+    out = os.path.join(DIST, 'admin'); os.makedirs(out, exist_ok=True)
+    src = open(os.path.join(ROOT, 'admin/index.html'), encoding='utf-8').read()
+    open(os.path.join(out, 'index.html'), 'w', encoding='utf-8').write(
+        src.replace('<!--BRO_DEMO-->', '<script>window.BRO_DEMO = true;</script>', 1))
+    state = {'products': ALL_PRODUCTS, 'cats': [[k, n] for k, n, _ in CATS], 'slides': SITE.get('slides', []),
+             'icons': ['home', 'gift', 'truck', 'leaf', 'snow', 'wallet', 'chat', 'clock', 'pin'], 'hit_max': HIT_MAX}
+    open(os.path.join(out, 'state.json'), 'w', encoding='utf-8').write(json.dumps(state, ensure_ascii=False))
+
 def main():
     if os.path.exists(DIST): shutil.rmtree(DIST)
     shutil.copytree(os.path.join(ROOT, 'static'), os.path.join(DIST, 'static'))
@@ -818,6 +828,7 @@ def main():
     write_data_js(); write_seo()
     n_redirects = write_redirects()
     open(os.path.join(DIST, '.nojekyll'), 'w').close()
+    if PREVIEW: write_admin_demo()
     print(f'Готово: {len(PAGES)} страниц, {len(PRODUCTS)} товаров, {n_redirects} переадресаций со старых адресов -> {DIST}')
 
 if __name__ == '__main__':

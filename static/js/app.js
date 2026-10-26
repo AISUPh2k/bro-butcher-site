@@ -354,6 +354,30 @@
     });
     form.addEventListener('change', renderTotals);
 
+    /* Телефон строго +7 и 10 цифр: +7 подставляется сам, 8 или 7 в начале вставленного номера отбрасывается. */
+    function phoneDigits(v) { return '+' + v.replace(/\D/g, ''); }
+    function formatPhone(d) {  // d — 10 цифр номера без +7
+      var out = '+7 ';
+      if (d.length) out += '(' + d.slice(0, 3);
+      if (d.length >= 3) out += ')';
+      if (d.length > 3) out += ' ' + d.slice(3, 6);
+      if (d.length > 6) out += '-' + d.slice(6, 8);
+      if (d.length > 8) out += '-' + d.slice(8, 10);
+      return out;
+    }
+    var phone = form.elements.phone, prevDigits = '';
+    phone.addEventListener('focus', function () { if (!phone.value) phone.value = '+7 '; });
+    phone.addEventListener('blur', function () { if (!prevDigits) phone.value = ''; });
+    phone.addEventListener('input', function (e) {
+      var raw = phone.value, rest = raw.indexOf('+7') === 0 ? raw.slice(2) : raw;
+      var d = rest.replace(/\D/g, '');
+      if (d.length === 11 && /^[78]/.test(d)) d = d.slice(1);                 // вставили 8XXXXXXXXXX или +7XXXXXXXXXX
+      else if (!prevDigits && d.length === 1 && /[78]/.test(d)) d = '';        // начали набирать с 8 или +7
+      if (e.inputType && e.inputType.indexOf('delete') === 0 && d === prevDigits) d = d.slice(0, -1);  // стёрли скобку/дефис
+      prevDigits = d.slice(0, 10);
+      phone.value = formatPhone(prevDigits);
+    });
+
     function orderText() {
       var c = calc(), f = form.elements, out = ['Здравствуйте! Заказ с сайта:', ''];
       c.lines.forEach(function (l, i) {
@@ -373,12 +397,16 @@
       var bad = null;
       ['name', 'phone', 'address'].forEach(function (n) {
         var el = form.elements[n], v = el.value.trim();
-        var ok = n === 'phone' ? v.replace(/\D/g, '').length >= 10 : v.length >= 2;
+        var ok = n === 'phone' ? /^\+7\d{10}$/.test(phoneDigits(v)) : v.length >= 2;
         el.setAttribute('aria-invalid', ok ? 'false' : 'true');
         if (!ok && !bad) bad = el;
       });
       var err = $('#formError'), consent = $('#f-consent');
-      if (bad) { err.hidden = false; err.textContent = 'Заполните имя, телефон и адрес, чтобы мы могли доставить заказ.'; bad.focus(); return false; }
+      if (bad) {
+        err.hidden = false;
+        err.textContent = bad.name === 'phone' && bad.value.trim().length > 2 ? 'Проверьте телефон: +7 и ещё 10 цифр, например +7 (900) 123-45-67.' : 'Заполните имя, телефон и адрес, чтобы мы могли доставить заказ.';
+        bad.focus(); return false;
+      }
       if (consent && !consent.checked) { err.hidden = false; err.textContent = 'Отметьте согласие на обработку персональных данных — без него мы не можем принять заказ.'; consent.focus(); return false; }
       err.hidden = true; return true;
     }
@@ -408,7 +436,7 @@
         save([]);
         app.hidden = true; $('#cartEmpty').hidden = true;
         var done = $('#orderDone');
-        done.innerHTML = '<p class="eyebrow">Заказ принят</p><h2>Спасибо! Ваш заказ №' + d.number + '</h2>' +
+        done.innerHTML = '<p class="eyebrow">Заказ принят</p><h2>Спасибо за заказ!</h2>' +
           '<p>Сумма: <b>' + (d.out ? 'от ' : '') + rub(d.total) + '</b>, оплата наличными после получения. ' +
           'Мы перезвоним по номеру <b>' + esc(f.phone.value.trim()) + '</b>, чтобы подтвердить заказ и время доставки.</p>' +
           '<a class="btn btn-primary" href="' + ROOT + 'catalog.html">Вернуться в каталог</a>';
@@ -418,7 +446,6 @@
         send.disabled = false; send.innerHTML = label;
         err.hidden = false;
         err.innerHTML = esc(d.error || 'Не получилось отправить заказ — нет связи с сервером.') +
-          (d.number ? ' Номер заказа: ' + d.number + '.' : '') +
           (d.error && !d.fallback ? '' : ' <button type="button" class="btn-ghost" id="waFallback">Отправить через WhatsApp</button>');
         var fb = $('#waFallback'); if (fb) fb.addEventListener('click', sendWhatsApp);
       });

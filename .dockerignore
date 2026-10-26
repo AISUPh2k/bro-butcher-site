@@ -1,0 +1,8 @@
+dist
+orders
+data/backups
+admin.secret.json
+orders.config.json
+**/__pycache__
+Dockerfile
+compose.yaml

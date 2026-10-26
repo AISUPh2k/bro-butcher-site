@@ -87,3 +87,14 @@ python3 tools/admin_server.py              # панель: http://127.0.0.1:8100
 - Корзина шлёт заказ на `/api/order`, только если сайт собран с `BRO_ORDER_API` (так делает admin_server). Обычный `python3 build.py` — заказ уходит в WhatsApp, как раньше.
 - Не ушло письмо → клиенту показывается номер и кнопка «Отправить через WhatsApp», заказ остаётся в журнале.
 - `orders/` и `orders.config.json` — персональные данные и пароль, не публиковать.
+
+## Docker (сайт + админка + заказы в локальной сети)
+
+```sh
+docker compose up -d --build     # http://<IP компьютера>:8100/  и  /admin/
+docker compose logs -f           # лог, в т.ч. «письмо не ушло»
+docker compose down              # остановить
+```
+Данные на диске (volumes): `data/`, `static/img/products/`, `orders/`, `admin.secret.json`, `orders.config.json`.
+Перед первым запуском должны существовать `admin.secret.json` (`python3 tools/admin_server.py --password`) и `orders.config.json`.
+Docker Desktop монтирует только папки из /home.

@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Управление сайтом — БРО</title>
-<link rel="icon" href="/static/img/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../static/img/brand/favicon.svg" type="image/svg+xml">
 <style>
-@font-face{font-family:'Oswald';font-weight:500;font-display:swap;src:url(/static/fonts/Oswald-500-cyr.woff2) format('woff2');}
-@font-face{font-family:'Golos Text';font-weight:400;font-display:swap;src:url(/static/fonts/GolosText-400-cyr.woff2) format('woff2');}
-@font-face{font-family:'Golos Text';font-weight:600;font-display:swap;src:url(/static/fonts/GolosText-600-cyr.woff2) format('woff2');}
+@font-face{font-family:'Oswald';font-weight:500;font-display:swap;src:url(../static/fonts/Oswald-500-cyr.woff2) format('woff2');}
+@font-face{font-family:'Golos Text';font-weight:400;font-display:swap;src:url(../static/fonts/GolosText-400-cyr.woff2) format('woff2');}
+@font-face{font-family:'Golos Text';font-weight:600;font-display:swap;src:url(../static/fonts/GolosText-600-cyr.woff2) format('woff2');}
 :root{
   --bg:#e6dcc8; --surface:#f3ede0; --card:#fbf8f2; --ink:#3b2a20; --soft:#6b5a47; --faint:#86735f;
   --burgundy:#6e2430; --pom:#a4243b; --brass:#b08d57; --olive:#5f5e38; --ok:#4c6b2f;
@@ -137,6 +137,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
 .slide-num{font:500 .95rem 'Oswald',sans-serif; color:var(--faint); text-transform:uppercase; letter-spacing:.06em;}
 .fixed-note{background:var(--surface); border:1.5px dashed var(--line2); border-radius:var(--r); padding:14px 18px; margin-bottom:16px; color:var(--soft); font-size:.92rem;}
 .err-box{color:var(--pom); font-weight:600;}
+.demo-bar{background:var(--olive); color:#f4f2e2; text-align:center; padding:8px 16px; font-size:.9rem;}
 </style>
 </head>
 <body>
@@ -150,14 +151,16 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
   </form>
 </div>
 
+<!--BRO_DEMO-->
 <div id="app" hidden>
+  <div class="demo-bar" id="demoBar" hidden>Демо-версия для просмотра: можно всё нажимать и менять, но изменения не сохраняются на сайт и пропадут после обновления страницы.</div>
   <header class="top"><div class="top-in">
     <div class="logo">БРО</div>
     <nav class="tabs" role="tablist">
       <button class="tab" role="tab" data-tab="products" aria-selected="true">Товары</button>
       <button class="tab" role="tab" data-tab="slides" aria-selected="false">Объявления</button>
     </nav>
-    <div class="top-links"><a href="/" target="_blank" rel="noopener">Открыть сайт ↗</a><button class="btn-link" id="logout" type="button">Выйти</button></div>
+    <div class="top-links"><a href="../" target="_blank" rel="noopener">Открыть сайт ↗</a><button class="btn-link" id="logout" type="button">Выйти</button></div>
   </div></header>
 
   <main>
@@ -268,10 +271,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
   function $$(s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function rub(n) { return Number(n).toLocaleString('ru-RU') + ' ₽'; }
-  function imgUrl(img, v) { return '/static/img/products/' + img + (v ? '?v=' + v : ''); }
+  function imgUrl(img, v) { return /^blob:/.test(img) ? img : '../static/img/products/' + img + (v ? '?v=' + v : ''); }
 
   function api(path, opts) {
     opts = opts || {};
+    if (window.BRO_DEMO) return demoApi(path, opts);
     var headers = { 'X-BRO': '1' };
     if (opts.json !== undefined) { headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(opts.json); }
     if (opts.type) headers['Content-Type'] = opts.type;
@@ -284,6 +288,31 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
         });
       }, function () { throw new Error('Нет связи с сервером админки — он запущен?'); });
   }
+  /* ---------- демо для показа на GitHub Pages: сервера нет, всё живёт в памяти вкладки ---------- */
+  var DEMO_DATA = null;
+  function demoApi(path, opts) {
+    var body = opts.json, wait = function (v) { return new Promise(function (r) { setTimeout(function () { r(v); }, 250); }); };
+    if (path === '/api/session') return wait({ ok: true });
+    if (path === '/api/logout' || path === '/api/login') return wait({ ok: true });  // в демо пускаем с любым паролем
+    if (path === '/api/state') return fetch('state.json').then(function (r) { return r.json(); }).then(function (d) { DEMO_DATA = d; return d; });
+    if (path === '/api/product') {
+      var p = {}, old = body.slug && DEMO_DATA.products.filter(function (x) { return x.slug === body.slug; })[0];
+      if (old) for (var k in old) p[k] = old[k];
+      p.slug = body.slug || 'demo-' + Date.now(); p.name = body.name.trim(); p.tags = body.tags; p.cat = body.tags[0];
+      p.options = body.options.map(function (o) { return [o[0], parseInt(String(o[1]).replace(/\s/g, ''), 10)]; });
+      p.in_stock = body.in_stock; p.veg = body.veg; p.hidden = body.hidden;
+      p.composition = body.composition.split('\n').map(function (x) { return x.trim(); }).filter(Boolean);
+      p.notes = body.notes.split(/\n\s*\n/).map(function (x) { return x.trim(); }).filter(Boolean);
+      var kb = body.kbju; p.kbju = (kb.b || kb.z || kb.u || kb.kcal) ? kb : null;
+      p.popular = body.hit ? (p.popular && p.popular <= S.hitMax ? p.popular : 1) : (p.popular && p.popular <= S.hitMax ? null : p.popular);
+      if (!body.tags.length) return Promise.reject(new Error('Отметьте хотя бы один раздел каталога'));
+      return wait({ ok: true, product: p });
+    }
+    if (path.indexOf('/api/photo') === 0) return wait({ ok: true, img: URL.createObjectURL(opts.body), v: 0 });
+    if (path === '/api/slides') return wait({ ok: true, slides: body.slides });
+    return Promise.reject(new Error('В демо это недоступно'));
+  }
+
   function status(msg, kind) { var el = $('#status'); el.textContent = msg; el.className = 'status' + (kind ? ' ' + kind : ''); }
 
   /* ---------- вход ---------- */
@@ -300,7 +329,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
   function start() {
     return api('/api/state').then(function (d) {
       S.products = d.products; S.cats = d.cats; S.slides = d.slides; S.icons = d.icons; S.hitMax = d.hit_max;
-      $('#login').hidden = true; $('#app').hidden = false;
+      $('#login').hidden = true; $('#app').hidden = false; $('#demoBar').hidden = !window.BRO_DEMO;
       initFilters(); renderList(); renderSlides();
     });
   }
@@ -375,7 +404,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     S.cur = p; S.dirty = false;
     $('#empty').hidden = true; $('#pform').hidden = false; $('#layout').classList.add('editing');
     $('#ptitle').textContent = p.slug ? p.name : 'Новый товар';
-    $('#viewLink').hidden = !p.slug || p.hidden; $('#viewLink').href = '/p/' + p.slug + '.html';
+    $('#viewLink').hidden = !p.slug || p.hidden; $('#viewLink').href = '../p/' + p.slug + '.html';
     $('#name').value = p.name;
     $$('#tags input').forEach(function (i) { i.checked = p.tags.indexOf(i.value) >= 0; });
     $('#in_stock').checked = !!p.in_stock; $('#hit').checked = isHit(p); $('#veg').checked = !!p.veg; $('#hidden').checked = !!p.hidden;
@@ -438,7 +467,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
       var isNew = !S.cur.slug, p = r.product;
       if (isNew) S.products.unshift(p); else S.products = S.products.map(function (x) { return x.slug === p.slug ? p : x; });
       S.dirty = false; openProduct(p);
-      status(isNew ? 'Товар добавлен на сайт. Теперь можно загрузить фото.' : 'Сохранено, сайт обновлён ✓', 'ok');
+      status(window.BRO_DEMO ? 'Демо: сохранено в этой вкладке ✓ (на сайт не попадает)' : isNew ? 'Товар добавлен на сайт. Теперь можно загрузить фото.' : 'Сохранено, сайт обновлён ✓', 'ok');
     }).catch(function (err) { status(err.message, 'err'); }).then(function () { busy(false); });
   }
   function busy(on) { $('#save').disabled = on; $('#save').textContent = on ? 'Сохраняю…' : 'Сохранить'; }
@@ -472,7 +501,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     uploadPhoto(file, '/api/photo?kind=product&slug=' + encodeURIComponent(slug)).then(function (r) {
       S.products.forEach(function (x) { if (x.slug === slug) { x.img = r.img; x._v = r.v; } });
       if (S.cur.slug === slug) { S.cur.img = r.img; S.cur._v = r.v; }
-      renderPhoto(); renderList(); status('Фото сохранено, сайт обновлён ✓', 'ok');
+      renderPhoto(); renderList(); status(window.BRO_DEMO ? 'Демо: фото показано только здесь ✓' : 'Фото сохранено, сайт обновлён ✓', 'ok');
     }).catch(function (err) { renderPhoto(); status(err.message, 'err'); });
   }
   $('#photoFile').addEventListener('change', function () { if (this.files[0]) productPhoto(this.files[0]); this.value = ''; });
@@ -569,7 +598,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     }
     busy(true);
     api('/api/slides', { json: { slides: S.slides } }).then(function (r) {
-      S.slides = r.slides; S.saved = JSON.parse(JSON.stringify(r.slides)); S.dirty = false; renderSlides(); status('Сохранено, главная обновлена ✓', 'ok');
+      S.slides = r.slides; S.saved = JSON.parse(JSON.stringify(r.slides)); S.dirty = false; renderSlides(); status(window.BRO_DEMO ? 'Демо: сохранено в этой вкладке ✓ (на сайт не попадает)' : 'Сохранено, главная обновлена ✓', 'ok');
     }).catch(function (err) { status(err.message, 'err'); }).then(function () { busy(false); });
   }
 
