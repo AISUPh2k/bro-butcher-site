@@ -161,7 +161,7 @@ def clean_slides(items):
     for n, d in enumerate(items, 1):
         f = lambda key, label, ml, req=False: text(d.get(key), f'{label} (объявление {n})', ml, req)
         s = {'off': bool(d.get('off')),
-             'theme': d.get('theme') if d.get('theme') in ('olive', 'burgundy', 'light') else 'light',
+             'theme': d.get('theme') if d.get('theme') in ('olive', 'burgundy', 'light', 'warm') else 'light',
              'eyebrow': f('eyebrow', 'Надпись сверху', 40), 'title': f('title', 'Заголовок', 90, True),
              'text': f('text', 'Текст', 260), 'button': f('button', 'Кнопка', 30, True),
              'link': f('link', 'Куда ведёт кнопка', 300, True)}

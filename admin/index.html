@@ -133,11 +133,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
 .slide-card{display:grid; grid-template-columns:260px 1fr; gap:20px;}
 @media (max-width:760px){.slide-card{grid-template-columns:1fr;}}
 .mini{border-radius:12px; padding:18px; min-height:170px; display:flex; flex-direction:column; justify-content:center; gap:8px; position:relative; overflow:hidden; border:1px solid var(--line);}
-.mini.t-olive{background:var(--olive); color:#f1efdc;} .mini.t-burgundy{background:var(--burgundy); color:#f7ece6;} .mini.t-light{background:var(--surface);}
-.mini .eb{font:500 .7rem/1 'Oswald',sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#e8c98f;} .mini.t-light .eb{color:var(--burgundy);}
+.mini.t-olive{background:var(--olive); color:#f1efdc;} .mini.t-burgundy{background:var(--burgundy); color:#f7ece6;} .mini.t-light{background:var(--surface);} .mini.t-warm{background:linear-gradient(135deg,#f6f0e4,#ecdfc6);}
+.mini .eb{font:500 .7rem/1 'Oswald',sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#e8c98f;} .mini.t-light .eb,.mini.t-warm .eb{color:var(--burgundy);}
 .mini .tt{font:500 1.15rem/1.1 'Oswald',sans-serif; text-transform:uppercase;}
 .mini .bt{align-self:flex-start; font:500 .72rem/1 'Oswald',sans-serif; text-transform:uppercase; padding:8px 12px; border-radius:999px; background:var(--brass); color:#2a1d10;}
-.mini.t-light .bt{background:var(--burgundy); color:#f7ece6;}
+.mini.t-light .bt,.mini.t-warm .bt{background:var(--burgundy); color:#f7ece6;}
 .mini img{position:absolute; right:-10px; bottom:-10px; width:44%; aspect-ratio:4/3; object-fit:cover; border-radius:10px 10px 10px 40px; opacity:.95;}
 .mini.has-img .tt,.mini.has-img .eb{max-width:58%;}
 .mini.off{filter:grayscale(1); opacity:.55;}
@@ -651,7 +651,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
             '<button type="button" class="btn btn-small" data-act="up"' + (i ? '' : ' disabled') + ' aria-label="Выше">↑</button>' +
             '<button type="button" class="btn btn-small" data-act="down"' + (i < S.slides.length - 1 ? '' : ' disabled') + ' aria-label="Ниже">↓</button>' +
             '<button type="button" class="btn btn-small btn-danger" data-act="del">Удалить</button></div>' +
-          '<div class="f"><span>Цвет</span><div class="themes">' + [['olive', 'Оливковый', '#5f5e38'], ['burgundy', 'Бордовый', '#6e2430'], ['light', 'Светлый', '#f3ede0']].map(function (t) {
+          '<div class="f"><span>Цвет</span><div class="themes">' + [['olive', 'Оливковый', '#5f5e38'], ['burgundy', 'Бордовый', '#6e2430'], ['light', 'Светлый', '#f3ede0'], ['warm', 'Тёплый', 'linear-gradient(135deg,#f6f0e4,#e6d3ae)']].map(function (t) {
             return '<button type="button" class="theme" data-theme="' + t[0] + '" aria-label="' + t[1] + '" title="' + t[1] + '" aria-pressed="' + (s.theme === t[0]) + '" style="background:' + t[2] + '"></button>';
           }).join('') + '</div></div>' +
           '<div class="grid2"><label class="f">Надпись сверху <span class="hint">маленькая, например «Новинка»</span><input type="text" data-k="eyebrow" maxlength="40" value="' + esc(s.eyebrow) + '"></label>' +
