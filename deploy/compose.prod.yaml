@@ -1,0 +1,38 @@
+# Боевой запуск на VPS:  docker compose -f deploy/compose.prod.yaml up -d --build
+# Наружу открыт только Caddy (80/443, HTTPS). Сайт с админкой слушает 8100 только внутри сети Docker.
+services:
+  bro:
+    build: ..
+    container_name: bro-site
+    restart: unless-stopped
+    user: "1000:1000"
+    environment:
+      BRO_COOKIE_SECURE: "1"
+      BRO_TRUST_PROXY: "1"
+    expose:
+      - "8100"
+    volumes:
+      - ../data:/app/data
+      - ../static/img/products:/app/static/img/products
+      - ../orders:/app/orders
+      - ../admin.secret.json:/app/admin.secret.json
+      - ../orders.config.json:/app/orders.config.json:ro
+
+  caddy:
+    image: caddy:2.8.4
+    container_name: bro-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - bro
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -543,7 +543,7 @@ def build_product(p):
           'offers': {'@type': 'Offer', 'priceCurrency': 'RUB', 'price': price,
                      'availability': 'https://schema.org/' + ('InStock' if p['in_stock'] else 'OutOfStock')}}
     if p['img']: ld['image'] = SITE['base_url'] + og
-    head = f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n'
+    head = f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False).replace("</", "<\\/")}</script>\n'
     page(f'p/{p["slug"]}.html', p['name'], desc, body, 'catalog', og, head)
 
 def build_cart():

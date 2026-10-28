@@ -235,7 +235,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
         return True
 
     def body(self):
-        n = int(self.headers.get('Content-Length') or 0)
+        try: n = int(self.headers.get('Content-Length') or 0)
+        except ValueError: raise Bad('Неверный запрос')
+        if n < 0: raise Bad('Неверный запрос')
         if n > MAX_BODY: raise Bad('Файл слишком большой (больше 20 МБ)')
         return self.rfile.read(n)
 
@@ -313,10 +315,18 @@ class Handler(http.server.BaseHTTPRequestHandler):
         except Bad as ex:
             self.send(400, {'error': str(ex)})
 
+    def client_ip(self):
+        """За Caddy (BRO_TRUST_PROXY=1) настоящий адрес покупателя — в X-Forwarded-For, иначе все заказы «с одного IP»."""
+        if os.environ.get('BRO_TRUST_PROXY') == '1':
+            xff = (self.headers.get('X-Forwarded-For') or '').split(',')[-1].strip()
+            if xff: return xff
+        return self.client_address[0]
+
     def order(self):
-        if int(self.headers.get('Content-Length') or 0) > 64 * 1024: raise Bad('Слишком большой заказ')
+        cl = self.headers.get('Content-Length') or '0'
+        if not cl.isdigit() or int(cl) > 64 * 1024: raise Bad('Слишком большой заказ')
         try:
-            o = orders.place(self.json_body(), self.client_address[0])
+            o = orders.place(self.json_body(), self.client_ip())
         except orders.OrderError as ex:
             return self.send(400, {'error': str(ex)})
         if o['mail'] != 'sent':

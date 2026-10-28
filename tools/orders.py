@@ -36,13 +36,16 @@ def fmt_phone(raw):
     return f'+7 ({d[:3]}) {d[3:6]}-{d[6:8]}-{d[8:]}', '+7' + d
 
 
-def clean(v, maxlen):
-    v = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', str(v or '')).strip()
-    return v[:maxlen]
+def clean(v, maxlen, multiline=False):
+    v = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', str(v or ''))
+    if not multiline: v = re.sub(r'\s+', ' ', v)  # перенос строки в имени сломал бы тему письма
+    return v.strip()[:maxlen]
 
 
 def rate_ok(ip):
     now = time.time()
+    if len(RATE) > 5000:
+        for k in [k for k, v in RATE.items() if not v or now - v[-1] > RATE_WINDOW]: del RATE[k]
     hits = [t for t in RATE.get(ip, []) if now - t < RATE_WINDOW]
     RATE[ip] = hits
     if len(hits) >= RATE_MAX: return False
@@ -54,7 +57,7 @@ def build_order(d, products, site):
     """Проверяет заявку и пересчитывает суммы по ценам из products.json (цены из браузера не используются)."""
     if not isinstance(d, dict): raise OrderError('Неверный запрос')
     if d.get('website'): raise OrderError('Неверный запрос')  # скрытое поле-ловушка для ботов
-    name, address, comment = clean(d.get('name'), 80), clean(d.get('address'), 300), clean(d.get('comment'), 1000)
+    name, address, comment = clean(d.get('name'), 80), clean(d.get('address'), 300), clean(d.get('comment'), 1000, multiline=True)
     phone, phone_raw = fmt_phone(clean(d.get('phone'), 40))
     if not phone: raise OrderError('Телефон должен начинаться с +7 и содержать 11 цифр')
     if len(name) < 2 or len(address) < 5:

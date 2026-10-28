@@ -1,0 +1,14 @@
+# Caddy сам получает и продлевает HTTPS-сертификат (Let's Encrypt) для домена.
+myaso-sobakam-bro.ru {
+	encode zstd gzip
+	reverse_proxy bro:8100
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+}
+
+www.myaso-sobakam-bro.ru {
+	redir https://myaso-sobakam-bro.ru{uri} permanent
+}
