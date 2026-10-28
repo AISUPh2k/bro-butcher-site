@@ -138,7 +138,7 @@ def footer(r):
     </div>
     <div class="footer-bottom">
       <span>© {SITE["founded"]}–{YEAR} {SITE["full_name"]}</span>
-      <span><a href="{r}privacy.html">Политика обработки персональных данных</a> · Только доставка, самовывоза нет</span>
+      <span><a href="{r}privacy.html">Политика обработки персональных данных</a> · <button type="button" class="link-btn" data-cookie-settings>Настройки cookie</button> · Только доставка, самовывоза нет</span>
     </div>
   </div>
 </footer>
@@ -150,9 +150,10 @@ def footer(r):
 </a>'''
 
 def metrika():
+    """Счётчик не грузится сразу: app.js подключит его только после «Принять» в плашке cookie."""
     mid = SITE.get('metrika_id')
     if not mid or PREVIEW: return ''
-    return f'''<script>(function(m,e,t,r,i,k,a){{m[i]=m[i]||function(){{(m[i].a=m[i].a||[]).push(arguments)}};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym({mid},"init",{{clickmap:true,trackLinks:true,accurateTrackBounce:true}});</script>'''
+    return f'<script>window.BRO_METRIKA = {int(mid)};</script>'
 
 def page(path, title, desc, body, active='', og_img='static/img/brand/hero.jpg', extra_head=''):
     depth = path.count('/')
@@ -183,9 +184,9 @@ def page(path, title, desc, body, active='', og_img='static/img/brand/hero.jpg',
 {body}
 </main>
 {footer(r)}
+{metrika()}
 <script src="{r}static/js/data.js"></script>
 <script src="{r}static/js/app.js"></script>
-{metrika()}
 </body>
 </html>
 '''
@@ -699,13 +700,14 @@ def build_privacy():
             'Оператор принимает правовые, организационные и технические меры для защиты персональных данных от неправомерного доступа, уничтожения, изменения, блокирования, копирования и распространения.',
         ]),
         ('9. Файлы cookie', [
-            'Сайт использует файлы cookie и сервис Яндекс Метрика для анализа посещаемости. Пользователь может отключить cookie в настройках браузера; основные функции сайта, включая корзину, при этом продолжат работать.',
+            'Сайт использует файлы cookie сервиса Яндекс Метрика для анализа посещаемости только с согласия Пользователя. При первом посещении Сайт показывает уведомление: при нажатии «Принять» счётчик подключается, при нажатии «Отказаться» — не подключается и эти файлы cookie не сохраняются.',
+            'Пользователь может изменить своё решение в любой момент по ссылке «Настройки cookie» внизу страницы, а также удалить cookie в настройках браузера. Корзина и сохранённые данные для заказа работают независимо от этого выбора.',
         ]),
         ('10. Заключительные положения', [
             f'Оператор вправе вносить изменения в Политику. Актуальная версия всегда доступна по адресу {url}/privacy.html. Редакция от {SITE.get("policy_date", "")}.',
         ]),
     ]
-    html_s = ''.join(f'<h2>{e(h)}</h2>' + ''.join(f'<p>{e(t)}</p>' for t in ps) for h, ps in sections)
+    html_s = ''.join(f'<h2{" id=\"cookie\"" if "cookie" in h else ""}>{e(h)}</h2>' + ''.join(f'<p>{e(t)}</p>' for t in ps) for h, ps in sections)
     body = f'''<section class="page-head">
   <div class="wrap">
     <nav class="crumbs" aria-label="Навигация"><a href="index.html">Главная</a><span>Политика обработки персональных данных</span></nav>

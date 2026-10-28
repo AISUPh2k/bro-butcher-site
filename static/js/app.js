@@ -510,6 +510,39 @@
     render();
   }
 
+  /* ---------- cookie: счётчик посещаемости — только после согласия ---------- */
+  var CK = 'bro_cookie_v1';
+  function cookieChoice() { try { return localStorage.getItem(CK); } catch (e) { return null; } }
+  function loadMetrika() {
+    var id = window.BRO_METRIKA; if (!id || window.ym) return;
+    (function (m, e, t, r, i, k, a) { m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); }; m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a); })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+    window.ym(id, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true });
+  }
+  function clearMetrikaCookies() {  // при отказе убираем то, что счётчик мог сохранить раньше
+    document.cookie.split(';').forEach(function (c) {
+      var n = c.split('=')[0].trim();
+      if (/^_ym|^yandexuid|^yabs-sid|^i$/.test(n)) document.cookie = n + '=; Max-Age=0; path=/';
+    });
+  }
+  function cookieBanner() {
+    var old = $('#cookieBar'); if (old) old.remove();
+    var bar = document.createElement('div');
+    bar.id = 'cookieBar'; bar.className = 'cookie-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Файлы cookie');
+    bar.innerHTML = '<p>Мы используем файлы cookie, чтобы сайт работал удобнее. Подробнее — в <a href="' + ROOT + 'privacy.html#cookie">политике</a>.</p>' +
+      '<div class="cookie-btns"><button type="button" class="cookie-yes">Принять</button><button type="button" class="cookie-no">Отказаться</button></div>';
+    document.body.appendChild(bar);
+    bar.addEventListener('click', function (e) {
+      var yes = e.target.closest('.cookie-yes'), no = e.target.closest('.cookie-no');
+      if (!yes && !no) return;
+      try { localStorage.setItem(CK, yes ? 'yes' : 'no'); } catch (err) { }
+      if (yes) loadMetrika(); else clearMetrikaCookies();
+      bar.remove();
+    });
+  }
+  if (cookieChoice() === 'yes') loadMetrika();
+  else if (!cookieChoice()) cookieBanner();
+  document.addEventListener('click', function (e) { if (e.target.closest('[data-cookie-settings]')) cookieBanner(); });
+
   renderBadge(false);
   window.addEventListener('storage', function (e) { if (e.key === KEY) renderBadge(false); });
 })();

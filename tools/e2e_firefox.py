@@ -9,6 +9,18 @@ opts.add_argument('-headless')
 d = webdriver.Firefox(options=opts)
 res = []
 def ok(c, m): res.append(('PASS ' if c else 'FAIL ') + m)
+
+# покупатель сначала отвечает на плашку cookie; на file:// у каждой страницы своё хранилище — плашка может появиться снова
+_get = d.get
+def get_and_answer_cookie(url):
+    _get(url); time.sleep(.4)
+    d.execute_script("var b=document.querySelector('#cookieBar .cookie-no'); if (b) b.click();")
+d.get = get_and_answer_cookie
+_click = webdriver.remote.webelement.WebElement.click
+def click_after_cookie(el):
+    el.parent.execute_script("var b=document.querySelector('#cookieBar .cookie-no'); if (b) b.click();")
+    _click(el)
+webdriver.remote.webelement.WebElement.click = click_after_cookie
 try:
     d.get(base + '/catalog.html')
     card = d.find_element(By.CSS_SELECTOR, '.pcard[data-slug="miks-sanek"]')
