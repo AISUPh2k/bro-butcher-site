@@ -565,9 +565,11 @@ def build_cart():
       </div>
       <form class="checkout" id="checkout" novalidate>
         <h2>Оформление</h2>
+        <div class="remember" id="remember" hidden></div>
         <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" required></div>
         <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (900) 123-45-67" maxlength="18" required></div>
-        <div class="field"><label for="f-addr">Адрес доставки</label><input id="f-addr" name="address" autocomplete="street-address" required></div>
+        <div class="field addr-field"><label for="f-addr">Адрес доставки</label><input id="f-addr" name="address" autocomplete="street-address" required aria-controls="addrSuggest">
+          <ul class="addr-suggest" id="addrSuggest" role="listbox" aria-label="Ваши прошлые адреса" hidden></ul></div>
         <fieldset class="field"><legend>Зона доставки</legend>
           <label class="radio"><input type="radio" name="zone" value="mkad" checked> Москва в пределах МКАД</label>
           <label class="radio"><input type="radio" name="zone" value="out"> За МКАД <small>+{D["outside_per_km"]}&nbsp;₽/км, точную сумму сообщим</small></label>
@@ -581,6 +583,7 @@ def build_cart():
         </dl>
         <p class="hint" id="minHint" hidden></p>
         <label class="check consent"><input type="checkbox" name="consent" id="f-consent"> <span>Даю согласие на обработку персональных данных в соответствии с <a href="privacy.html" target="_blank">политикой</a></span></label>
+        <label class="check consent"><input type="checkbox" id="f-remember" checked> <span>Запомнить мои данные на этом устройстве</span></label>
         <p class="hint error" id="formError" hidden></p>
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
         <button class="btn btn-primary btn-block" type="submit" id="sendOrder">{icon("cart" if ORDER_API else "chat")}{"Оформить заказ" if ORDER_API else "Отправить заказ в WhatsApp"}</button>
@@ -679,7 +682,8 @@ def build_privacy():
             'Заключение и исполнение договора купли-продажи, стороной которого является Пользователь (п. 5 ч. 1 ст. 6 Закона о персональных данных).',
         ]),
         ('5. Как обрабатываются данные', [
-            'Сайт не хранит персональные данные на сервере. Содержимое корзины хранится только в браузере Пользователя. При нажатии «Отправить заказ» сайт формирует текст заказа, который Пользователь сам отправляет Оператору через мессенджер WhatsApp или передаёт по телефону.',
+            'При оформлении заказа на Сайте имя, телефон, адрес и состав заказа передаются Оператору: сохраняются в журнале заказов на сервере, расположенном на территории Российской Федерации, и направляются Оператору по электронной почте для сборки и доставки. Если приём заказов через Сайт временно недоступен, Пользователь может отправить сформированный текст заказа через мессенджер WhatsApp или передать его по телефону.',
+            'Содержимое корзины хранится только в браузере Пользователя. Если при оформлении отмечено «Запомнить мои данные на этом устройстве», имя, телефон и адреса доставки сохраняются в браузере Пользователя (на сервер в этом виде не передаются), чтобы подставить их при следующем заказе. Удалить их можно кнопкой «Забыть мои данные» в корзине или очисткой данных сайта в браузере.',
             'Для доставки заказа имя, телефон и адрес передаются курьеру, выполняющему доставку.',
             'Мессенджеры и сервисы статистики обрабатывают данные в соответствии со своими правилами. Оператором мессенджера WhatsApp является иностранная компания, поэтому отправка заказа через WhatsApp может сопровождаться трансграничной передачей данных. Пользователь, не желающий этого, может оформить заказ по телефону.',
             'Оператор не продаёт и не передаёт персональные данные третьим лицам, кроме случаев, указанных выше или предусмотренных законодательством РФ.',

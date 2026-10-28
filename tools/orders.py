@@ -109,6 +109,40 @@ def save(order):
     os.replace(path + '.tmp', path)
 
 
+STATUSES = ('new', 'done', 'cancelled')  # в обработке / выполнен / отменён
+
+
+def all_orders(limit=500):
+    """Журнал для админки: новые сверху."""
+    out = []
+    if not os.path.isdir(ORDERS): return out
+    for year in sorted((d for d in os.listdir(ORDERS) if d.isdigit()), reverse=True):
+        for f in os.listdir(os.path.join(ORDERS, year)):
+            if f.endswith('.json'):
+                try: out.append(json.load(open(os.path.join(ORDERS, year, f), encoding='utf-8')))
+                except (OSError, ValueError): pass
+    out.sort(key=lambda o: o.get('number', 0), reverse=True)
+    return out[:limit]
+
+
+def find(number):
+    for year in (d for d in os.listdir(ORDERS) if d.isdigit()) if os.path.isdir(ORDERS) else ():
+        path = os.path.join(ORDERS, year, f'{int(number)}.json')
+        if os.path.exists(path): return json.load(open(path, encoding='utf-8'))
+    return None
+
+
+def set_status(number, status):
+    if status not in STATUSES: raise OrderError('Неизвестный статус')
+    with LOCK:
+        o = find(number)
+        if not o: raise OrderError('Заказ не найден')
+        o['status'] = status
+        o['status_at'] = datetime.datetime.now(MSK).isoformat(timespec='seconds')
+        save(o)
+    return o
+
+
 # ---------------------------------------------------------------- письмо
 def total_text(o):
     return ('от ' if o['zone'] == 'out' else '') + rub(o['total'])

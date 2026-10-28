@@ -45,9 +45,11 @@ a{color:var(--burgundy);}
 .tab{border:0; background:none; padding:10px 16px; border-radius:999px; cursor:pointer; font-weight:600; color:var(--soft);}
 .tab[aria-selected="true"]{background:var(--ink); color:var(--surface);}
 .top-links{display:flex; gap:16px; align-items:center; font-size:.92rem; white-space:nowrap;}
+@media (max-width:420px){.top .logo{display:none;} .tab{padding:8px 9px !important; font-size:.86rem !important;}}
 @media (max-width:600px){
   .top-in{gap:8px; padding:8px 12px; flex-wrap:nowrap;}
   .top .logo{font-size:1.2rem;}
+  .tab-count{margin-left:4px; min-width:18px; line-height:18px;}
   .tabs{gap:2px;} .tab{padding:8px 11px; font-size:.9rem;}
   .top-links{gap:10px; font-size:.86rem;} .top-links .wide{display:none;}
   .list-col{top:56px;}
@@ -147,6 +149,32 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
 .slide-num{font:500 .95rem 'Oswald',sans-serif; color:var(--faint); text-transform:uppercase; letter-spacing:.06em;}
 .fixed-note{background:var(--surface); border:1.5px dashed var(--line2); border-radius:var(--r); padding:14px 18px; margin-bottom:16px; color:var(--soft); font-size:.92rem;}
 .err-box{color:var(--pom); font-weight:600;}
+.tab-count{display:inline-block; min-width:20px; margin-left:6px; padding:0 6px; border-radius:999px; background:var(--pom); color:#fff; font-size:.75rem; line-height:20px; text-align:center;}
+.orders-head{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:16px;}
+.orders-head h1{margin-right:auto;}
+.seg{display:inline-flex; background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:3px;}
+.seg button{border:0; background:none; padding:8px 16px; border-radius:999px; cursor:pointer; font-weight:600; color:var(--soft);}
+.seg button[aria-pressed="true"]{background:var(--olive); color:#f4f2e2;}
+.order{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px 20px; margin-bottom:12px; display:grid; grid-template-columns:1fr auto; gap:14px 24px;}
+.order.is-done{opacity:.8;} .order.is-cancelled{opacity:.6;}
+.order-top{grid-column:1 / -1; display:flex; align-items:baseline; gap:10px 14px; flex-wrap:wrap;}
+.order-top h2{font-size:1.25rem; color:var(--ink);}
+.order-top .when{color:var(--faint); font-size:.9rem;}
+.order-top .sum{margin-left:auto; font:500 1.5rem 'Oswald',sans-serif;}
+.st{display:inline-block; padding:2px 10px; border-radius:999px; font-size:.78rem; font-weight:600;}
+.st-new{background:#ecebd9; color:var(--olive);} .st-done{background:#e5ecdc; color:var(--ok);} .st-cancelled{background:#ead2d2; color:var(--pom);} .st-mail{background:#ead2d2; color:var(--pom);}
+.order-client .name{font-weight:600; font-size:1.05rem;}
+.order-client .phone{display:inline-block; margin:2px 0 6px; font:500 1.35rem 'Oswald',sans-serif; color:var(--burgundy); text-decoration:none;}
+.order-client .addr{color:var(--soft);}
+.order-client .comment{margin-top:8px; padding:8px 12px; border-left:3px solid var(--brass); background:var(--surface); border-radius:4px; font-size:.92rem;}
+.order-items{list-style:none; margin:0; padding:0; font-size:.92rem; min-width:260px;}
+.order-items li{display:flex; justify-content:space-between; gap:12px; padding:4px 0; border-bottom:1px dashed var(--line);}
+.order-items li span:last-child{white-space:nowrap; font-weight:600;}
+.order-items .tot{border:0; padding-top:8px; color:var(--soft);}
+.order-actions{grid-column:1 / -1; display:flex; gap:8px; flex-wrap:wrap;}
+.btn-ok{background:var(--olive); border-color:var(--olive); color:#f4f2e2;}
+.btn-ok:hover{background:#4d4c2c; border-color:#4d4c2c;}
+@media (max-width:700px){.order{grid-template-columns:1fr;} .order-items{min-width:0;} .order-top .sum{margin-left:0;}}
 .demo-bar{background:var(--olive); color:#f4f2e2; text-align:center; padding:8px 16px; font-size:.9rem;}
 </style>
 </head>
@@ -167,14 +195,27 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
   <header class="top"><div class="top-in">
     <div class="logo">БРО</div>
     <nav class="tabs" role="tablist">
-      <button class="tab" role="tab" data-tab="products" aria-selected="true">Товары</button>
+      <button class="tab" role="tab" data-tab="orders" aria-selected="true">Заказы<span class="tab-count" id="openBadge" hidden></span></button>
+      <button class="tab" role="tab" data-tab="products" aria-selected="false">Товары</button>
       <button class="tab" role="tab" data-tab="slides" aria-selected="false">Объявления</button>
     </nav>
     <div class="top-links"><a href="../" target="_blank" rel="noopener"><span class="wide">Открыть </span>сайт ↗</a><button class="btn-link" id="logout" type="button">Выйти</button></div>
   </div></header>
 
   <main>
-    <section id="tab-products">
+    <section id="tab-orders">
+      <div class="orders-head">
+        <h1>Заказы</h1>
+        <div class="seg" role="group" aria-label="Какие заказы показать">
+          <button type="button" data-of="open" aria-pressed="true">В обработке</button>
+          <button type="button" data-of="history" aria-pressed="false">История</button>
+        </div>
+        <button class="btn btn-small" type="button" id="ordersRefresh">Обновить</button>
+      </div>
+      <div id="orderList"></div>
+    </section>
+
+    <section id="tab-products" hidden>
       <div class="layout" id="layout">
         <aside class="list-col">
           <div class="list-tools">
@@ -261,7 +302,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     </section>
   </main>
 
-  <div class="savebar"><div class="savebar-in">
+  <div class="savebar" id="savebar" hidden><div class="savebar-in">
     <span class="status" id="status" role="status" aria-live="polite">Изменения появятся на сайте сразу после сохранения.</span>
     <button class="btn btn-main" type="button" id="save">Сохранить</button>
   </div></div>
@@ -270,7 +311,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
 <script>
 (function () {
   'use strict';
-  var S = { products: [], cats: [], slides: [], icons: [], hitMax: 10, cur: null, dirty: false, tab: 'products' };
+  var S = { products: [], cats: [], slides: [], icons: [], hitMax: 10, cur: null, dirty: false, tab: 'orders', orders: [], of: 'open' };
   var WEIGHTS = ['100 г', '200 г', '300 г', '0,5 кг', '0,7 кг', '1 кг'];
   var ICON_NAMES = { home: 'Домик', gift: 'Подарок', truck: 'Машина', leaf: 'Листик', snow: 'Снежинка', wallet: 'Кошелёк', chat: 'Сообщение', clock: 'Часы', pin: 'Место' };
   var LINKS = [['hotel.html', 'Страница гостиницы'], ['catalog.html', 'Каталог'], ['catalog.html?cat=mix', 'Каталог: миксы'],
@@ -320,6 +361,21 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     }
     if (path.indexOf('/api/photo') === 0) return wait({ ok: true, img: URL.createObjectURL(opts.body), v: 0 });
     if (path === '/api/slides') return wait({ ok: true, slides: body.slides });
+    if (path === '/api/orders') {
+      if (!DEMO_DATA.orders) {
+        var pick = function (slug, opt, q) { var p = DEMO_DATA.products.filter(function (x) { return x.slug === slug; })[0], pr = p.options.filter(function (o) { return o[0] === opt; })[0][1]; return { name: p.name, option: opt, qty: q, price: pr, sum: pr * q }; };
+        var mk = function (n, when, name, phone, addr, comment, items, status, zone) {
+          var goods = items.reduce(function (a, i) { return a + i.sum; }, 0), fee = goods >= 5000 ? 0 : 350;
+          return { number: n, created_human: when, name: name, phone: phone, phone_raw: '+70000000000', address: addr, zone: zone || 'mkad', comment: comment, items: items, goods: goods, fee: fee, total: goods + fee, status: status, mail: 'sent' };
+        };
+        DEMO_DATA.orders = [
+          mk(3, 'сегодня 14:20', 'Пример: Анна', '+7 (900) 000-00-01', 'Москва, ул. Примерная, 1, кв. 5', 'Позвонить за час', [pick('miks-sanek', '1 кг', 4), pick('gulyash', '1 кг', 2)], 'new'),
+          mk(2, 'сегодня 11:05', 'Пример: Ольга', '+7 (900) 000-00-02', 'Люберцы, ул. Образцовая, 7', '', [pick('miks-lyalya', '1 кг', 6)], 'new', 'out'),
+          mk(1, 'вчера 18:40', 'Пример: Сергей', '+7 (900) 000-00-03', 'Москва, пр. Тестовый, 12', '', [pick('miks-sanek', '1 кг', 10)], 'done')];
+      }
+      return wait({ orders: DEMO_DATA.orders });
+    }
+    if (path === '/api/orders/status') { DEMO_DATA.orders.forEach(function (o) { if (o.number === body.number) o.status = body.status; }); return wait({ ok: true }); }
     return Promise.reject(new Error('В демо это недоступно'));
   }
 
@@ -340,7 +396,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     return api('/api/state').then(function (d) {
       S.products = d.products; S.cats = d.cats; S.slides = d.slides; S.icons = d.icons; S.hitMax = d.hit_max;
       $('#login').hidden = true; $('#app').hidden = false; $('#demoBar').hidden = !window.BRO_DEMO;
-      initFilters(); renderList(); renderSlides();
+      initFilters(); renderList(); renderSlides(); loadOrders();
     });
   }
 
@@ -351,7 +407,9 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
       if (S.dirty && !confirm('Есть несохранённые изменения. Перейти без сохранения?')) return;
       S.dirty = false; S.tab = t.dataset.tab;
       $$('.tab').forEach(function (x) { x.setAttribute('aria-selected', x === t ? 'true' : 'false'); });
-      $('#tab-products').hidden = S.tab !== 'products'; $('#tab-slides').hidden = S.tab !== 'slides';
+      $('#tab-products').hidden = S.tab !== 'products'; $('#tab-slides').hidden = S.tab !== 'slides'; $('#tab-orders').hidden = S.tab !== 'orders';
+      $('#savebar').hidden = S.tab === 'orders';
+      if (S.tab === 'orders') loadOrders();
       if (S.tab === 'slides') { S.slides = JSON.parse(JSON.stringify(S.saved || S.slides)); renderSlides(); }
       status('Изменения появятся на сайте сразу после сохранения.');
     });
@@ -360,6 +418,57 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
   document.addEventListener('input', function (e) { if (e.target.closest('#pform, #slideList') && e.target.type !== 'file') markDirty(); });
   document.addEventListener('change', function (e) { if (e.target.closest('#pform, #slideList') && e.target.type !== 'file') markDirty(); });
   function markDirty() { if (!S.dirty) { S.dirty = true; status('Есть несохранённые изменения'); } }
+
+  /* ---------- заказы ---------- */
+  var ST = { 'new': ['В обработке', 'st-new'], done: ['Выполнен', 'st-done'], cancelled: ['Отменён', 'st-cancelled'] };
+  function loadOrders() {
+    return api('/api/orders').then(function (d) { S.orders = d.orders; renderOrders(); })
+      .catch(function (err) { $('#orderList').innerHTML = '<div class="empty">' + esc(err.message) + '</div>'; });
+  }
+  function renderOrders() {
+    var open = S.orders.filter(function (o) { return (o.status || 'new') === 'new'; });
+    var badge = $('#openBadge'); badge.textContent = open.length; badge.hidden = !open.length;
+    var list = S.of === 'open' ? open : S.orders.filter(function (o) { return (o.status || 'new') !== 'new'; });
+    $('#orderList').innerHTML = list.map(function (o) {
+      var st = ST[o.status || 'new'];
+      var items = o.items.map(function (i) {
+        return '<li><span>' + esc(i.name) + ' — ' + esc(i.option) + ' × ' + i.qty + '</span><span>' + rub(i.sum) + '</span></li>';
+      }).join('') + '<li class="tot"><span>Товары ' + rub(o.goods) + ', доставка ' + (o.fee ? rub(o.fee) : 'бесплатно') + (o.zone === 'out' ? ' + км за МКАД' : '') + '</span><span></span></li>';
+      var acts = '<a class="btn btn-small" href="../api/orders/pdf?n=' + o.number + '" data-pdf="' + o.number + '">Скачать накладную (PDF)</a>' +
+        (o.status === 'new' || !o.status
+          ? '<button type="button" class="btn btn-small btn-ok" data-st="done" data-n="' + o.number + '">Выполнен ✓</button>' +
+            '<button type="button" class="btn btn-small btn-danger" data-st="cancelled" data-n="' + o.number + '">Отменить</button>'
+          : '<button type="button" class="btn btn-small" data-st="new" data-n="' + o.number + '">Вернуть в работу</button>');
+      return '<article class="order is-' + (o.status || 'new') + '">' +
+        '<div class="order-top"><h2>Заказ №' + o.number + '</h2><span class="when">' + esc(o.created_human) + '</span>' +
+          '<span class="st ' + st[1] + '">' + st[0] + '</span>' + (o.mail === 'failed' ? '<span class="st st-mail">письмо не ушло</span>' : '') +
+          '<span class="sum">' + (o.zone === 'out' ? 'от ' : '') + rub(o.total) + '</span></div>' +
+        '<div class="order-client"><div class="name">' + esc(o.name) + '</div><a class="phone" href="tel:' + esc(o.phone_raw) + '">' + esc(o.phone) + '</a>' +
+          '<div class="addr">' + esc(o.address) + (o.zone === 'out' ? ' · за МКАД' : '') + '</div>' +
+          (o.comment ? '<div class="comment">' + esc(o.comment) + '</div>' : '') + '</div>' +
+        '<ul class="order-items">' + items + '</ul>' +
+        '<div class="order-actions">' + acts + '</div></article>';
+    }).join('') || '<div class="empty">' + (S.of === 'open' ? 'Новых заказов нет.' : 'История пока пуста.') + '</div>';
+  }
+  $$('.seg button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      S.of = b.dataset.of; $$('.seg button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); renderOrders();
+    });
+  });
+  $('#ordersRefresh').addEventListener('click', loadOrders);
+  $('#orderList').addEventListener('click', function (e) {
+    var pdf = e.target.closest('[data-pdf]');
+    if (pdf && window.BRO_DEMO) { e.preventDefault(); alertDemo('В демо-версии накладную скачать нельзя — на сайте Натальи будет PDF.'); return; }
+    var b = e.target.closest('[data-st]'); if (!b) return;
+    var n = +b.dataset.n, stt = b.dataset.st;
+    if (stt === 'cancelled' && !confirm('Отменить заказ №' + n + '?')) return;
+    b.disabled = true;
+    api('/api/orders/status', { json: { number: n, status: stt } }).then(function () {
+      S.orders.forEach(function (o) { if (o.number === n) o.status = stt; }); renderOrders();
+    }).catch(function (err) { b.disabled = false; alert(err.message); });
+  });
+  function alertDemo(msg) { var el = $('#orderList .demo-note'); if (!el) { $('#orderList').insertAdjacentHTML('afterbegin', '<div class="fixed-note demo-note"></div>'); el = $('#orderList .demo-note'); } el.textContent = msg; }
+  setInterval(function () { if (S.tab === 'orders' && !document.hidden && !$('#app').hidden) loadOrders(); }, 60000);
 
   /* ---------- список товаров ---------- */
   function catName(k) { for (var i = 0; i < S.cats.length; i++) if (S.cats[i][0] === k) return S.cats[i][1]; return k; }

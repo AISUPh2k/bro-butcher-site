@@ -379,6 +379,56 @@
       phone.value = formatPhone(prevDigits);
     });
 
+    /* ---------- «как в прошлый раз»: имя, телефон и адреса живут только в браузере покупателя ---------- */
+    var ME_KEY = 'bro_me_v1';
+    function loadMe() { try { var v = JSON.parse(localStorage.getItem(ME_KEY) || 'null'); return v && v.phone ? v : null; } catch (e) { return null; } }
+    function rememberMe() {
+      try {
+        if (!$('#f-remember').checked) { localStorage.removeItem(ME_KEY); return; }
+        var f = form.elements, me = loadMe() || { addresses: [] };
+        var addr = f.address.value.trim(), zone = (form.querySelector('[name=zone]:checked') || {}).value || 'mkad';
+        me.name = f.name.value.trim(); me.phone = prevDigits;
+        me.addresses = [{ a: addr, z: zone }].concat((me.addresses || []).filter(function (x) { return x.a.toLowerCase() !== addr.toLowerCase(); })).slice(0, 3);
+        localStorage.setItem(ME_KEY, JSON.stringify(me));
+      } catch (e) { /* приватный режим — просто не запоминаем */ }
+    }
+    function fillAddress(x) {
+      form.elements.address.value = x.a;
+      var r = form.querySelector('[name=zone][value="' + x.z + '"]'); if (r) { r.checked = true; renderTotals(); }
+    }
+    function fillMe(me, x) {
+      form.elements.name.value = me.name || '';
+      prevDigits = me.phone; phone.value = formatPhone(prevDigits);
+      fillAddress(x || me.addresses[0]);
+      ['name', 'phone', 'address'].forEach(function (n) { form.elements[n].setAttribute('aria-invalid', 'false'); });
+    }
+    function renderRemember() {
+      var me = loadMe(), box = $('#remember'), sug = $('#addrSuggest');
+      if (!me) { box.hidden = true; sug.innerHTML = ''; return; }
+      box.innerHTML = '<p><b>' + (me.name ? 'С возвращением, ' + esc(me.name) + '!' : 'Вы уже заказывали у нас') + '</b> Заполнить как в прошлый раз:</p>' +
+        me.addresses.map(function (x, i) {
+          return '<button type="button" class="remember-fill" data-i="' + i + '"><span>' + esc(formatPhone(me.phone)) + '</span>' + esc(x.a) + (x.z === 'out' ? ' · за МКАД' : '') + '</button>';
+        }).join('') + '<button type="button" class="remember-forget">Забыть мои данные</button>';
+      box.hidden = false;
+      sug.innerHTML = me.addresses.map(function (x, i) { return '<li role="option" tabindex="-1" data-i="' + i + '">' + esc(x.a) + '</li>'; }).join('');
+    }
+    $('#remember').addEventListener('click', function (e) {
+      var me = loadMe(); if (!me) return;
+      var b = e.target.closest('.remember-fill');
+      if (b) { fillMe(me, me.addresses[+b.dataset.i]); $('#f-consent').focus(); return; }
+      if (e.target.closest('.remember-forget')) { try { localStorage.removeItem(ME_KEY); } catch (err) { } renderRemember(); toast('<span>Готово: ваши данные удалены с этого устройства</span>'); }
+    });
+    var addrInput = form.elements.address, sug = $('#addrSuggest');
+    function showSug(on) { sug.hidden = !on || !sug.children.length; }
+    addrInput.addEventListener('focus', function () { if (!addrInput.value) showSug(true); });
+    addrInput.addEventListener('input', function () { showSug(!addrInput.value); });
+    addrInput.addEventListener('blur', function () { setTimeout(function () { showSug(false); }, 150); });
+    sug.addEventListener('mousedown', function (e) {
+      var li = e.target.closest('li'); if (!li) return;
+      e.preventDefault(); fillAddress(loadMe().addresses[+li.dataset.i]); showSug(false);
+    });
+    renderRemember();
+
     function orderText() {
       var c = calc(), f = form.elements, out = ['Здравствуйте! Заказ с сайта:', ''];
       c.lines.forEach(function (l, i) {
@@ -412,6 +462,7 @@
       err.hidden = true; return true;
     }
     function sendWhatsApp() {
+      rememberMe();
       var url = 'https://wa.me/' + BRO.site.whatsapp + '?text=' + encodeURIComponent(orderText());
       var w = window.open(url, '_blank', 'noopener');
       if (!w) location.href = url;
@@ -434,7 +485,7 @@
       }).then(function (res) {
         if (!res.ok) throw res.d;
         var d = res.d;
-        save([]);
+        save([]); rememberMe();
         app.hidden = true; $('#cartEmpty').hidden = true;
         var done = $('#orderDone');
         done.innerHTML = '<p class="eyebrow">Заказ принят</p><h2>Спасибо за заказ!</h2>' +

@@ -254,6 +254,22 @@ class Handler(http.server.BaseHTTPRequestHandler):
             return self.send(200, {'products': load('products.json'), 'cats': CATS, 'slides': site.get('slides', []),
                                    'icons': ICON_CHOICES, 'hit_max': build.HIT_MAX})
         if url.path == '/api/session': return self.send(200, {'ok': self.authed()})
+        if url.path == '/api/orders':
+            if not self.authed(): return self.send(401, {'error': 'Войдите заново'})
+            keep = ('number', 'created_human', 'name', 'phone', 'phone_raw', 'address', 'zone', 'comment', 'items',
+                    'goods', 'fee', 'total', 'status', 'mail')
+            return self.send(200, {'orders': [{k: o.get(k) for k in keep} for o in orders.all_orders()]})
+        if url.path == '/api/orders/pdf':
+            if not self.authed(): return self.send(401, b'login', 'text/plain; charset=utf-8')
+            q = urllib.parse.parse_qs(url.query)
+            try: o = orders.find(int((q.get('n') or ['0'])[0]))
+            except ValueError: o = None
+            if not o: return self.send(404, b'not found', 'text/plain')
+            pdf = orders.mail_pdf(o)
+            name = urllib.parse.quote(f'Заказ-{o["number"]}' + ('.pdf' if pdf else '.html'))
+            disp = [('Content-Disposition', f"attachment; filename*=UTF-8''{name}")]
+            if pdf: return self.send(200, pdf, 'application/pdf', disp)
+            return self.send(200, orders.mail_html(o).encode(), 'text/html; charset=utf-8', disp)  # нет fpdf2 — HTML-накладная
         if url.path in ('/admin', '/admin/'): return self.static(ADMIN, 'index.html')
         if url.path.startswith('/admin/'): return self.static(ADMIN, url.path[len('/admin/'):])
         return self.static(DIST, url.path.lstrip('/'))
@@ -288,6 +304,11 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 if url.path == '/api/product': return self.product()
                 if url.path == '/api/photo': return self.photo(urllib.parse.parse_qs(url.query))
                 if url.path == '/api/slides': return self.slides()
+                if url.path == '/api/orders/status':
+                    d = self.json_body()
+                    try: o = orders.set_status(int(d.get('number') or 0), d.get('status'))
+                    except orders.OrderError as ex: raise Bad(str(ex))
+                    return self.send(200, {'ok': True, 'status': o['status']})
             self.send(404, {'error': 'Нет такого действия'})
         except Bad as ex:
             self.send(400, {'error': str(ex)})
