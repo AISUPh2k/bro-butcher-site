@@ -5,6 +5,7 @@ services:
     build: ..
     container_name: bro-site
     restart: unless-stopped
+    logging: {driver: json-file, options: {max-size: 10m, max-file: "3"}}
     user: "1000:1000"
     environment:
       BRO_COOKIE_SECURE: "1"
@@ -22,6 +23,7 @@ services:
     image: caddy:2.8.4
     container_name: bro-caddy
     restart: unless-stopped
+    logging: {driver: json-file, options: {max-size: 10m, max-file: "3"}}
     ports:
       - "80:80"
       - "443:443"

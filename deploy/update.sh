@@ -8,4 +8,5 @@ git fetch -q origin
 git checkout origin/main -- build.py admin tools Dockerfile .dockerignore compose.yaml deploy \
   static/css static/js static/fonts static/img/brand
 docker compose -f deploy/compose.prod.yaml up -d --build
+docker image prune -f >/dev/null; docker builder prune -f >/dev/null
 echo "Код обновлён. Данные из админки не тронуты."

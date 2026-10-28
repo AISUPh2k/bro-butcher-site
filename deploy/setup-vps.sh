@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Первичная настройка чистого VPS (Ubuntu 24.04) под сайт БРО. Запускать от root на сервере:
+# Первичная настройка чистого VPS (Ubuntu 24.04, хватает 1 ядра / 1 ГБ / 10 ГБ) под сайт БРО. Запускать от root на сервере:
 #   bash setup-vps.sh
 # Делает: Docker из репозитория Ubuntu, файрвол (22/80/443), пользователь bro, код сайта в /home/bro/site,
 # пароль админки и настройки почты (вводятся вручную, в чат их не присылать), запуск, ежедневный бэкап.
@@ -8,6 +8,8 @@ REPO=${REPO:-https://github.com/AISUPh2k/bro-butcher-site.git}
 DIR=/home/bro/site
 
 echo "== пакеты"
+# журнал systemd — не больше 200 МБ
+mkdir -p /etc/systemd/journald.conf.d && printf '[Journal]\nSystemMaxUse=200M\n' > /etc/systemd/journald.conf.d/size.conf && systemctl restart systemd-journald
 apt-get update -q
 apt-get install -y -q docker.io docker-compose-v2 git ufw
 
@@ -44,10 +46,11 @@ fi
 
 echo "== запуск"
 sudo -u bro docker compose -f deploy/compose.prod.yaml up -d --build
+docker image prune -f >/dev/null; docker builder prune -f >/dev/null  # диск 10 ГБ — не копим старые слои
 
-echo "== ежедневный бэкап данных и заказов (03:30, хранится 30 дней)"
+echo "== ежедневный бэкап данных и заказов (03:30, хранится 14 дней)"
 cat > /etc/cron.d/bro-backup <<CRON
-30 3 * * * bro tar -czf /home/bro/backup-\$(date +\%F).tgz -C $DIR data orders static/img/products admin.secret.json orders.config.json && find /home/bro -name 'backup-*.tgz' -mtime +30 -delete
+30 3 * * * bro tar -czf /home/bro/backup-\$(date +\%F).tgz -C $DIR data orders static/img/products admin.secret.json orders.config.json && find /home/bro -name 'backup-*.tgz' -mtime +14 -delete
 CRON
 
 echo "Готово. Проверка: curl -sI http://127.0.0.1 (после смены DNS — https://myaso-sobakam-bro.ru)"
