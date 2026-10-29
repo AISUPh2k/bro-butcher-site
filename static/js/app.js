@@ -169,15 +169,36 @@
   })();
 
   /* ---------- options, qty, add ---------- */
+  /* Цена на экране = цена выбранной фасовки (из админки) × количество. Сами цены не меняются:
+     в корзину уходят фасовка и количество, сумму заказа сервер считает заново по products.json. */
+  function renderPrice(card) {
+    var po = $('[data-price-out]', card), uo = $('[data-unit-out]', card), add = $('[data-add]', card);
+    if (!po || !add) return;
+    var slug = add.getAttribute('data-add'), label = add.getAttribute('data-opt');
+    var price = optPrice(slug, label); if (price === null) return;
+    var qi = $('[data-qty-input]', card), q = qi ? Math.max(1, Math.min(99, parseInt(qi.value, 10) || 1)) : 1;
+    po.textContent = rub(price * q);
+    if (uo) uo.textContent = q > 1 ? q + ' × ' + label + ' · по ' + rub(price) : 'за ' + label;
+  }
+  document.addEventListener('input', function (e) {
+    var qi = e.target.closest('[data-qty-input]');
+    if (qi && !qi.closest('.cart-item')) renderPrice(qi.closest('.pcard'));
+  });
+  document.addEventListener('change', function (e) {
+    var qi = e.target.closest('[data-qty-input]');
+    if (qi && !qi.closest('.cart-item')) { qi.value = Math.max(1, Math.min(99, parseInt(qi.value, 10) || 1)); renderPrice(qi.closest('.pcard')); }
+  });
   document.addEventListener('click', function (e) {
     var opt = e.target.closest('.opt');
     if (opt) {
       var card = opt.closest('.pcard');
       $$('.opt', card).forEach(function (b) { b.setAttribute('aria-pressed', b === opt ? 'true' : 'false'); });
       var po = $('[data-price-out]', card), uo = $('[data-unit-out]', card), add = $('[data-add]', card);
-      if (po) po.textContent = rub(+opt.getAttribute('data-price'));
-      if (uo) uo.textContent = 'за ' + opt.getAttribute('data-opt');
-      if (add) { add.setAttribute('data-opt', opt.getAttribute('data-opt')); syncAddButtons(); }
+      if (add) { add.setAttribute('data-opt', opt.getAttribute('data-opt')); syncAddButtons(); renderPrice(card); }
+      else {  // нет кнопки «В корзину» (нет в наличии) — показываем цену фасовки как есть
+        if (po) po.textContent = rub(+opt.getAttribute('data-price'));
+        if (uo) uo.textContent = 'за ' + opt.getAttribute('data-opt');
+      }
       return;
     }
     var step = e.target.closest('[data-qty-dec],[data-qty-inc]');
@@ -185,6 +206,7 @@
       var input = $('[data-qty-input]', step.closest('[data-qty]'));
       var v = (parseInt(input.value, 10) || 1) + (step.hasAttribute('data-qty-inc') ? 1 : -1);
       input.value = Math.max(1, Math.min(99, v));
+      renderPrice(step.closest('.pcard'));
       return;
     }
     var addBtn = e.target.closest('[data-add]');
