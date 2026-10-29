@@ -621,9 +621,11 @@ def build_delivery():
     </div>
     <div class="prose">
       <h2>Как оформить заказ</h2>
-      <ol><li>Соберите корзину на сайте и нажмите «Отправить заказ в WhatsApp» — текст заказа сформируется сам.</li>
-      <li>Или напишите нам в WhatsApp: <a href="{wa_link()}" target="_blank" rel="noopener">{SITE["phone"]}</a>.</li>
-      <li>Менеджер подтвердит наличие, сумму и время доставки.</li></ol>
+      <ol><li>Собираете корзину и оформляете заказ.</li>
+      <li>Мы подтверждаем заказ и начинаем изготовление. Всегда свежие миксы.</li>
+      <li>Доставка {D["window"]}<sup class="fn">*</sup>.</li></ol>
+      <p class="steps-note" style="text-align:left"><sup>*</sup> Возможна задержка из-за дорожной обстановки.</p>
+      <p>Можно и без корзины — напишите нам в WhatsApp: <a href="{wa_link()}" target="_blank" rel="noopener">{SITE["phone"]}</a>.</p>
       <p>Принимаем заказы: {SITE["hours"]}.</p>
     </div>
   </div>
