@@ -264,14 +264,19 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if url.path == '/api/orders/pdf':
             if not self.authed(): return self.send(401, b'login', 'text/plain; charset=utf-8')
             q = urllib.parse.parse_qs(url.query)
-            try: o = orders.find(int((q.get('n') or ['0'])[0]))
-            except ValueError: o = None
-            if not o: return self.send(404, b'not found', 'text/plain')
-            pdf = orders.mail_pdf(o)
-            name = urllib.parse.quote(f'Заказ-{o["number"]}' + ('.pdf' if pdf else '.html'))
-            disp = [('Content-Disposition', f"attachment; filename*=UTF-8''{name}")]
+            # n=17 — одна накладная; n=17,18,21 — пачка для печати, каждый заказ с нового листа
+            try: nums = list(dict.fromkeys(int(x) for x in (q.get('n') or [''])[0].split(',') if x.strip()))[:100]
+            except ValueError: nums = []
+            found = [o for o in (orders.find(n) for n in nums) if o]
+            if not found: return self.send(404, b'not found', 'text/plain')
+            pdf = orders.orders_pdf(found)
+            stem = f'Заказ-{found[0]["number"]}' if len(found) == 1 else f'Накладные-{len(found)}-шт'
+            name = urllib.parse.quote(stem + ('.pdf' if pdf else '.html'))
+            how = 'inline' if q.get('print') else 'attachment'  # print=1 — открыть в браузере, чтобы сразу Ctrl+P
+            disp = [('Content-Disposition', f"{how}; filename*=UTF-8''{name}")]
             if pdf: return self.send(200, pdf, 'application/pdf', disp)
-            return self.send(200, orders.mail_html(o).encode(), 'text/html; charset=utf-8', disp)  # нет fpdf2 — HTML-накладная
+            page = '<div style="page-break-after:always"></div>'.join(orders.mail_html(o) for o in found)  # нет fpdf2 — HTML-накладные
+            return self.send(200, page.encode(), 'text/html; charset=utf-8', disp)
         if url.path in ('/admin', '/admin/'): return self.static(ADMIN, 'index.html')
         if url.path.startswith('/admin/'): return self.static(ADMIN, url.path[len('/admin/'):])
         return self.static(DIST, url.path.lstrip('/'))

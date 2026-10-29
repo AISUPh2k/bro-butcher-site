@@ -158,6 +158,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
 .order{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px 20px; margin-bottom:12px; display:grid; grid-template-columns:1fr auto; gap:14px 24px;}
 .order.is-done{opacity:.8;} .order.is-cancelled{opacity:.6;}
 .order-top{grid-column:1 / -1; display:flex; align-items:baseline; gap:10px 14px; flex-wrap:wrap;}
+.print-bar{display:flex; align-items:center; gap:10px 14px; flex-wrap:wrap; margin-bottom:12px; padding:10px 14px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r);}
+.print-bar .hint{font-size:.84rem;}
+.pick{align-self:center; display:inline-flex; cursor:pointer;}
+.pick input{width:22px; height:22px; margin:0; accent-color:var(--olive); cursor:pointer;}
+.order.is-picked{border-color:var(--olive); box-shadow:0 0 0 2px rgba(95,94,56,.25);}
 .order-top h2{font-size:1.25rem; color:var(--ink);}
 .order-top .when{color:var(--faint); font-size:.9rem;}
 .order-top .sum{margin-left:auto; font:500 1.5rem 'Oswald',sans-serif;}
@@ -211,6 +216,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
           <button type="button" data-of="history" aria-pressed="false">История</button>
         </div>
         <button class="btn btn-small" type="button" id="ordersRefresh">Обновить</button>
+      </div>
+      <div class="print-bar" id="printBar" hidden>
+        <label class="check"><input type="checkbox" id="selAll"> Выбрать все</label>
+        <button class="btn btn-small btn-main" type="button" id="printSel" disabled>Печать выбранных</button>
+        <span class="hint">Откроется один файл: каждый заказ на своём листе — останется нажать «Печать».</span>
       </div>
       <div id="orderList"></div>
     </section>
@@ -311,7 +321,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
 <script>
 (function () {
   'use strict';
-  var S = { products: [], cats: [], slides: [], icons: [], hitMax: 10, cur: null, dirty: false, tab: 'orders', orders: [], of: 'open' };
+  var S = { products: [], cats: [], slides: [], icons: [], hitMax: 10, cur: null, dirty: false, tab: 'orders', orders: [], of: 'open', sel: {} };
   var WEIGHTS = ['100 г', '200 г', '300 г', '0,5 кг', '0,7 кг', '1 кг'];
   var ICON_NAMES = { home: 'Домик', gift: 'Подарок', truck: 'Машина', leaf: 'Листик', snow: 'Снежинка', wallet: 'Кошелёк', chat: 'Сообщение', clock: 'Часы', pin: 'Место' };
   var LINKS = [['hotel.html', 'Страница гостиницы'], ['catalog.html', 'Каталог'], ['catalog.html?cat=mix', 'Каталог: миксы'],
@@ -429,6 +439,9 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     var open = S.orders.filter(function (o) { return (o.status || 'new') === 'new'; });
     var badge = $('#openBadge'); badge.textContent = open.length; badge.hidden = !open.length;
     var list = S.of === 'open' ? open : S.orders.filter(function (o) { return (o.status || 'new') !== 'new'; });
+    var shown = {}; list.forEach(function (o) { shown[o.number] = 1; });
+    Object.keys(S.sel).forEach(function (n) { if (!shown[n]) delete S.sel[n]; });  // выбор — только среди видимых
+    $('#printBar').hidden = !list.length;
     $('#orderList').innerHTML = list.map(function (o) {
       var st = ST[o.status || 'new'];
       var items = o.items.map(function (i) {
@@ -439,8 +452,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
           ? '<button type="button" class="btn btn-small btn-ok" data-st="done" data-n="' + o.number + '">Выполнен ✓</button>' +
             '<button type="button" class="btn btn-small btn-danger" data-st="cancelled" data-n="' + o.number + '">Отменить</button>'
           : '<button type="button" class="btn btn-small" data-st="new" data-n="' + o.number + '">Вернуть в работу</button>');
-      return '<article class="order is-' + (o.status || 'new') + '">' +
-        '<div class="order-top"><h2>Заказ №' + o.number + '</h2><span class="when">' + esc(o.created_human) + '</span>' +
+      return '<article class="order is-' + (o.status || 'new') + (S.sel[o.number] ? ' is-picked' : '') + '">' +
+        '<div class="order-top"><label class="pick" title="Выбрать для печати"><input type="checkbox" data-pick="' + o.number + '"' + (S.sel[o.number] ? ' checked' : '') + ' aria-label="Выбрать заказ №' + o.number + ' для печати"></label><h2>Заказ №' + o.number + '</h2><span class="when">' + esc(o.created_human) + '</span>' +
           '<span class="st ' + st[1] + '">' + st[0] + '</span>' + (o.mail === 'failed' ? '<span class="st st-mail">письмо не ушло</span>' : '') +
           '<span class="sum">' + (o.zone === 'out' ? 'от ' : '') + rub(o.total) + '</span></div>' +
         '<div class="order-client"><div class="name">' + esc(o.name) + '</div><a class="phone" href="tel:' + esc(o.phone_raw) + '">' + esc(o.phone) + '</a>' +
@@ -449,7 +462,29 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
         '<ul class="order-items">' + items + '</ul>' +
         '<div class="order-actions">' + acts + '</div></article>';
     }).join('') || '<div class="empty">' + (S.of === 'open' ? 'Новых заказов нет.' : 'История пока пуста.') + '</div>';
+    syncPrint();
   }
+  function picked() { return Object.keys(S.sel).map(Number).sort(function (a, b) { return a - b; }); }  // печать — от старых к новым
+  function syncPrint() {
+    var n = picked().length, total = $$('#orderList [data-pick]').length, all = $('#selAll');
+    $('#printSel').disabled = !n; $('#printSel').textContent = n ? 'Печать выбранных (' + n + ')' : 'Печать выбранных';
+    all.checked = total > 0 && n === total; all.indeterminate = n > 0 && n < total;
+  }
+  $('#orderList').addEventListener('change', function (e) {
+    var cb = e.target.closest('[data-pick]'); if (!cb) return;
+    if (cb.checked) S.sel[cb.dataset.pick] = 1; else delete S.sel[cb.dataset.pick];
+    cb.closest('.order').classList.toggle('is-picked', cb.checked); syncPrint();
+  });
+  $('#selAll').addEventListener('change', function () {
+    var on = this.checked;
+    $$('#orderList [data-pick]').forEach(function (cb) { cb.checked = on; cb.closest('.order').classList.toggle('is-picked', on); if (on) S.sel[cb.dataset.pick] = 1; else delete S.sel[cb.dataset.pick]; });
+    syncPrint();
+  });
+  $('#printSel').addEventListener('click', function () {
+    var nums = picked(); if (!nums.length) return;
+    if (window.BRO_DEMO) { alertDemo('В демо-версии печать недоступна — на сайте Натальи откроется PDF с ' + nums.length + ' накладными, каждая на своём листе.'); return; }
+    window.open('../api/orders/pdf?print=1&n=' + nums.join(','), '_blank', 'noopener');
+  });
   $$('.seg button').forEach(function (b) {
     b.addEventListener('click', function () {
       S.of = b.dataset.of; $$('.seg button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); renderOrders();
@@ -459,6 +494,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
   $('#orderList').addEventListener('click', function (e) {
     var pdf = e.target.closest('[data-pdf]');
     if (pdf && window.BRO_DEMO) { e.preventDefault(); alertDemo('В демо-версии накладную скачать нельзя — на сайте Натальи будет PDF.'); return; }
+    if (e.target.closest('.pick')) return;
     var b = e.target.closest('[data-st]'); if (!b) return;
     var n = +b.dataset.n, stt = b.dataset.st;
     if (stt === 'cancelled' && !confirm('Отменить заказ №' + n + '?')) return;
