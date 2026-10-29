@@ -335,8 +335,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
         except orders.OrderError as ex:
             return self.send(400, {'error': str(ex)})
         if o['mail'] != 'sent':
-            sys.stderr.write(f'ЗАКАЗ {o["number"]}: письмо не ушло — {o.get("mail_error")}\n')
-            return self.send(502, {'error': 'Не получилось отправить заказ', 'fallback': True})
+            # заказ уже в журнале и виден в админке с пометкой «письмо не ушло» — покупателю не показываем ошибку,
+            # иначе он жмёт ещё раз и плодит дубли
+            sys.stderr.write(f'ЗАКАЗ {o["number"]}: письмо не ушло — {o.get("mail_error")}\n'); sys.stderr.flush()
         self.send(200, {'ok': True, 'number': o['number'], 'total': o['total'], 'out': o['zone'] == 'out'})
 
     def login(self):

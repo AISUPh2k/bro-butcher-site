@@ -15,7 +15,7 @@ ORDERS = os.environ.get('BRO_ORDERS_DIR') or os.path.join(ROOT, 'orders')
 CONFIG = os.environ.get('BRO_ORDERS_CONFIG') or os.path.join(ROOT, 'orders.config.json')
 LOCK = threading.Lock()
 RATE = {}  # ip -> [время заказов]
-RATE_MAX, RATE_WINDOW = 5, 600
+RATE_MAX, RATE_WINDOW = 10, 600  # заказов с одного адреса за 10 минут
 MSK = datetime.timezone(datetime.timedelta(hours=3), 'MSK')  # время в заказах — московское, где бы ни стоял сервер
 
 

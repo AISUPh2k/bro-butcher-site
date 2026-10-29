@@ -451,11 +451,12 @@ def steps_section(r):
   <div class="wrap">
     <h2 class="center">Как доходит до вас</h2>
     <ol class="steps-row">
-      <li><span class="n">01</span><p>Собираете корзину на сайте и отправляете заказ в WhatsApp, или просто пишете нам</p></li>
-      <li><span class="n">02</span><p>Подтверждаем заказ и собираем его прямо из морозильной камеры</p></li>
-      <li><span class="n">03</span><p>Привозим вечером, {D["window"]}, до подъезда</p></li>
+      <li><span class="n">01</span><p>Собираете корзину и оформляете заказ</p></li>
+      <li><span class="n">02</span><p>Мы подтверждаем заказ и начинаем изготовление. Всегда свежие миксы</p></li>
+      <li><span class="n">03</span><p>Доставка {D["window"]}<sup class="fn">*</sup></p></li>
       <li><span class="n">04</span><p>Оплачиваете наличными курьеру после получения</p></li>
     </ol>
+    <p class="steps-note"><sup>*</sup> Возможна задержка из-за дорожной обстановки.</p>
     <p class="center"><a class="link-more" href="{r}delivery.html">Все условия доставки {icon("arrow")}</a></p>
   </div>
 </section>'''
