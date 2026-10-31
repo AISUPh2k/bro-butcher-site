@@ -446,7 +446,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
       var st = ST[o.status || 'new'];
       var items = o.items.map(function (i) {
         return '<li><span>' + esc(i.name) + ' — ' + esc(i.option) + ' × ' + i.qty + '</span><span>' + rub(i.sum) + '</span></li>';
-      }).join('') + '<li class="tot"><span>Товары ' + rub(o.goods) + ', доставка ' + (o.fee ? rub(o.fee) : 'бесплатно') + (o.zone === 'out' ? ' + км за МКАД' : '') + '</span><span></span></li>';
+      }).join('') + '<li class="tot"><span>Товары ' + rub(o.goods) + (o.weight ? ', вес ' + esc(o.weight) : '') + ', доставка ' + (o.fee ? rub(o.fee) : 'бесплатно') + (o.zone === 'out' ? ' + км за МКАД' : '') + '</span><span></span></li>';
       var acts = '<a class="btn btn-small" href="../api/orders/pdf?n=' + o.number + '" data-pdf="' + o.number + '">Скачать накладную (PDF)</a>' +
         (o.status === 'new' || !o.status
           ? '<button type="button" class="btn btn-small btn-ok" data-st="done" data-n="' + o.number + '">Выполнен ✓</button>' +

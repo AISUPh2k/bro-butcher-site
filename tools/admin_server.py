@@ -260,7 +260,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if not self.authed(): return self.send(401, {'error': 'Войдите заново'})
             keep = ('number', 'created_human', 'name', 'phone', 'phone_raw', 'address', 'zone', 'comment', 'items',
                     'goods', 'fee', 'total', 'status', 'mail')
-            return self.send(200, {'orders': [{k: o.get(k) for k in keep} for o in orders.all_orders()]})
+            return self.send(200, {'orders': [dict({k: o.get(k) for k in keep}, weight=orders.weight_text(o)) for o in orders.all_orders()]})
         if url.path == '/api/orders/pdf':
             if not self.authed(): return self.send(401, b'login', 'text/plain; charset=utf-8')
             q = urllib.parse.parse_qs(url.query)

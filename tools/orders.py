@@ -147,6 +147,26 @@ def set_status(number, status):
 
 
 # ---------------------------------------------------------------- письмо
+def grams(label):
+    """«0,5 кг» → 500, «200 г» → 200; не вес («шт», «упак») → None."""
+    m = re.fullmatch(r'\s*(\d+(?:[.,]\d+)?)\s*(г|гр|кг)\.?\s*', str(label).lower())
+    if not m: return None
+    n = float(m.group(1).replace(',', '.'))
+    return n * 1000 if m.group(2) == 'кг' else n
+
+
+def weight_text(o):
+    """Общий вес по фасовкам: «7,5 кг». Позиции не в весе перечисляются отдельно. Пусто — если веса нет вовсе."""
+    total, other = 0.0, []
+    for i in o['items']:
+        g = grams(i['option'])
+        if g is None: other.append(f'{i["name"]} — {i["option"]} × {i["qty"]}')
+        else: total += g * i['qty']
+    if not total: return ''
+    w = f'{total / 1000:.3f}'.rstrip('0').rstrip('.').replace('.', ',') + ' кг' if total >= 1000 else f'{total:g} г'
+    return w + (f' (без учёта: {"; ".join(other)})' if other else '')
+
+
 def total_text(o):
     return ('от ' if o['zone'] == 'out' else '') + rub(o['total'])
 
@@ -161,7 +181,7 @@ def mail_text(o):
            f'Клиент: {o["name"]}', f'Телефон: {o["phone"]}', f'Адрес: {o["address"]}' + (' (за МКАД)' if o['zone'] == 'out' else ''), '']
     for n, i in enumerate(o['items'], 1):
         out.append(f'{n}. {i["name"]} — {i["option"]} × {i["qty"]} = {rub(i["sum"])}')
-    out += ['', f'Товары: {rub(o["goods"])}', f'Доставка: {delivery_text(o)}', f'Итого: {total_text(o)}', f'Оплата: {o["payment"]}']
+    out += ['', f'Товары: {rub(o["goods"])}'] + ([f'Общий вес: {weight_text(o)}'] if weight_text(o) else []) + [f'Доставка: {delivery_text(o)}', f'Итого: {total_text(o)}', f'Оплата: {o["payment"]}']
     if o['comment']: out += ['', f'Комментарий: {o["comment"]}']
     return '\n'.join(out).replace(' ', ' ')
 
@@ -212,6 +232,7 @@ def mail_html(o):
  <table role="presentation" style="width:100%;border-collapse:collapse;margin-top:12px;font-size:14px"><tr><td></td><td style="width:280px">
   <table role="presentation" style="width:100%;border-collapse:collapse">
    <tr><td style="padding:3px 0;color:#6b5a47">Товары</td><td style="padding:3px 0;text-align:right">{rub(o["goods"])}</td></tr>
+   {f'<tr><td style="padding:3px 0;color:#6b5a47">Общий вес</td><td style="padding:3px 0;text-align:right"><b>{e(weight_text(o))}</b></td></tr>' if weight_text(o) else ''}
    <tr><td style="padding:3px 0;color:#6b5a47">Доставка</td><td style="padding:3px 0;text-align:right">{e(delivery_text(o))}</td></tr>
    <tr><td style="padding:8px 0 0;border-top:2px solid #3b2a20;font-size:16px"><b>Итого к оплате</b></td>
        <td style="padding:8px 0 0;border-top:2px solid #3b2a20;text-align:right;font-size:20px"><b>{total_text(o)}</b></td></tr>
@@ -327,9 +348,15 @@ def orders_pdf(lst):
             pdf.set_font('golos', 'B' if big else '', 12 if big else 10); pdf.set_text_color(*(INK if big else SOFT)); pdf.cell(40, 7 if big else 6, k)
             pdf.set_font('oswald' if big else 'golos', 'B' if big else '', 17 if big else 10); pdf.set_text_color(*INK)
             pdf.cell(40, 7 if big else 6, t(v), align='R', new_x='LMARGIN', new_y='NEXT')
-        trow('Товары', rub(o['goods'])); trow('Доставка', delivery_text(o))
+        trow('Товары', rub(o['goods']))
+        wt, _, wnote = weight_text(o).partition(' (без учёта: ')
+        if wt: trow('Общий вес', wt)
+        trow('Доставка', delivery_text(o))
         pdf.set_draw_color(*INK); pdf.set_line_width(0.5); pdf.line(x, pdf.get_y() + 1, x + 80, pdf.get_y() + 1); pdf.ln(2.5)
         trow('Итого к оплате', total_text(o), big=True)
+        if wnote:
+            pdf.ln(1); pdf.set_font('golos', '', 8.5); pdf.set_text_color(*SOFT)
+            pdf.multi_cell(0, 4.5, t('Вес без учёта: ' + wnote.rstrip(')')), new_x='LMARGIN', new_y='NEXT')
         if o['price_changed']:
             pdf.ln(2); pdf.set_font('golos', '', 8.5); pdf.set_text_color(164, 36, 59)
             pdf.multi_cell(0, 4.5, 'Цены на сайте изменились, пока клиент оформлял заказ — суммы пересчитаны по текущим ценам.', new_x='LMARGIN', new_y='NEXT')
