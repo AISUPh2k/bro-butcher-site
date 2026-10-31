@@ -352,6 +352,7 @@
           '<button type="button" class="remove" aria-label="Удалить">✕</button></div></li>';
       }).join('');
       if (ls.length) renderTotals();
+      if (typeof renderRepeat === 'function') renderRepeat();
     }
     function setQty(i, q) {
       var items = load();
@@ -402,11 +403,14 @@
     });
 
     /* ---------- «как в прошлый раз»: имя, телефон и адреса живут только в браузере покупателя ---------- */
-    var ME_KEY = 'bro_me_v1';
+    var ME_KEY = 'bro_me_v1', LAST_KEY = 'bro_last_v1';
     function loadMe() { try { var v = JSON.parse(localStorage.getItem(ME_KEY) || 'null'); return v && v.phone ? v : null; } catch (e) { return null; } }
     function rememberMe() {
       try {
-        if (!$('#f-remember').checked) { localStorage.removeItem(ME_KEY); return; }
+        if (!$('#f-remember').checked) { localStorage.removeItem(ME_KEY); localStorage.removeItem(LAST_KEY); return; }
+        var now = new Date();
+        localStorage.setItem(LAST_KEY, JSON.stringify({ d: ('0' + now.getDate()).slice(-2) + '.' + ('0' + (now.getMonth() + 1)).slice(-2),
+          items: calc().lines.map(function (l) { return { s: l.it.s, o: l.it.o, q: l.it.q }; }) }));
         var f = form.elements, me = loadMe() || { addresses: [] };
         var addr = f.address.value.trim(), zone = (form.querySelector('[name=zone]:checked') || {}).value || 'mkad';
         me.name = f.name.value.trim(); me.phone = prevDigits;
@@ -438,8 +442,47 @@
       var me = loadMe(); if (!me) return;
       var b = e.target.closest('.remember-fill');
       if (b) { fillMe(me, me.addresses[+b.dataset.i]); $('#f-consent').focus(); return; }
-      if (e.target.closest('.remember-forget')) { try { localStorage.removeItem(ME_KEY); } catch (err) { } renderRemember(); toast('<span>Готово: ваши данные удалены с этого устройства</span>'); }
+      if (e.target.closest('.remember-forget')) { try { localStorage.removeItem(ME_KEY); localStorage.removeItem(LAST_KEY); } catch (err) { } renderRemember(); renderRepeat(); toast('<span>Готово: ваши данные удалены с этого устройства</span>'); }
     });
+
+    /* ---------- повтор прошлого заказа: состав (без имени/телефона) хранится только в браузере ---------- */
+    function loadLast() { try { var v = JSON.parse(localStorage.getItem(LAST_KEY) || 'null'); return v && v.items && v.items.length ? v : null; } catch (e) { return null; } }
+    function checkLast(last) {  // что из прошлого заказа можно купить сейчас — по текущим ценам и наличию из админки
+      var ok = [], gone = [];
+      last.items.forEach(function (it) {
+        var p = BRO.products[it.s], pr = optPrice(it.s, it.o);
+        if (p && p.s === 1 && pr !== null) ok.push({ it: it, p: p, price: pr }); else gone.push((p ? p.n : 'товар') + ', ' + it.o);
+      });
+      return { ok: ok, gone: gone };
+    }
+    function repeatLast() {
+      var last = loadLast(); if (!last) return;
+      var r = checkLast(last);
+      r.ok.forEach(function (x) { addToCart(x.it.s, x.it.o, x.it.q); });
+      render();
+      toast('<span>Добавлено из прошлого заказа: ' + r.ok.length + ' ' + plural(r.ok.length, 'позиция', 'позиции', 'позиций').replace(/^\d+ /, '') +
+        (r.gone.length ? '<small>Нет в наличии: ' + esc(r.gone.join('; ')) + '</small>' : '') + '</span>');
+    }
+    function renderRepeat() {
+      var box = $('#repeatBox'), last = loadLast(), empty = !load().length;
+      var rb = $('#remember .remember-repeat'); if (rb) rb.remove();
+      if (!last) { box.hidden = true; return; }
+      var r = checkLast(last);
+      if (empty) {
+        var sum = r.ok.reduce(function (a, x) { return a + x.price * x.it.q; }, 0);
+        box.innerHTML = '<h2>Ваш прошлый заказ от ' + esc(last.d) + '</h2><ul>' +
+          r.ok.map(function (x) { return '<li><span>' + esc(x.p.n) + ' — ' + esc(x.it.o) + ' × ' + x.it.q + '</span><b>' + rub(x.price * x.it.q) + '</b></li>'; }).join('') +
+          r.gone.map(function (g) { return '<li class="gone"><span>' + esc(g) + '</span><b>нет в наличии</b></li>'; }).join('') + '</ul>' +
+          (r.ok.length ? '<button type="button" class="btn btn-primary" data-repeat>Повторить заказ · ' + rub(sum) + '</button><p class="hint">Цены — сегодняшние. Состав можно поменять в корзине.</p>'
+                       : '<p class="hint">Этих товаров сейчас нет в наличии.</p>');
+        box.hidden = false;
+      } else {
+        box.hidden = true;
+        var rem = $('#remember');
+        if (r.ok.length && !rem.hidden) rem.insertAdjacentHTML('beforeend', '<button type="button" class="remember-repeat" data-repeat>+ Добавить товары из прошлого заказа (' + esc(last.d) + ')</button>');
+      }
+    }
+    document.addEventListener('click', function (e) { if (e.target.closest('[data-repeat]')) repeatLast(); });
     var addrInput = form.elements.address, sug = $('#addrSuggest');
     function showSug(on) { sug.hidden = !on || !sug.children.length; }
     addrInput.addEventListener('focus', function () { if (!addrInput.value) showSug(true); });
@@ -449,7 +492,7 @@
       var li = e.target.closest('li'); if (!li) return;
       e.preventDefault(); fillAddress(loadMe().addresses[+li.dataset.i]); showSug(false);
     });
-    renderRemember();
+    renderRemember(); renderRepeat();
 
     function orderText() {
       var c = calc(), f = form.elements, out = ['Здравствуйте! Заказ с сайта:', ''];
@@ -507,7 +550,7 @@
       }).then(function (res) {
         if (!res.ok) throw res.d;
         var d = res.d;
-        save([]); rememberMe();
+        rememberMe(); save([]);  // сначала запомнить состав для «Повторить заказ», потом очистить корзину
         app.hidden = true; $('#cartEmpty').hidden = true;
         var done = $('#orderDone');
         done.innerHTML = '<p class="eyebrow">Заказ принят</p><h2>Спасибо за заказ!</h2>' +

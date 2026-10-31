@@ -557,6 +557,7 @@ def build_cart():
 <section class="cart-section">
   <div class="wrap">
     <div id="cartEmpty" class="empty" hidden>
+      <div class="repeat" id="repeatBox" hidden></div>
       <p>Корзина пока пуста.</p>
       <a class="btn btn-primary" href="catalog.html">Перейти в каталог {icon("arrow")}</a>
     </div>
