@@ -289,8 +289,9 @@ def addons_block(p, compact=False):
           </div>
         </div>'''
     if compact:
-        return (f'<button type="button" class="addons-toggle" aria-expanded="false" data-addons-toggle><span data-addons-sum>+ Добавки к упаковке</span><span class="chev" aria-hidden="true">▾</span></button>'
-                f'<div class="addons is-compact" data-addons hidden>{body}</div>')
+        # всплывает над кнопкой поверх карточки — соседние карточки в ряду не растягиваются
+        return (f'<div class="addons-pop"><button type="button" class="addons-toggle" aria-expanded="false" data-addons-toggle><span data-addons-sum>+ Добавки к упаковке</span><span class="chev" aria-hidden="true">▴</span></button>'
+                f'<div class="addons is-compact" data-addons hidden>{body}</div></div>')
     return f'<div class="addons" data-addons><span class="addons-title">Добавить к каждой упаковке</span>{body}</div>'
 
 def card(p, r):

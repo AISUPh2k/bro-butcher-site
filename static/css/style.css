@@ -440,6 +440,11 @@ button{font:inherit; color:inherit;}
   .product-info .atile-ctl.vegs{flex-direction:row;}
   .product-info .veg{flex:1;}
 }
+.addons-pop{position:relative;}
+.addons-pop .addons{position:absolute; left:-6px; right:-6px; bottom:calc(100% + 6px); z-index:20; max-width:none; background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; padding:8px; box-shadow:0 2px 6px rgba(59,42,32,.1),0 18px 40px -12px rgba(59,42,32,.45);}
+.addons-pop .addons::after{content:""; position:absolute; bottom:-7px; left:22px; width:12px; height:12px; background:var(--surface); border-right:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong); transform:rotate(45deg);}
+.addons-pop .vegs{flex-wrap:wrap;}
+.addons-pop .veg{min-width:max-content;}
 .addons-toggle{display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; padding:7px 10px; border-radius:7px; border:1px dashed var(--olive); background:transparent; color:var(--olive); font-size:.8rem; font-weight:600; cursor:pointer; text-align:left;}
 .addons-toggle.has-extras{border-style:solid; background:#ece8d6;}
 .addons-toggle .chev{transition:transform .15s ease;}
