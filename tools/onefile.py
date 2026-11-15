@@ -40,6 +40,8 @@ def img(m):
     return tag.replace(src.group(0), f'src="{data_uri(p)}"').replace(' loading="lazy"', '')
 html = re.sub(r'<img\b[^>]*>', img, html)
 
+# ссылки на эту же страницу с якорем (логотип «питомник» → index.html#kennel) — внутри файла
+html = re.sub(r'href="(?:\./)?' + re.escape(os.path.basename(page)) + r'#', 'href="#', html)
 open(out, 'w', encoding='utf-8').write(html)
 left = sorted(set(re.findall(r'(?:src|href)="((?:\.\./)*static/[^"]+)"', html)))
 print(f'{out}: {os.path.getsize(out) / 1e6:.1f} МБ; не встроено: {left or "ничего"}')
