@@ -34,6 +34,7 @@ CATS = [  # key, название, короткое описание
 CAT_NAME = {k: n for k, n, _ in CATS}
 
 e = html.escape
+TAGLINE = ' · '.join(e(x.strip()) for x in SITE['tagline'].split(','))  # под логотипом: «натуральное питание · зоогостиница · питомник»
 
 def rub(n):
     return f'{n:,}'.replace(',', ' ') + ' ₽'
@@ -46,6 +47,13 @@ def sort_key(p):
 
 def in_cat(p, c):
     return c in p['tags']
+
+AD = SITE.get('addons')  # добавки к фасовке: овощи, лососевое масло, в рубленом виде — цены и подписи в site.json
+
+def has_addons(p):
+    """Добавки есть у всех, кроме рубленых (по названию) и опта. В админке можно включить или выключить вручную."""
+    if not AD or 'opt' in p['tags']: return False
+    return bool(p['addons']) if 'addons' in p else 'рублен' not in p['name'].lower()
 
 # ---------------------------------------------------------------- icons
 ICONS = {
@@ -73,6 +81,9 @@ ICONS = {
     'pin': '<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
     'mail': '<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/>',
     'vk': '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 8c.2 5 2.5 8 4 8s1-2.3 1-3.5c0-.9.3-1 .9-.5 1 .8 1.6 2.3 2.6 3.5.4.5 1 .6 1.7.4"/>',
+    'carrot': '<path d="M15 9L4.5 19.5a1.5 1.5 0 01-2-2L13 7"/><path d="M13 7c1.5-1.5 4-1.5 5.5 0s1.5 4 0 5.5L15 9"/><path d="M17 5.5L19.5 3M18.5 7.5L21.5 6M16.5 4.5L17.5 1.5"/><path d="M7 15l1.5 1.5M10 12l1.5 1.5"/>',
+    'drop': '<path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 15a2.5 2.5 0 002.5 2.5"/>',
+    'knife': '<path d="M3.5 17.5l9.6-9.6a2.6 2.6 0 013.7 3.7l-9.6 9.6z"/><line x1="14" y1="6.2" x2="17.8" y2="10"/><path d="M17 4l3 3"/>',
     'tg': '<path d="M20.5 4.5L3.5 11l5.5 2 2 6 3-4 4.5 3.5z"/><path d="M9 13l8-5.5"/>',
 }
 
@@ -97,7 +108,7 @@ def header(r, active):
     </span>
   </div></div>
   <div class="main-bar"><div class="wrap">
-    <a class="logo" href="{r}index.html" aria-label="БРО — на главную">БРО<small>мясная лавка</small></a>
+    <a class="logo" href="{r}index.html" aria-label="ПП БРО — на главную">ПП БРО<small>{TAGLINE}</small></a>
     <nav class="main-nav" id="mainNav" aria-label="Основное меню">
 {nav}
     </nav>
@@ -115,7 +126,7 @@ def footer(r):
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="logo" href="{r}index.html">БРО<small>мясная лавка</small></a>
+        <a class="logo" href="{r}index.html">ПП БРО<small>{TAGLINE}</small></a>
         <p>Натуральное мясо для собак. Пилим без разморозки, миксы составляет зоодиетолог.</p>
         <p class="slogan">{e(SITE["slogan"])}</p>
       </div>
@@ -251,6 +262,36 @@ def buy_button(p, big=False):
     label, _ = p['options'][-1]
     return f'<button class="{cls}" type="button" data-add="{p["slug"]}" data-opt="{e(label)}">В корзину</button>'
 
+def addons_block(p, compact=False):
+    """Плитки добавок (вариант C, выбран 14.11). compact — в карточке каталога: спрятаны под кнопкой, плитки в строку."""
+    if not has_addons(p) or not p['in_stock']: return ''
+    v, o, c = AD['veg'], AD['oil'], AD['chop']
+    vegs = ''.join(f'<button type="button" class="veg" data-veg="{i}" aria-pressed="false">{e(n)}</button>' for i, n in enumerate(v['items']))
+    body = f'''<div class="atiles">
+          <div class="atile" data-addon="veg">
+            <span class="atile-pic">{icon("carrot")}</span>
+            <span class="atile-text"><b class="atile-name">{e(v["name"])}</b><span class="atile-sub">{e(v["note"]).replace(" ≈ ", "&nbsp;≈&nbsp;")}</span></span>
+            <span class="atile-price">+{rub(v["price"])}</span>
+            <div class="atile-ctl vegs" role="group" aria-label="{e(v["name"])}">{vegs}</div>
+          </div>
+          <div class="atile" data-addon="oil">
+            <span class="atile-pic">{icon("drop")}</span>
+            <span class="atile-text"><b class="atile-name">{e(o["name"])}</b><span class="atile-sub">{o["ml"]} мл, до {o["max"]} порций</span></span>
+            <span class="atile-price">{rub(o["price"])}</span>
+            <div class="atile-ctl"><span class="stepper"><button type="button" data-oil-dec aria-label="Меньше масла" disabled>−</button><output data-oil>0</output><button type="button" data-oil-inc aria-label="Больше масла">+</button></span></div>
+          </div>
+          <div class="atile" data-addon="chop">
+            <span class="atile-pic">{icon("knife")}</span>
+            <span class="atile-text"><b class="atile-name">{e(c["name"])}</b><span class="atile-sub">{e(c["note"])}</span></span>
+            <span class="atile-price">+{rub(c["price"])}</span>
+            <div class="atile-ctl"><button type="button" class="atile-btn" role="switch" aria-checked="false" aria-label="{e(c["name"])}" data-chop>Выбрать</button></div>
+          </div>
+        </div>'''
+    if compact:
+        return (f'<button type="button" class="addons-toggle" aria-expanded="false" data-addons-toggle><span data-addons-sum>+ Добавки к упаковке</span><span class="chev" aria-hidden="true">▾</span></button>'
+                f'<div class="addons is-compact" data-addons hidden>{body}</div>')
+    return f'<div class="addons" data-addons><span class="addons-title">Добавить к каждой упаковке</span>{body}</div>'
+
 def card(p, r):
     label, price = p['options'][-1]
     unit = 'за кг, от 100 кг' if 'opt' in p['tags'] else f'за {label}'
@@ -266,6 +307,7 @@ def card(p, r):
   <div class="pcard-bottom">
     {options(p)}
     <div class="price-row"><span class="price" data-price-out>{rub(price)}</span><span class="unit" data-unit-out>{unit}</span></div>
+    {addons_block(p, compact=True)}
     {buy_button(p)}
   </div>
 </article>'''
@@ -346,6 +388,17 @@ def slider_controls():
   </div>
 </div>'''
 
+# Шотландский терьер (питомник БРО) — стоит на верхнем краю фото на главной. Когда будет фото щенков — можно заменить.
+SCOTTIE = ('<svg class="hero-dog" viewBox="6 6 184 122" role="img" aria-label="Шотландский терьер — питомник БРО">'
+  '<path fill="#2a1e17" d="M10 58Q11 50 20 48L46 43Q52 42 54 40L56 12Q57 8 60 11L66 34L69 15Q70 11 73 14L79 38Q87 43 97 50'
+  'L158 50Q162 50 163 46L167 17Q169 12 173 16L178 44Q186 52 187 66L188 86Q187 94 181 98L185 118Q188 126 181 127L168 127'
+  'Q163 127 164 121L165 110L160 114L155 108L149 114L144 108L138 114L133 108L127 114L122 108L116 114L111 108L105 114L100 108'
+  'L94 113L89 108L86 120Q86 127 79 127L63 127Q57 127 58 121L59 106Q52 101 50 95L45 99L41 92L36 98L32 91L27 97L24 89L19 93'
+  'L18 85L13 86L14 78Q7 70 10 58Z"/>'
+  '<path d="M30 47Q38 42 46 46" stroke="#b08d57" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+  '<circle cx="38" cy="51" r="2" fill="#f3ede0"/><ellipse cx="11" cy="57" rx="3.6" ry="3" fill="#0f0a07"/>'
+  '<path d="M76 40L84 44L86 70L78 71Z" fill="#6e2430"/><circle cx="82" cy="75" r="3.4" fill="#b08d57"/></svg>')
+
 def build_home():
     r = ''
     tiles = ''
@@ -362,8 +415,8 @@ def build_home():
 <div class="slide hero" role="group" aria-roledescription="slide" aria-label="1 из {len(SLIDES) + 1}">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow">Мясная лавка БРО · своё производство</p>
-      <h1>Честное мясо для&nbsp;вашей собаки</h1>
+      <p class="eyebrow">ПП БРО: {e(SITE["tagline"])}</p>
+      <h1>Правильное мясо для&nbsp;вашего питомца</h1>
       <p class="hero-lede">Говядина, баранина, птица и готовые миксы для натурального кормления. Мясо приходит с бойни замороженным, и мы пилим его на порции, не размораживая. Рецептуры миксов составляет зоодиетолог.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="catalog.html">Выбрать мясо {icon("arrow")}</a>
@@ -373,6 +426,7 @@ def build_home():
     </div>
     <div class="hero-visual">
       <picture><source type="image/webp" srcset="static/img/brand/w600/hero.webp 600w, static/img/brand/w1100/hero.webp 1100w" sizes="(max-width:860px) 92vw, 560px"><img class="hero-photo" src="static/img/brand/hero.jpg" alt="Микс «Вайс Премиум»: кубики говядины и сердца на деревянной доске" width="1100" height="880" fetchpriority="high"></picture>
+      {SCOTTIE}
       <div class="stamp-badge" aria-hidden="true">БЕЗ<br>РАЗМОРОЗКИ<br>НИ РАЗУ</div>
       <a class="hero-note" href="{wa_link(first)}" target="_blank" rel="noopener"><b>Первая консультация бесплатно</b><span>Поможем перейти на натуральное питание {icon("arrow")}</span></a>
     </div>
@@ -419,10 +473,35 @@ def build_home():
   </div>
 </section>
 
+{kennel_section()}
+
 {steps_section(r)}'''
-    page('index.html', 'Мясо для собак с доставкой по Москве — мясная лавка БРО',
+    page('index.html', 'ПП БРО — правильное мясо для вашего питомца: натуральное питание, зоогостиница, питомник',
          'Натуральное мясо и миксы для собак: говядина, баранина, птица, лакомства. Пилим без разморозки, рецептуры зоодиетолога. Бесплатная доставка по Москве от 5000 ₽.',
          body, 'home')
+
+def kennel_pic(n, alt, sizes, cls=''):
+    return (f'<picture><source type="image/webp" srcset="static/img/kennel/w500/scottie-{n}.webp 500w, static/img/kennel/w1000/scottie-{n}.webp 1000w" sizes="{sizes}">'
+            f'<img class="{cls}" src="static/img/kennel/scottie-{n}.jpg" alt="{alt}" loading="lazy" decoding="async"></picture>')
+
+def kennel_section():
+    """Питомник шотландских терьеров на главной. Фото — static/img/kennel/ (из ~/site11/dogs, 15.11)."""
+    msg = 'Здравствуйте! Хочу узнать о щенках шотландского терьера.'
+    return f'''<section class="kennel" id="kennel">
+  <div class="wrap kennel-grid">
+    <div class="kennel-copy">
+      <p class="eyebrow">Питомник ПП БРО</p>
+      <h2>Шотландские терьеры</h2>
+      <p class="kennel-lede">Здесь живут наши скотч-терьеры.</p>
+      <div class="kennel-actions">{wa_btn(msg, "Спросить о щенках")}</div>
+    </div>
+    <div class="kennel-photos">
+      {kennel_pic(1, "Шотландский терьер в стойке", "(max-width:860px) 92vw, 600px", "k-main")}
+      {kennel_pic(2, "Шотландский терьер на выставке", "(max-width:860px) 45vw, 290px")}
+      {kennel_pic(3, "Шотландский терьер лежит на дорожке", "(max-width:860px) 45vw, 290px")}
+    </div>
+  </div>
+</section>'''
 
 CRAFT_PHOTO = 'obrez-govyazhya-v-kubikah.jpg'  # кубики в инее — видно, что мясо не размораживали
 
@@ -524,11 +603,12 @@ def build_product(p):
         {stock}
         {options(p)}
         <div class="price-row big"><span class="price" data-price-out>{rub(price)}</span><span class="unit" data-unit-out>{unit}</span></div>
+        {addons_block(p)}
         <div class="buy-row">{qty}{buy_button(p, big=True)}</div>
         <a class="ask" href="{wa_link(ask)}" target="_blank" rel="noopener">{icon("chat")}Задать вопрос зоодиетологу</a>
         <ul class="facts">
           <li>{icon("snow")}Сырое, свежемороженое, распилено без разморозки</li>
-          <li>{icon("truck")}Доставка {D["window"]}, бесплатно от {rub(D["free_from"])} в пределах МКАД</li>
+          <li>{icon("truck")}Доставка {D["window"]} до подъезда, бесплатно от {rub(D["free_from"])} в пределах МКАД</li>
           <li>{icon("wallet")}Оплата наличными после получения</li>
         </ul>
       </div>
@@ -568,6 +648,7 @@ def build_cart():
       </div>
       <form class="checkout" id="checkout" novalidate>
         <h2>Оформление</h2>
+        <p class="deliv-note">{icon("truck")}<span>Доставка <b>{D["window"]} до подъезда</b></span></p>
         <div class="remember" id="remember" hidden></div>
         <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" required></div>
         <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (900) 123-45-67" maxlength="18" required></div>
@@ -590,13 +671,13 @@ def build_cart():
         <p class="hint error" id="formError" hidden></p>
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
         <button class="btn btn-primary btn-block" type="submit" id="sendOrder">{icon("cart" if ORDER_API else "chat")}{"Оформить заказ" if ORDER_API else "Отправить заказ в WhatsApp"}</button>
-        <p class="hint">Доставляем {D["window"]}. Доставка к определённому времени — от {rub(D["timed_fee_from"])}. {"Мы перезвоним, чтобы подтвердить заказ и итоговую сумму." if ORDER_API else "Менеджер подтвердит заказ и итоговую сумму в WhatsApp."}</p>
+        <p class="hint">Доставляем {D["window"]} до подъезда. Доставка к определённому времени — от {rub(D["timed_fee_from"])}. {"Мы перезвоним, чтобы подтвердить заказ и итоговую сумму." if ORDER_API else "Менеджер подтвердит заказ и итоговую сумму в WhatsApp."}</p>
       </form>
     </div>
     <div class="order-done" id="orderDone" hidden tabindex="-1"></div>
   </div>
 </section>'''
-    page('cart.html', 'Корзина', 'Корзина заказа мясной лавки БРО.', body, 'cart')
+    page('cart.html', 'Корзина', 'Корзина заказа ПП БРО.', body, 'cart')
 
 def build_delivery():
     body = f'''<section class="page-head">
@@ -656,7 +737,7 @@ def build_about():
     </div>
   </div>
 </section>'''
-    page('about.html', 'О нас', 'Мясная лавка БРО: своё производство в Подмосковье, мясо пилим без разморозки, миксы составляет зоодиетолог.', body, 'about')
+    page('about.html', 'О нас', 'ПП БРО: натуральное питание, зоогостиница, питомник. Своё производство в Подмосковье, мясо пилим без разморозки, миксы составляет зоодиетолог.', body, 'about')
 
 def build_privacy():
     op = SITE.get('operator', {})
@@ -721,7 +802,7 @@ def build_privacy():
 <section class="section">
   <div class="wrap narrow"><div class="prose policy">{html_s}</div></div>
 </section>'''
-    page('privacy.html', 'Политика обработки персональных данных', 'Политика мясной лавки БРО в отношении обработки персональных данных пользователей сайта.', body)
+    page('privacy.html', 'Политика обработки персональных данных', 'Политика ПП БРО в отношении обработки персональных данных пользователей сайта.', body)
 
 
 def build_hotel():
@@ -773,8 +854,8 @@ def build_404():
 # ---------------------------------------------------------------- data + assets
 def write_data_js():
     data = {
-        'site': dict({k: SITE[k] for k in ('phone', 'whatsapp', 'delivery')}, order_api=ORDER_API),
-        'products': {p['slug']: {'n': p['name'], 'i': p['img'], 'o': p['options'], 's': int(p['in_stock'])}
+        'site': dict({k: SITE[k] for k in ('phone', 'whatsapp', 'delivery')}, order_api=ORDER_API, addons=AD),
+        'products': {p['slug']: dict({'n': p['name'], 'i': p['img'], 'o': p['options'], 's': int(p['in_stock'])}, **({'a': 1} if has_addons(p) else {}))
                      for p in PRODUCTS if 'opt' not in p['tags']},
     }
     os.makedirs(os.path.join(DIST, 'static/js'), exist_ok=True)

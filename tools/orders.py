@@ -53,6 +53,37 @@ def rate_ok(ip):
     return True
 
 
+def has_addons(p, ad):
+    """То же правило, что в build.py: добавки у всех, кроме рубленых и опта; в админке можно переключить вручную."""
+    if not ad or 'opt' in p['tags']: return False
+    return bool(p['addons']) if 'addons' in p else 'рублен' not in p['name'].lower()
+
+
+def fmt_grams(g):
+    return f'{g / 1000:g}'.replace('.', ',') + ' кг' if g >= 1000 else f'{g:g} г'
+
+
+def addon_lines(raw, p, label, ad):
+    """Добавки позиции из корзины → [{'label', 'price'}] на одну упаковку. Чего товару нельзя — молча отбрасываем (как и сайт)."""
+    if not isinstance(raw, dict) or not has_addons(p, ad): return []
+    out = []
+    v = raw.get('v') if isinstance(raw.get('v'), list) else []
+    veg = sorted({int(i) for i in v if isinstance(i, int) and not isinstance(i, bool) and 0 <= i < len(ad['veg']['items'])})
+    if veg:
+        g = grams(label)
+        # для сборщика — ещё и граммы: «850 г мяса + 150 г овощей»
+        split = f' ({fmt_grams(round(g - g * ad["veg"]["share"] / 100))} мяса + {fmt_grams(round(g * ad["veg"]["share"] / 100))} овощей)' if g else ''
+        names = ', '.join(ad['veg']['items'][i].lower() for i in veg)
+        note = ad['veg']['note'][:1].lower() + ad['veg']['note'][1:]
+        out.append({'label': f'{ad["veg"]["name"]}: {names} — {note}{split}', 'price': ad['veg']['price']})
+    try: oil = int(raw.get('o') or 0)
+    except (TypeError, ValueError): oil = 0
+    oil = max(0, min(ad['oil']['max'], oil))
+    if oil: out.append({'label': f'{ad["oil"]["name"]} {ad["oil"]["ml"]} мл × {oil}', 'price': oil * ad['oil']['price']})
+    if raw.get('c'): out.append({'label': ad['chop']['name'], 'price': ad['chop']['price']})
+    return out
+
+
 def build_order(d, products, site):
     """Проверяет заявку и пересчитывает суммы по ценам из products.json (цены из браузера не используются)."""
     if not isinstance(d, dict): raise OrderError('Неверный запрос')
@@ -79,7 +110,9 @@ def build_order(d, products, site):
             problems.append(p['name'] if p else 'товар'); continue
         if not p['in_stock']:
             problems.append(p['name']); continue
-        items.append({'slug': p['slug'], 'name': p['name'], 'option': label, 'qty': q, 'price': price, 'sum': price * q})
+        extras = addon_lines(it.get('a'), p, label, site.get('addons'))
+        unit = price + sum(x['price'] for x in extras)
+        items.append({'slug': p['slug'], 'name': p['name'], 'option': label, 'qty': q, 'price': price, 'extras': extras, 'unit': unit, 'sum': unit * q})
     if problems:
         raise OrderError('Этих позиций уже нет в продаже или изменилась фасовка — уберите их из корзины: ' + ', '.join(problems))
     dl = site['delivery']
@@ -180,7 +213,9 @@ def mail_text(o):
     out = [f'Заказ №{o["number"]} от {o["created_human"]}', '',
            f'Клиент: {o["name"]}', f'Телефон: {o["phone"]}', f'Адрес: {o["address"]}' + (' (за МКАД)' if o['zone'] == 'out' else ''), '']
     for n, i in enumerate(o['items'], 1):
-        out.append(f'{n}. {i["name"]} — {i["option"]} × {i["qty"]} = {rub(i["sum"])}')
+        out.append(f'{n}. {i["name"]} — {i["option"]} × {i["qty"]} = {rub(i["price"] * i["qty"])}')
+        for x in i.get('extras', []):
+            out.append(f'   + {x["label"]} — {rub(x["price"])} × {i["qty"]} = {rub(x["price"] * i["qty"])}')
     out += ['', f'Товары: {rub(o["goods"])}'] + ([f'Общий вес: {weight_text(o)}'] if weight_text(o) else []) + [f'Доставка: {delivery_text(o)}', f'Итого: {total_text(o)}', f'Оплата: {o["payment"]}']
     if o['comment']: out += ['', f'Комментарий: {o["comment"]}']
     return '\n'.join(out).replace(' ', ' ')
@@ -190,12 +225,22 @@ def mail_html(o):
     """Накладная на один лист A4. Стили инлайном: почтовые клиенты часто выкидывают <style>."""
     e = html.escape
     td = 'padding:7px 8px;border-bottom:1px solid #d9cfbf;vertical-align:top;'
-    rows = ''.join(
-        f'<tr><td style="{td}color:#86735f">{n}</td><td style="{td}"><b>{e(i["name"])}</b></td>'
-        f'<td style="{td}white-space:nowrap">{e(i["option"])}</td><td style="{td}text-align:center;font-size:17px"><b>{i["qty"]}</b></td>'
-        f'<td style="{td}text-align:right;white-space:nowrap">{rub(i["price"])}</td><td style="{td}text-align:right;white-space:nowrap"><b>{rub(i["sum"])}</b></td>'
-        f'<td style="{td}text-align:center"><span style="display:inline-block;width:16px;height:16px;border:1.5px solid #3b2a20;border-radius:3px"></span></td></tr>'
-        for n, i in enumerate(o['items'], 1))
+    box = '<span style="display:inline-block;width:16px;height:16px;border:1.5px solid #3b2a20;border-radius:3px"></span>'
+    sub = 'padding:4px 8px;border-bottom:1px solid #eee6d8;vertical-align:top;font-size:13px;color:#5f5e38;'
+    def item_rows(n, i):
+        extras = i.get('extras', [])
+        main_td = td.replace('border-bottom:1px solid #d9cfbf;', 'border-bottom:1px solid #eee6d8;') if extras else td
+        r = (f'<tr><td style="{main_td}color:#86735f">{n}</td><td style="{main_td}"><b>{e(i["name"])}</b></td>'
+             f'<td style="{main_td}white-space:nowrap">{e(i["option"])}</td><td style="{main_td}text-align:center;font-size:17px"><b>{i["qty"]}</b></td>'
+             f'<td style="{main_td}text-align:right;white-space:nowrap">{rub(i["price"])}</td><td style="{main_td}text-align:right;white-space:nowrap"><b>{rub(i["price"] * i["qty"])}</b></td>'
+             f'<td style="{main_td}text-align:center">{box}</td></tr>')
+        for k, x in enumerate(extras):
+            st = sub if k < len(extras) - 1 else sub.replace('border-bottom:1px solid #eee6d8;', 'border-bottom:1px solid #d9cfbf;')
+            r += (f'<tr><td style="{st}"></td><td style="{st}" colspan="2">{n}.{k + 1}&nbsp; + {e(x["label"])}</td><td style="{st}text-align:center">{i["qty"]}</td>'
+                  f'<td style="{st}text-align:right;white-space:nowrap">{rub(x["price"])}</td><td style="{st}text-align:right;white-space:nowrap">{rub(x["price"] * i["qty"])}</td>'
+                  f'<td style="{st}text-align:center">{box}</td></tr>')
+        return r
+    rows = ''.join(item_rows(n, i) for n, i in enumerate(o['items'], 1))
     th = 'padding:6px 8px;border-bottom:2px solid #3b2a20;text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6b5a47;'
     comment = (f'<div style="margin-top:14px;padding:10px 12px;border:1.5px solid #b08d57;border-radius:6px;background:#faf5ea">'
                f'<div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8a6b3c">Комментарий клиента</div>'
@@ -208,8 +253,8 @@ def mail_html(o):
 <body style="margin:0;padding:16px;background:#efe8da;font-family:Arial,Helvetica,sans-serif;color:#3b2a20">
 <div class="sheet" style="max-width:720px;margin:0 auto;background:#fff;border:1px solid #d9cfbf;border-radius:8px;padding:24px 28px">
  <table role="presentation" style="width:100%;border-collapse:collapse"><tr>
-  <td style="vertical-align:top"><div style="font-size:26px;font-weight:bold;letter-spacing:.04em;color:#6e2430">БРО</div>
-   <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#86735f">мясная лавка · накладная</div></td>
+  <td style="vertical-align:top"><div style="font-size:26px;font-weight:bold;letter-spacing:.04em;color:#6e2430">ПП БРО</div>
+   <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#86735f">натуральное питание · накладная</div></td>
   <td style="vertical-align:top;text-align:right"><div style="font-size:24px;font-weight:bold">Заказ №{o["number"]}</div>
    <div style="font-size:13px;color:#6b5a47">{e(o["created_human"])}</div></td></tr></table>
 
@@ -219,7 +264,7 @@ def mail_html(o):
   <div style="margin-top:4px;font-size:26px;font-weight:bold;letter-spacing:.02em"><a href="tel:{e(o["phone_raw"])}" style="color:#3b2a20;text-decoration:none">{e(o["phone"])}</a></div>
   <div style="margin-top:8px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#86735f">Адрес доставки</div>
   <div style="margin-top:2px;font-size:16px">{e(o["address"])}{zone}</div>
-  <div style="margin-top:6px;font-size:13px;color:#6b5a47">Доставка {e(o["window"])} · {e(o["payment"])}</div>
+  <div style="margin-top:6px;font-size:13px;color:#6b5a47">Доставка {e(o["window"])} до подъезда · {e(o["payment"])}</div>
  </div>
  {comment}
 
@@ -246,6 +291,7 @@ def mail_html(o):
 # ---------------------------------------------------------------- PDF-накладная
 FONTS = os.path.join(ROOT, 'tools/fonts')
 INK, SOFT, FAINT, BURG, BRASS, CREAM, LINE = (59, 42, 32), (107, 90, 71), (134, 115, 95), (110, 36, 48), (176, 141, 87), (243, 237, 224), (217, 207, 191)
+OLIVE = (95, 94, 56)
 
 
 def mail_pdf(o):
@@ -270,10 +316,10 @@ def orders_pdf(lst):
     pdf = Sheet(format='A4', unit='mm')
     pdf.set_margins(14, 12, 14); pdf.set_auto_page_break(True, 14)
     for fam, style, f in (('golos', '', 'GolosText-400'), ('golos', 'B', 'GolosText-600'),
-                          ('oswald', '', 'Oswald-500'), ('oswald', 'B', 'Oswald-700'), ('rub', '', 'Rub-Regular'), ('rub', 'B', 'Rub-Bold'), ('box', '', 'Box')):
+                          ('oswald', '', 'Oswald-500'), ('oswald', 'B', 'Oswald-700'), ('rub', '', 'Rub-Regular'), ('rub', 'B', 'Rub-Bold'), ('box', '', 'Box'), ('approx', '', 'Approx')):
         pdf.add_font(fam, style, os.path.join(FONTS, f + '.ttf'))
-    pdf.set_fallback_fonts(['rub', 'box'], exact_match=False)  # знаки ₽ и □
-    pdf.set_title('Заказ №' + ', '.join(str(o['number']) for o in lst)); pdf.set_author('Мясная лавка БРО')
+    pdf.set_fallback_fonts(['rub', 'box', 'approx'], exact_match=False)  # знаки ₽, □ и ≈
+    pdf.set_title('Заказ №' + ', '.join(str(o['number']) for o in lst)); pdf.set_author('ПП БРО')
 
     def draw(o):
         W = pdf.epw
@@ -285,9 +331,9 @@ def orders_pdf(lst):
 
         # шапка
         y0 = pdf.get_y()
-        pdf.set_font('oswald', 'B', 22); pdf.set_text_color(*BURG); pdf.cell(60, 9, 'БРО')
+        pdf.set_font('oswald', 'B', 22); pdf.set_text_color(*BURG); pdf.cell(60, 9, 'ПП БРО')
         pdf.set_font('oswald', 'B', 20); pdf.set_text_color(*INK); pdf.cell(0, 9, f'Заказ №{o["number"]}', align='R', new_x='LMARGIN', new_y='NEXT')
-        pdf.set_font('golos', '', 7.5); pdf.set_text_color(*FAINT); pdf.set_char_spacing(0.6); pdf.cell(60, 5, 'МЯСНАЯ ЛАВКА · НАКЛАДНАЯ'); pdf.set_char_spacing(0)
+        pdf.set_font('golos', '', 7.5); pdf.set_text_color(*FAINT); pdf.set_char_spacing(0.6); pdf.cell(60, 5, 'НАТУРАЛЬНОЕ ПИТАНИЕ · НАКЛАДНАЯ'); pdf.set_char_spacing(0)
         pdf.set_font('golos', '', 9.5); pdf.set_text_color(*SOFT); pdf.cell(0, 5, o['created_human'], align='R', new_x='LMARGIN', new_y='NEXT')
         pdf.ln(5)
 
@@ -302,7 +348,7 @@ def orders_pdf(lst):
             pdf.set_font('golos', '', 11.5); pdf.set_text_color(*INK)
             pdf.multi_cell(W - 10, 6, t(o['address']) + ('  · за МКАД' if o['zone'] == 'out' else ''), new_x='LMARGIN', new_y='NEXT')
             inner(); pdf.set_font('golos', '', 9); pdf.set_text_color(*SOFT)
-            pdf.multi_cell(W - 10, 5, t(f'Доставка {o["window"]} · {o["payment"]}'), new_x='LMARGIN', new_y='NEXT')
+            pdf.multi_cell(W - 10, 5, t(f'Доставка {o["window"]} до подъезда · {o["payment"]}'), new_x='LMARGIN', new_y='NEXT')
         with pdf.offset_rendering() as dummy:  # сначала меряем высоту, потом рисуем фон
             dummy.set_y(box_y + 4); block(); h = dummy.get_y() - box_y + 4
         pdf.set_fill_color(*CREAM); pdf.rect(pdf.l_margin, box_y, W, h, style='F', round_corners=True, corner_radius=2)
@@ -337,8 +383,17 @@ def orders_pdf(lst):
                 row.cell(t(i['option']))
                 row.cell(str(i['qty']), style=FontFace(emphasis='BOLD', size_pt=12))
                 row.cell(t(rub(i['price'])))
-                row.cell(t(rub(i['sum'])), style=FontFace(emphasis='BOLD'))
+                row.cell(t(rub(i['price'] * i['qty'])), style=FontFace(emphasis='BOLD'))
                 row.cell('□', style=FontFace(size_pt=15, color=INK))  # клеточка для отметки при сборке
+                for k, x in enumerate(i.get('extras', []), 1):  # доп. услуги — подпунктами под товаром
+                    row = table.row()
+                    sub = FontFace(size_pt=9, color=OLIVE)
+                    row.cell(f'{n}.{k}', style=FontFace(size_pt=8, color=FAINT))
+                    row.cell(t('+ ' + x['label']), style=sub, colspan=2)
+                    row.cell(str(i['qty']), style=sub)
+                    row.cell(t(rub(x['price'])), style=sub)
+                    row.cell(t(rub(x['price'] * i['qty'])), style=sub)
+                    row.cell('□', style=FontFace(size_pt=13, color=INK))
         pdf.ln(3)
 
         # итог

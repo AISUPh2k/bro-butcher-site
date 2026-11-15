@@ -176,6 +176,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
 .order-items li{display:flex; justify-content:space-between; gap:12px; padding:4px 0; border-bottom:1px dashed var(--line);}
 .order-items li span:last-child{white-space:nowrap; font-weight:600;}
 .order-items .tot{border:0; padding-top:8px; color:var(--soft);}
+.order-items .sub{padding:2px 0 2px 14px; font-size:.84rem; color:var(--olive);}
+.order-items .sub span:last-child{font-weight:400;}
 .order-actions{grid-column:1 / -1; display:flex; gap:8px; flex-wrap:wrap;}
 .btn-ok{background:var(--olive); border-color:var(--olive); color:#f4f2e2;}
 .btn-ok:hover{background:#4d4c2c; border-color:#4d4c2c;}
@@ -275,6 +277,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
                 <label class="check"><input type="checkbox" id="veg"> С овощами</label>
                 <label class="check"><input type="checkbox" id="hidden"> Скрыть с сайта</label>
               </div>
+              <label class="check" style="align-self:start"><input type="checkbox" id="addons"> Добавки к фасовке: овощи, лососевое масло, «в рубленом виде»</label>
+              <p class="hint" style="margin:-6px 0 0">Покупатель сможет добавить их к каждой упаковке. Рубленым товарам обычно не нужны — у них выключено.</p>
             </div>
 
             <div class="card">
@@ -361,7 +365,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
       if (old) for (var k in old) p[k] = old[k];
       p.slug = body.slug || 'demo-' + Date.now(); p.name = body.name.trim(); p.tags = body.tags; p.cat = body.tags[0];
       p.options = body.options.map(function (o) { return [o[0], parseInt(String(o[1]).replace(/\s/g, ''), 10)]; });
-      p.in_stock = body.in_stock; p.veg = body.veg; p.hidden = body.hidden;
+      p.in_stock = body.in_stock; p.veg = body.veg; p.hidden = body.hidden; p.addons = body.addons;
       p.composition = body.composition.split('\n').map(function (x) { return x.trim(); }).filter(Boolean);
       p.notes = body.notes.split(/\n\s*\n/).map(function (x) { return x.trim(); }).filter(Boolean);
       var kb = body.kbju; p.kbju = (kb.b || kb.z || kb.u || kb.kcal) ? kb : null;
@@ -445,7 +449,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     $('#orderList').innerHTML = list.map(function (o) {
       var st = ST[o.status || 'new'];
       var items = o.items.map(function (i) {
-        return '<li><span>' + esc(i.name) + ' — ' + esc(i.option) + ' × ' + i.qty + '</span><span>' + rub(i.sum) + '</span></li>';
+        return '<li><span>' + esc(i.name) + ' — ' + esc(i.option) + ' × ' + i.qty + '</span><span>' + rub(i.price * i.qty) + '</span></li>' +
+          (i.extras || []).map(function (x) { return '<li class="sub"><span>+ ' + esc(x.label) + ' × ' + i.qty + '</span><span>' + rub(x.price * i.qty) + '</span></li>'; }).join('');
       }).join('') + '<li class="tot"><span>Товары ' + rub(o.goods) + (o.weight ? ', вес ' + esc(o.weight) : '') + ', доставка ' + (o.fee ? rub(o.fee) : 'бесплатно') + (o.zone === 'out' ? ' + км за МКАД' : '') + '</span><span></span></li>';
       var acts = '<a class="btn btn-small" href="../api/orders/pdf?n=' + o.number + '" data-pdf="' + o.number + '">Скачать накладную (PDF)</a>' +
         (o.status === 'new' || !o.status
@@ -563,6 +568,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     $('#name').value = p.name;
     $$('#tags input').forEach(function (i) { i.checked = p.tags.indexOf(i.value) >= 0; });
     $('#in_stock').checked = !!p.in_stock; $('#hit').checked = isHit(p); $('#veg').checked = !!p.veg; $('#hidden').checked = !!p.hidden;
+    $('#addons').checked = 'addons' in p ? !!p.addons : !/рублен/i.test(p.name);  // как на сайте: по умолчанию у всех, кроме рубленых
     $('#opts').innerHTML = '<div class="opt-row opt-head"><span>Вес</span><span>Цена</span><span></span></div>';
     p.options.forEach(function (o) { addOpt(o[0], o[1]); });
     $('#composition').value = (p.composition || []).join('\n');
@@ -605,7 +611,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--burgundy); outline:no
     return {
       slug: S.cur.slug || undefined, name: $('#name').value,
       tags: $$('#tags input:checked').map(function (i) { return i.value; }),
-      options: opts, in_stock: $('#in_stock').checked, hit: $('#hit').checked, veg: $('#veg').checked, hidden: $('#hidden').checked,
+      options: opts, in_stock: $('#in_stock').checked, hit: $('#hit').checked, veg: $('#veg').checked, hidden: $('#hidden').checked, addons: $('#addons').checked,
       composition: $('#composition').value, notes: $('#notes').value,
       kbju: { b: $('#kb_b').value, z: $('#kb_z').value, u: $('#kb_u').value, kcal: $('#kb_kcal').value }
     };

@@ -36,16 +36,44 @@
     for (var i = 0; i < p.o.length; i++) if (p.o[i][0] === label) return p.o[i][1];
     return null;
   }
-  function addToCart(slug, opt, qty) {
+  /* ---------- добавки к фасовке: овощи, лососевое масло, в рубленом виде (цены и подписи — site.json → addons) ----------
+     В корзине у позиции поле a = { v: [номера овощей], o: порций масла, c: 1 — в рубленом виде }. Цена добавок — за каждую упаковку. */
+  var AD = BRO.site.addons;
+  function cleanAddons(slug, a) {  // только то, что разрешено товару; пустой выбор — null
+    var p = BRO.products[slug];
+    if (!AD || !p || !p.a || !a) return null;
+    var v = (Array.isArray(a.v) ? a.v : []).map(Number)
+      .filter(function (i, k, arr) { return i >= 0 && i < AD.veg.items.length && arr.indexOf(i) === k; }).sort();
+    var o = Math.max(0, Math.min(AD.oil.max, parseInt(a.o, 10) || 0)), c = a.c ? 1 : 0;
+    return v.length || o || c ? { v: v, o: o, c: c } : null;
+  }
+  function addonsPrice(a) { return a ? (a.v.length ? AD.veg.price : 0) + a.o * AD.oil.price + (a.c ? AD.chop.price : 0) : 0; }
+  function addonsKey(a) { return a ? a.v.join(',') + '|' + a.o + '|' + a.c : ''; }
+  function addonsList(a) {  // [{t: подпись, p: цена за упаковку}]
+    var out = []; if (!a) return out;
+    var note = AD.veg.note.charAt(0).toLowerCase() + AD.veg.note.slice(1);
+    if (a.v.length) out.push({ t: AD.veg.name + ': ' + a.v.map(function (i) { return AD.veg.items[i].toLowerCase(); }).join(', ') + ' (' + note + ')', p: AD.veg.price });
+    if (a.o) out.push({ t: AD.oil.name + ' ' + AD.oil.ml + ' мл × ' + a.o, p: a.o * AD.oil.price });
+    if (a.c) out.push({ t: AD.chop.name, p: AD.chop.price });
+    return out;
+  }
+  function unitPrice(it) {
+    var pr = optPrice(it.s, it.o);
+    return pr === null ? null : pr + addonsPrice(cleanAddons(it.s, it.a));
+  }
+  function addToCart(slug, opt, qty, a) {
     var items = load(), found = false;
-    items.forEach(function (it) { if (it.s === slug && it.o === opt) { it.q = Math.min(99, it.q + qty); found = true; } });
-    if (!found) items.push({ s: slug, o: opt, q: qty });
+    a = cleanAddons(slug, a);
+    items.forEach(function (it) {
+      if (it.s === slug && it.o === opt && addonsKey(cleanAddons(it.s, it.a)) === addonsKey(a)) { it.q = Math.min(99, it.q + qty); found = true; }
+    });
+    if (!found) items.push(a ? { s: slug, o: opt, q: qty, a: a } : { s: slug, o: opt, q: qty });
     save(items);
   }
   function count() { return load().reduce(function (a, it) { return a + it.q; }, 0); }
   function total() {
     return load().reduce(function (a, it) {
-      var p = BRO.products[it.s], pr = optPrice(it.s, it.o);
+      var p = BRO.products[it.s], pr = unitPrice(it);
       return a + (p && p.s === 1 && pr !== null ? pr * it.q : 0);
     }, 0);
   }
@@ -171,14 +199,38 @@
   /* ---------- options, qty, add ---------- */
   /* Цена на экране = цена выбранной фасовки (из админки) × количество. Сами цены не меняются:
      в корзину уходят фасовка и количество, сумму заказа сервер считает заново по products.json. */
+  function readAddons(card) {
+    var box = card && $('[data-addons]', card), add = card && $('[data-add]', card);
+    if (!box || !add) return null;
+    return cleanAddons(add.getAttribute('data-add'), {
+      v: $$('.veg[aria-pressed="true"]', box).map(function (b) { return +b.getAttribute('data-veg'); }),
+      o: +$('[data-oil]', box).textContent,
+      c: $('[data-chop]', box).getAttribute('aria-checked') === 'true'
+    });
+  }
+  function renderAddons(card) {
+    var box = $('[data-addons]', card); if (!box) return;
+    var a = readAddons(card), chop = $('[data-chop]', box);
+    $('[data-addon="veg"]', box).classList.toggle('is-on', !!(a && a.v.length));
+    $('[data-addon="oil"]', box).classList.toggle('is-on', !!(a && a.o));
+    $('[data-addon="chop"]', box).classList.toggle('is-on', !!(a && a.c));
+    chop.textContent = a && a.c ? '✓ Выбрано' : 'Выбрать';
+    var tg = $('[data-addons-toggle]', card);
+    if (tg) {
+      $('[data-addons-sum]', tg).textContent = a ? 'Добавки: +' + rub(addonsPrice(a)) : '+ Добавки к упаковке';
+      tg.classList.toggle('has-extras', !!a);
+    }
+  }
   function renderPrice(card) {
     var po = $('[data-price-out]', card), uo = $('[data-unit-out]', card), add = $('[data-add]', card);
     if (!po || !add) return;
     var slug = add.getAttribute('data-add'), label = add.getAttribute('data-opt');
-    var price = optPrice(slug, label); if (price === null) return;
+    var base = optPrice(slug, label); if (base === null) return;
+    renderAddons(card);
+    var price = base + addonsPrice(readAddons(card)), plus = price !== base ? ' с добавками' : '';
     var qi = $('[data-qty-input]', card), q = qi ? Math.max(1, Math.min(99, parseInt(qi.value, 10) || 1)) : 1;
     po.textContent = rub(price * q);
-    if (uo) uo.textContent = q > 1 ? q + ' × ' + label + ' · по ' + rub(price) : 'за ' + label;
+    if (uo) uo.textContent = q > 1 ? q + ' × ' + label + plus + ' · по ' + rub(price) : 'за ' + label + plus;
   }
   document.addEventListener('input', function (e) {
     var qi = e.target.closest('[data-qty-input]');
@@ -189,6 +241,27 @@
     if (qi && !qi.closest('.cart-item')) { qi.value = Math.max(1, Math.min(99, parseInt(qi.value, 10) || 1)); renderPrice(qi.closest('.pcard')); }
   });
   document.addEventListener('click', function (e) {
+    var tg = e.target.closest('[data-addons-toggle]');
+    if (tg) {
+      var open = tg.getAttribute('aria-expanded') !== 'true';
+      tg.setAttribute('aria-expanded', open ? 'true' : 'false');
+      $('[data-addons]', tg.closest('.pcard')).hidden = !open;
+      return;
+    }
+    var ad = e.target.closest('[data-addons] button');
+    if (ad) {
+      var acard = ad.closest('.pcard');
+      if (ad.classList.contains('veg')) ad.setAttribute('aria-pressed', ad.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      else if (ad.hasAttribute('data-chop')) ad.setAttribute('aria-checked', ad.getAttribute('aria-checked') === 'true' ? 'false' : 'true');
+      else if (ad.hasAttribute('data-oil-inc') || ad.hasAttribute('data-oil-dec')) {
+        var out = $('[data-oil]', acard), n = Math.max(0, Math.min(AD.oil.max, +out.textContent + (ad.hasAttribute('data-oil-inc') ? 1 : -1)));
+        out.textContent = n;
+        $('[data-oil-dec]', acard).disabled = n === 0;
+        $('[data-oil-inc]', acard).disabled = n === AD.oil.max;
+      }
+      renderPrice(acard);
+      return;
+    }
     var opt = e.target.closest('.opt');
     if (opt) {
       var card = opt.closest('.pcard');
@@ -213,11 +286,11 @@
     if (addBtn) {
       var c = addBtn.closest('.pcard'), qi = c && $('[data-qty-input]', c);
       var q = qi ? Math.max(1, Math.min(99, parseInt(qi.value, 10) || 1)) : 1;
-      var slug = addBtn.getAttribute('data-add'), o = addBtn.getAttribute('data-opt');
-      addToCart(slug, o, q);
+      var slug = addBtn.getAttribute('data-add'), o = addBtn.getAttribute('data-opt'), adds = readAddons(c);
+      addToCart(slug, o, q, adds);
       var name = BRO.products[slug] ? BRO.products[slug].n : '';
       var left = freeLeft();
-      toast('<span>Добавлено: ' + esc(name) + ', ' + esc(o) + (q > 1 ? ' × ' + q : '') +
+      toast('<span>Добавлено: ' + esc(name) + ', ' + esc(o) + (adds ? ' с добавками' : '') + (q > 1 ? ' × ' + q : '') +
         '<small>' + (left ? 'До бесплатной доставки ' + rub(left) : 'Доставка по Москве — бесплатно') + '</small></span>' +
         '<a href="' + ROOT + 'cart.html">В корзину →</a>');
     }
@@ -302,8 +375,9 @@
 
     function lines() {
       return load().map(function (it) {
-        var p = BRO.products[it.s], price = optPrice(it.s, it.o);
-        return { it: it, p: p, price: price, ok: !!p && price !== null && p.s === 1 };
+        var p = BRO.products[it.s], base = optPrice(it.s, it.o), a = cleanAddons(it.s, it.a);
+        var price = base === null ? null : base + addonsPrice(a);
+        return { it: it, p: p, base: base, a: a, price: price, ok: !!p && price !== null && p.s === 1 };
       });
     }
     function calc() {
@@ -340,8 +414,10 @@
       list.innerHTML = ls.map(function (l, i) {
         var p = l.p || { n: 'Товар больше не продаётся', i: '' };
         var img = p.i ? '<img src="' + ROOT + 'static/img/products/' + esc(p.i) + '" alt="" loading="lazy">' : '';
+        var extras = addonsList(l.a);
         var note = !l.ok ? '<span class="meta" style="color:var(--pomegranate)">нет в наличии — уберите из заказа</span>' :
-          '<span class="meta">' + esc(l.it.o) + ' · ' + rub(l.price) + '</span>';
+          '<span class="meta">' + esc(l.it.o) + ' · ' + rub(l.base) + (extras.length ? ' + добавки ' + rub(l.price - l.base) : '') + '</span>' +
+          (extras.length ? '<div class="extras">' + extras.map(function (x) { return '<span class="extra">' + esc(x.t) + ' +' + rub(x.p) + '</span>'; }).join('') + '</div>' : '');
         return '<li class="cart-item" data-i="' + i + '">' +
           '<a class="thumb" href="' + ROOT + 'p/' + esc(l.it.s) + '.html">' + img + '</a>' +
           '<div><div class="name"><a href="' + ROOT + 'p/' + esc(l.it.s) + '.html">' + esc(p.n) + '</a></div>' + note + '</div>' +
@@ -410,7 +486,7 @@
         if (!$('#f-remember').checked) { localStorage.removeItem(ME_KEY); localStorage.removeItem(LAST_KEY); return; }
         var now = new Date();
         localStorage.setItem(LAST_KEY, JSON.stringify({ d: ('0' + now.getDate()).slice(-2) + '.' + ('0' + (now.getMonth() + 1)).slice(-2),
-          items: calc().lines.map(function (l) { return { s: l.it.s, o: l.it.o, q: l.it.q }; }) }));
+          items: calc().lines.map(function (l) { return l.a ? { s: l.it.s, o: l.it.o, q: l.it.q, a: l.a } : { s: l.it.s, o: l.it.o, q: l.it.q }; }) }));
         var f = form.elements, me = loadMe() || { addresses: [] };
         var addr = f.address.value.trim(), zone = (form.querySelector('[name=zone]:checked') || {}).value || 'mkad';
         me.name = f.name.value.trim(); me.phone = prevDigits;
@@ -450,7 +526,7 @@
     function checkLast(last) {  // что из прошлого заказа можно купить сейчас — по текущим ценам и наличию из админки
       var ok = [], gone = [];
       last.items.forEach(function (it) {
-        var p = BRO.products[it.s], pr = optPrice(it.s, it.o);
+        var p = BRO.products[it.s], pr = unitPrice(it);
         if (p && p.s === 1 && pr !== null) ok.push({ it: it, p: p, price: pr }); else gone.push((p ? p.n : 'товар') + ', ' + it.o);
       });
       return { ok: ok, gone: gone };
@@ -458,7 +534,7 @@
     function repeatLast() {
       var last = loadLast(); if (!last) return;
       var r = checkLast(last);
-      r.ok.forEach(function (x) { addToCart(x.it.s, x.it.o, x.it.q); });
+      r.ok.forEach(function (x) { addToCart(x.it.s, x.it.o, x.it.q, x.it.a); });
       render();
       toast('<span>Добавлено из прошлого заказа: ' + r.ok.length + ' ' + plural(r.ok.length, 'позиция', 'позиции', 'позиций').replace(/^\d+ /, '') +
         (r.gone.length ? '<small>Нет в наличии: ' + esc(r.gone.join('; ')) + '</small>' : '') + '</span>');
@@ -471,7 +547,7 @@
       if (empty) {
         var sum = r.ok.reduce(function (a, x) { return a + x.price * x.it.q; }, 0);
         box.innerHTML = '<h2>Ваш прошлый заказ от ' + esc(last.d) + '</h2><ul>' +
-          r.ok.map(function (x) { return '<li><span>' + esc(x.p.n) + ' — ' + esc(x.it.o) + ' × ' + x.it.q + '</span><b>' + rub(x.price * x.it.q) + '</b></li>'; }).join('') +
+          r.ok.map(function (x) { return '<li><span>' + esc(x.p.n) + ' — ' + esc(x.it.o) + (cleanAddons(x.it.s, x.it.a) ? ' с добавками' : '') + ' × ' + x.it.q + '</span><b>' + rub(x.price * x.it.q) + '</b></li>'; }).join('') +
           r.gone.map(function (g) { return '<li class="gone"><span>' + esc(g) + '</span><b>нет в наличии</b></li>'; }).join('') + '</ul>' +
           (r.ok.length ? '<button type="button" class="btn btn-primary" data-repeat>Повторить заказ · ' + rub(sum) + '</button><p class="hint">Цены — сегодняшние. Состав можно поменять в корзине.</p>'
                        : '<p class="hint">Этих товаров сейчас нет в наличии.</p>');
@@ -497,7 +573,8 @@
     function orderText() {
       var c = calc(), f = form.elements, out = ['Здравствуйте! Заказ с сайта:', ''];
       c.lines.forEach(function (l, i) {
-        out.push((i + 1) + '. ' + l.p.n + ' — ' + l.it.o + ' × ' + l.it.q + ' = ' + rub(l.price * l.it.q));
+        out.push((i + 1) + '. ' + l.p.n + ' — ' + l.it.o + ' × ' + l.it.q + ' = ' + rub(l.base * l.it.q));
+        addonsList(l.a).forEach(function (x) { out.push('   + ' + x.t + ' — ' + rub(x.p) + ' × ' + l.it.q + ' = ' + rub(x.p * l.it.q)); });
       });
       out.push('', 'Товары: ' + rub(c.items));
       out.push('Доставка: ' + (c.fee ? rub(c.fee) : 'бесплатно') + (c.out ? ' + ' + D.outside_per_km + ' ₽/км за МКАД' : ''));
@@ -541,7 +618,7 @@
       fetch(BRO.site.order_api, {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BRO': '1' },
         body: JSON.stringify({
-          items: c.lines.map(function (l) { return { s: l.it.s, o: l.it.o, q: l.it.q }; }),
+          items: c.lines.map(function (l) { return l.a ? { s: l.it.s, o: l.it.o, q: l.it.q, a: l.a } : { s: l.it.s, o: l.it.o, q: l.it.q }; }),
           name: f.name.value, phone: f.phone.value, address: f.address.value, comment: f.comment.value,
           zone: c.out ? 'out' : 'mkad', consent: $('#f-consent').checked, website: f.website.value, total: c.total
         })

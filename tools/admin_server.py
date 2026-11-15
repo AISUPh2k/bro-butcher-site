@@ -124,7 +124,7 @@ def clean_product(d, existing):
         seen.add(label); clean.append([label, price])
     if all(grams(l) is not None for l, _ in clean): clean.sort(key=lambda o: grams(o[0]))
     p['options'] = clean
-    for k in ('in_stock', 'veg', 'hidden'): p[k] = bool(d.get(k))
+    for k in ('in_stock', 'veg', 'hidden', 'addons'): p[k] = bool(d.get(k))
     p['composition'] = lines(d.get('composition'), 'Состав', 40, 200)
     notes = d.get('notes') or ''
     if isinstance(notes, list): notes = '\n\n'.join(notes)
