@@ -35,7 +35,16 @@ CATS = [  # key, название, короткое описание
 CAT_NAME = {k: n for k, n, _ in CATS}
 
 e = html.escape
-TAGLINE = ' · '.join(e(x.strip()) for x in SITE['tagline'].split(','))  # под логотипом: «натуральное питание · зоогостиница · питомник»
+TAG_LINKS = (('питани', 'catalog.html'), ('гостиниц', 'hotel.html'), ('питомник', 'index.html#kennel'))  # слово в tagline → куда ведёт
+
+def logo(r, home_label=False):
+    """Логотип: «ПП БРО» ведёт на главную, каждое слово подписи — в свой раздел."""
+    parts = []
+    for x in (x.strip() for x in SITE['tagline'].split(',')):
+        href = next((u for key, u in TAG_LINKS if key in x.lower()), None)
+        parts.append(f'<a href="{r}{href}">{e(x)}</a>' if href else e(x))
+    label = ' aria-label="ПП БРО — на главную"' if home_label else ''
+    return f'<div class="logo"><a class="logo-name" href="{r}index.html"{label}>{e(SITE["full_name"])}</a><small class="logo-tags">{" · ".join(parts)}</small></div>'
 
 def rub(n):
     return f'{n:,}'.replace(',', ' ') + ' ₽'
@@ -109,7 +118,7 @@ def header(r, active):
     </span>
   </div></div>
   <div class="main-bar"><div class="wrap">
-    <a class="logo" href="{r}index.html" aria-label="ПП БРО — на главную">ПП БРО<small>{TAGLINE}</small></a>
+    {logo(r, home_label=True)}
     <nav class="main-nav" id="mainNav" aria-label="Основное меню">
 {nav}
     </nav>
@@ -127,7 +136,7 @@ def footer(r):
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="logo" href="{r}index.html">ПП БРО<small>{TAGLINE}</small></a>
+        {logo(r)}
         <p>Натуральное мясо для собак. Пилим без разморозки, миксы составляет зоодиетолог.</p>
         <p class="slogan">{e(SITE["slogan"])}</p>
       </div>

@@ -96,8 +96,13 @@ button{font:inherit; color:inherit;}
 .utility-links a:hover{color:#fff;}
 .main-bar .wrap{display:flex; align-items:center; gap:28px; padding-block:12px; position:relative;}
 .logo{font-family:'Oswald',sans-serif; font-weight:700; font-size:1.75rem; letter-spacing:.06em; line-height:1; color:var(--burgundy); display:inline-flex; flex-direction:column;}
-.logo small{font-family:'Golos Text',sans-serif; font-size:.52rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin-top:4px; white-space:nowrap;}
-.site-header .logo small{white-space:normal; max-width:150px; line-height:1.3;}
+.logo-name{color:inherit; text-decoration:none;}
+.logo small{font-family:'Golos Text',sans-serif; font-size:.62rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-top:5px; line-height:1.45;}
+.site-header .logo small{max-width:180px;}
+.logo-tags a{color:inherit; text-decoration:none; border-bottom:1px solid transparent; transition:color .15s ease, border-color .15s ease;}
+.logo-tags a:hover,.logo-tags a:focus-visible{color:var(--burgundy); border-bottom-color:currentColor;}
+.site-footer .logo-tags a:hover,.site-footer .logo-tags a:focus-visible{color:var(--on-dark);}
+#kennel{scroll-margin-top:110px;}
 .main-nav{display:flex; gap:22px; flex-wrap:wrap; flex:1; font-size:.82rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
 .main-nav a{color:var(--ink-soft); padding:4px 0; border-bottom:2px solid transparent;}
 .main-nav a[href$="hotel.html"]{color:var(--olive);}
