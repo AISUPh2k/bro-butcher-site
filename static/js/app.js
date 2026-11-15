@@ -215,31 +215,7 @@
     $('[data-addon="oil"]', box).classList.toggle('is-on', !!(a && a.o));
     $('[data-addon="chop"]', box).classList.toggle('is-on', !!(a && a.c));
     chop.textContent = a && a.c ? '✓ Выбрано' : 'Выбрать';
-    var tg = $('[data-addons-toggle]', card);
-    if (tg) {
-      $('[data-addons-sum]', tg).textContent = a ? 'Добавки: +' + rub(addonsPrice(a)) : '+ Добавки к упаковке';
-      tg.classList.toggle('has-extras', !!a);
-    }
   }
-  /* Всплывающие добавки в карточке каталога: открыта одна за раз, Esc и нажатие мимо закрывают. */
-  function closePops(except) {
-    $$('.addons-pop [data-addons-toggle][aria-expanded="true"]').forEach(function (t) {
-      if (t === except) return;
-      t.setAttribute('aria-expanded', 'false');
-      $('[data-addons]', t.closest('.addons-pop')).hidden = true;
-    });
-  }
-  function resetAddons(card) {
-    $$('.veg', card).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-    var oil = $('[data-oil]', card); if (oil) oil.textContent = '0';
-    var dec = $('[data-oil-dec]', card), inc = $('[data-oil-inc]', card);
-    if (dec) dec.disabled = true; if (inc) inc.disabled = false;
-    var chop = $('[data-chop]', card); if (chop) chop.setAttribute('aria-checked', 'false');
-    var tg = $('[data-addons-toggle]', card);
-    if (tg) { tg.setAttribute('aria-expanded', 'false'); $('[data-addons]', card).hidden = true; }
-    renderPrice(card);
-  }
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePops(); });
   function renderPrice(card) {
     var po = $('[data-price-out]', card), uo = $('[data-unit-out]', card), add = $('[data-add]', card);
     if (!po || !add) return;
@@ -260,15 +236,12 @@
     if (qi && !qi.closest('.cart-item')) { qi.value = Math.max(1, Math.min(99, parseInt(qi.value, 10) || 1)); renderPrice(qi.closest('.pcard')); }
   });
   document.addEventListener('click', function (e) {
-    var tg = e.target.closest('[data-addons-toggle]');
-    if (tg) {
-      var open = tg.getAttribute('aria-expanded') !== 'true';
-      closePops(tg);
-      tg.setAttribute('aria-expanded', open ? 'true' : 'false');
-      $('[data-addons]', tg.closest('.pcard')).hidden = !open;
+    var al = e.target.closest('[data-addons-link]');
+    if (al) {  // «+ Добавки к упаковке» в каталоге: на страницу товара с тем же весом, сразу к плиткам
+      var ab = $('[data-add]', al.closest('.pcard'));
+      if (ab) al.href = al.href.split(/[?#]/)[0] + '?opt=' + encodeURIComponent(ab.getAttribute('data-opt')) + '#dobavki';
       return;
     }
-    if (!e.target.closest('.addons-pop')) closePops();  // нажали мимо всплывающих добавок — закрыть
     var ad = e.target.closest('[data-addons] button');
     if (ad) {
       var acard = ad.closest('.pcard');
@@ -309,7 +282,6 @@
       var q = qi ? Math.max(1, Math.min(99, parseInt(qi.value, 10) || 1)) : 1;
       var slug = addBtn.getAttribute('data-add'), o = addBtn.getAttribute('data-opt'), adds = readAddons(c);
       addToCart(slug, o, q, adds);
-      if (c && $('.addons-pop', c)) resetAddons(c);  // в каталоге: добавки ушли в корзину — панель закрыть, выбор сбросить
       var name = BRO.products[slug] ? BRO.products[slug].n : '';
       var left = freeLeft();
       toast('<span>Добавлено: ' + esc(name) + ', ' + esc(o) + (adds ? ' с добавками' : '') + (q > 1 ? ' × ' + q : '') +
@@ -317,6 +289,13 @@
         '<a href="' + ROOT + 'cart.html">В корзину →</a>');
     }
   });
+
+  /* Пришли из каталога по «+ Добавки к упаковке» — выбрать тот же вес, что был в карточке. */
+  (function () {
+    var want = new URLSearchParams(location.search).get('opt');
+    var b = want && $$('.product-info .opt').filter(function (x) { return x.getAttribute('data-opt') === want; })[0];
+    if (b && b.getAttribute('aria-pressed') !== 'true') b.click();
+  })();
 
   /* Кнопка «В корзину» остаётся оливковой «В корзине · N», пока выбранная фасовка лежит в корзине; нажатие добавляет ещё. */
   function syncAddButtons() {

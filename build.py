@@ -263,8 +263,13 @@ def buy_button(p, big=False):
     label, _ = p['options'][-1]
     return f'<button class="{cls}" type="button" data-add="{p["slug"]}" data-opt="{e(label)}">В корзину</button>'
 
-def addons_block(p, compact=False):
-    """Плитки добавок (вариант C, выбран 14.11). compact — в карточке каталога: спрятаны под кнопкой, плитки в строку."""
+def addons_link(p, r):
+    """В карточке каталога вместо плиток — ссылка на страницу товара, сразу к добавкам (выбранный вес передаёт app.js)."""
+    if not has_addons(p) or not p['in_stock']: return ''
+    return f'<a class="addons-toggle" href="{r}p/{p["slug"]}.html#dobavki" data-addons-link>+ Добавки к упаковке<span class="chev" aria-hidden="true">→</span></a>'
+
+def addons_block(p):
+    """Плитки добавок на странице товара (вариант C, выбран 14.11)."""
     if not has_addons(p) or not p['in_stock']: return ''
     v, o, c = AD['veg'], AD['oil'], AD['chop']
     vegs = ''.join(f'<button type="button" class="veg" data-veg="{i}" aria-pressed="false">{e(n)}</button>' for i, n in enumerate(v['items']))
@@ -288,11 +293,7 @@ def addons_block(p, compact=False):
             <div class="atile-ctl"><button type="button" class="atile-btn" role="switch" aria-checked="false" aria-label="{e(c["name"])}" data-chop>Выбрать</button></div>
           </div>
         </div>'''
-    if compact:
-        # всплывает над кнопкой поверх карточки — соседние карточки в ряду не растягиваются
-        return (f'<div class="addons-pop"><button type="button" class="addons-toggle" aria-expanded="false" data-addons-toggle><span data-addons-sum>+ Добавки к упаковке</span><span class="chev" aria-hidden="true">▴</span></button>'
-                f'<div class="addons is-compact" data-addons hidden>{body}</div></div>')
-    return f'<div class="addons" data-addons><span class="addons-title">Добавить к каждой упаковке</span>{body}</div>'
+    return f'<div class="addons" id="dobavki" data-addons><span class="addons-title">Добавить к каждой упаковке</span>{body}</div>'
 
 def card(p, r):
     label, price = p['options'][-1]
@@ -309,7 +310,7 @@ def card(p, r):
   <div class="pcard-bottom">
     {options(p)}
     <div class="price-row"><span class="price" data-price-out>{rub(price)}</span><span class="unit" data-unit-out>{unit}</span></div>
-    {addons_block(p, compact=True)}
+    {addons_link(p, r)}
     {buy_button(p)}
   </div>
 </article>'''

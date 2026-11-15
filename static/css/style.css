@@ -423,16 +423,7 @@ button{font:inherit; color:inherit;}
 .stepper button:hover:not(:disabled){color:var(--burgundy);}
 .stepper button:disabled{opacity:.35; cursor:default;}
 .stepper output{min-width:20px; text-align:center; font-weight:600;}
-/* в каталоге и на узком телефоне — плитки строками: значок, название, цена, под ними выбор */
-.addons.is-compact .atiles{grid-template-columns:1fr;}
-.addons.is-compact .atile{display:grid; grid-template-columns:34px 1fr auto; align-items:center; gap:6px 8px; padding:9px 10px; text-align:left;}
-.addons.is-compact .atile-pic{width:34px; height:34px;}
-.addons.is-compact .atile-pic .icon{width:20px; height:20px;}
-.addons.is-compact .atile-ctl{grid-column:1 / -1;}
-.addons.is-compact .atile-ctl.vegs{flex-direction:row;}
-.addons.is-compact .veg{flex:1;}
-.addons.is-compact .veg[aria-pressed="true"]::before{content:none;}
-.addons.is-compact [data-addon="oil"] .atile-ctl{justify-content:flex-end;}
+/* на узком телефоне — плитки строками: значок, название, цена, под ними выбор */
 @media (max-width:380px){
   .product-info .atiles{grid-template-columns:1fr;}
   .product-info .atile{display:grid; grid-template-columns:40px 1fr auto; align-items:center; gap:6px 10px; padding:10px 12px; text-align:left;}
@@ -440,15 +431,11 @@ button{font:inherit; color:inherit;}
   .product-info .atile-ctl.vegs{flex-direction:row;}
   .product-info .veg{flex:1;}
 }
-.addons-pop{position:relative;}
-.addons-pop .addons{position:absolute; left:-6px; right:-6px; bottom:calc(100% + 6px); z-index:20; max-width:none; background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; padding:8px; box-shadow:0 2px 6px rgba(59,42,32,.1),0 18px 40px -12px rgba(59,42,32,.45);}
-.addons-pop .addons::after{content:""; position:absolute; bottom:-7px; left:22px; width:12px; height:12px; background:var(--surface); border-right:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong); transform:rotate(45deg);}
-.addons-pop .vegs{flex-wrap:wrap;}
-.addons-pop .veg{min-width:max-content;}
-.addons-toggle{display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; padding:7px 10px; border-radius:7px; border:1px dashed var(--olive); background:transparent; color:var(--olive); font-size:.8rem; font-weight:600; cursor:pointer; text-align:left;}
-.addons-toggle.has-extras{border-style:solid; background:#ece8d6;}
+.addons-toggle{display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; padding:7px 10px; border-radius:7px; border:1px dashed var(--olive); background:transparent; color:var(--olive); font-size:.8rem; font-weight:600; text-decoration:none;}
+.addons-toggle:hover{border-style:solid; background:#ece8d6;}
 .addons-toggle .chev{transition:transform .15s ease;}
-.addons-toggle[aria-expanded="true"] .chev{transform:rotate(180deg);}
+.addons-toggle:hover .chev{transform:translateX(3px);}
+#dobavki{scroll-margin-top:190px;}
 .cart-item .extras{display:flex; flex-wrap:wrap; gap:4px 6px; margin-top:6px; font-size:.78rem;}
 .cart-item .extra{background:#ece8d6; border:1px solid rgba(95,94,56,.35); color:var(--olive); padding:3px 7px; border-radius:5px;}
 .facts{list-style:none; border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:9px; font-size:.88rem; color:var(--ink-soft);}

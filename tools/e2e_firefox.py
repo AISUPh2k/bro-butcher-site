@@ -78,23 +78,16 @@ try:
     info.find_element(By.CSS_SELECTOR, '.opt[data-opt="1 кг"]').click()
     info.find_element(By.CSS_SELECTOR, '[data-add]').click(); time.sleep(0.3)
     d.get(base + '/catalog.html')
-    ok(not d.find_elements(By.CSS_SELECTOR, '.pcard[data-slug="miks-rublenyj-bez-ovoshej"] [data-addons]'), 'chopped product has no addons')
+    ok(not d.find_elements(By.CSS_SELECTOR, '.pcard[data-slug="miks-rublenyj-bez-ovoshej"] [data-addons-link]'), 'chopped product has no addons link')
     card = d.find_element(By.CSS_SELECTOR, '.pcard[data-slug="obrez-govyazhya-v-kubikah"]')
-    ok(not card.find_element(By.CSS_SELECTOR, '[data-addons]').is_displayed(), 'catalog addons folded')
-    heights = lambda: [e.size['height'] for e in d.find_elements(By.CSS_SELECTOR, '#catalogGrid .pcard:not([hidden])')[:8]]
-    before = heights()
-    card.find_element(By.CSS_SELECTOR, '[data-addons-toggle]').click()
-    ok(card.find_element(By.CSS_SELECTOR, '[data-addons]').is_displayed(), 'catalog addons unfold')
-    ok(heights() == before, 'open addons do not stretch cards')
+    ok(not card.find_elements(By.CSS_SELECTOR, '[data-addons]'), 'catalog card has no addon tiles')
     card.find_element(By.CSS_SELECTOR, '[data-add]').click(); time.sleep(0.3)  # та же фасовка без добавок — своя строка
-    ok(not card.find_element(By.CSS_SELECTOR, '[data-addons]').is_displayed(), 'addons close after add from catalog')
-    for sel in ('[data-addons-toggle]', '.veg:nth-child(2)', '[data-add]'):  # уведомление «Добавлено» перекрывает низ карточки — жмём напрямую
-        js("arguments[0].click()", card.find_element(By.CSS_SELECTOR, sel))
-    time.sleep(0.3)
-    ok(not card.find_elements(By.CSS_SELECTOR, '.veg[aria-pressed="true"]') and 'с добавками' not in card.find_element(By.CSS_SELECTOR, '[data-unit-out]').text, 'selection reset after add')
+    card.find_element(By.CSS_SELECTOR, '.opt[data-opt="0,7 кг"]').click()
+    js("arguments[0].click()", card.find_element(By.CSS_SELECTOR, '[data-addons-link]')); time.sleep(1)  # уведомление «Добавлено» перекрывает низ карточки
+    ok('/p/obrez-govyazhya-v-kubikah.html' in d.current_url and d.current_url.endswith('#dobavki'), 'addons link opens product page at addons')
+    ok(d.find_element(By.CSS_SELECTOR, '.product-info .opt[aria-pressed="true"]').text == '0,7 кг', 'product page keeps pack chosen in catalog')
+    ok(d.find_element(By.ID, 'dobavki').is_displayed(), 'addon tiles visible on product page')
     d.find_element(By.CSS_SELECTOR, '.header-actions a[href$="cart.html"]').click(); time.sleep(1)
-    for li in d.find_elements(By.CSS_SELECTOR, '.cart-item'):  # убираем позицию с кабачком из проверки сброса — как покупатель, крестиком
-        if 'кабачок' in li.text: li.find_element(By.CSS_SELECTOR, '.remove').click(); time.sleep(0.3); break
     lines = d.find_elements(By.CSS_SELECTOR, '.cart-item')
     ok(len(lines) == 2, f'same pack with/without addons = 2 lines (got {len(lines)})')
     ok(lines and '440' in lines[0].find_element(By.CSS_SELECTOR, '.sum').text and 'морковь, тыква' in lines[0].text, 'cart line shows addons and 440')
