@@ -14,6 +14,7 @@ ALL_PRODUCTS = json.load(open(os.path.join(ROOT, 'data/products.json'), encoding
 PRODUCTS = [p for p in ALL_PRODUCTS if not p.get('hidden')]  # hidden — снят с сайта в админке
 BY_SLUG = {p['slug']: p for p in PRODUCTS}
 D = SITE['delivery']
+SITE.setdefault('tagline', 'натуральное питание, зоогостиница, питомник')  # на VPS site.json старше кода — см. deploy/migrate_data.py
 YEAR = datetime.date.today().year
 PREVIEW = os.environ.get('BRO_PREVIEW') == '1'  # показ на github.io: не индексировать, без Метрики
 ORDER_API = os.environ.get('BRO_ORDER_API', '')  # адрес приёма заказов; пусто — заказ уходит в WhatsApp

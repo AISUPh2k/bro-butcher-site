@@ -71,6 +71,10 @@ SpaceWeb → «Домены» → DNS `myaso-sobakam-bro.ru`:
 ## Обслуживание
 ```sh
 sudo -u bro bash /home/bro/site/deploy/update.sh   # обновить код; данные из админки не трогаются
+# Если update.sh сам менялся в новой версии (так было 15.11.2026 — добавки, ПП БРО, питомник),
+# сначала забрать новый deploy/, потом запускать — иначе отработает старый скрипт:
+#   sudo -u bro bash -c 'cd /home/bro/site && git fetch -q origin && git checkout origin/main -- deploy && bash deploy/update.sh'
+# Новые настройки site.json дописывает deploy/migrate_data.py (копия старого — в data/backups/site-*-before-update.json).
 docker logs -f bro-site                            # лог сайта и заказов
 ls -lh /home/bro/backup-*.tgz                      # ежедневные бэкапы — иногда копировать к себе
 ```
