@@ -482,8 +482,8 @@ def build_home():
          body, 'home')
 
 def kennel_pic(n, alt, sizes, cls=''):
-    return (f'<picture><source type="image/webp" srcset="static/img/kennel/w500/scottie-{n}.webp 500w, static/img/kennel/w1000/scottie-{n}.webp 1000w" sizes="{sizes}">'
-            f'<img class="{cls}" src="static/img/kennel/scottie-{n}.jpg" alt="{alt}" loading="lazy" decoding="async"></picture>')
+    return (f'<picture><source type="image/webp" srcset="static/img/kennel/w500/{n}.webp 500w, static/img/kennel/w1000/{n}.webp 1000w" sizes="{sizes}">'
+            f'<img class="{cls}" src="static/img/kennel/{n}.jpg" alt="{alt}" loading="lazy" decoding="async"></picture>')
 
 def kennel_section():
     """Питомник шотландских терьеров на главной. Фото — static/img/kennel/ (из ~/site11/dogs, 15.11)."""
@@ -497,9 +497,9 @@ def kennel_section():
       <div class="kennel-actions">{wa_btn(msg, "Спросить о щенках")}</div>
     </div>
     <div class="kennel-photos">
-      {kennel_pic(1, "Шотландский терьер в стойке", "(max-width:860px) 92vw, 600px", "k-main")}
-      {kennel_pic(2, "Шотландский терьер на выставке", "(max-width:860px) 45vw, 290px")}
-      {kennel_pic(3, "Шотландский терьер лежит на дорожке", "(max-width:860px) 45vw, 290px")}
+      {kennel_pic("scottie-1", "Шотландский терьер в стойке", "(max-width:860px) 92vw, 600px", "k-main")}
+      {kennel_pic("scottie-2", "Шотландский терьер на выставке", "(max-width:860px) 45vw, 290px")}
+      {kennel_pic("scottie-puppies", "Щенки шотландского терьера", "(max-width:860px) 45vw, 290px")}
     </div>
   </div>
 </section>'''
