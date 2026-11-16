@@ -94,16 +94,16 @@ button{font:inherit; color:inherit;}
 .utility-links{display:flex; gap:18px;}
 .utility-links a{color:var(--on-dark); font-weight:600;}
 .utility-links a:hover{color:#fff;}
-.main-bar .wrap{display:flex; align-items:center; gap:28px; padding-block:12px; position:relative;}
+.main-bar .wrap{display:flex; align-items:center; gap:22px; padding-block:12px; position:relative;}
 .logo{font-family:'Oswald',sans-serif; font-weight:700; font-size:1.75rem; letter-spacing:.06em; line-height:1; color:var(--burgundy); display:inline-flex; flex-direction:column;}
 .logo-name{color:inherit; text-decoration:none;}
-.logo small{font-family:'Golos Text',sans-serif; font-size:.62rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-top:5px; line-height:1.45;}
-.site-header .logo small{max-width:180px;}
-.logo-tags a{color:inherit; text-decoration:none; border-bottom:1px solid transparent; transition:color .15s ease, border-color .15s ease;}
-.logo-tags a:hover,.logo-tags a:focus-visible{color:var(--burgundy); border-bottom-color:currentColor;}
+.logo small{font-family:'Golos Text',sans-serif; font-size:.62rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint); margin-top:5px; line-height:1.6; white-space:nowrap;}
+@media (max-width:1240px){.site-header .logo small{white-space:normal; max-width:190px;}}  /* уже 1240 рядом меню или кнопки — подпись в две строки */
+.logo-tags a{color:inherit; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px; text-decoration-color:color-mix(in srgb, currentColor 55%, transparent); transition:color .15s ease, text-decoration-color .15s ease;}
+.logo-tags a:hover,.logo-tags a:focus-visible{color:var(--burgundy); text-decoration-color:currentColor;}
 .site-footer .logo-tags a:hover,.site-footer .logo-tags a:focus-visible{color:var(--on-dark);}
 #kennel{scroll-margin-top:110px;}
-.main-nav{display:flex; gap:22px; flex-wrap:wrap; flex:1; font-size:.82rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
+.main-nav{display:flex; gap:14px; flex-wrap:wrap; flex:1; font-size:.82rem; font-weight:600; text-transform:uppercase; letter-spacing:.015em;}
 .main-nav a{color:var(--ink-soft); padding:4px 0; border-bottom:2px solid transparent;}
 .main-nav a[href$="hotel.html"]{color:var(--olive);}
 .main-nav a:hover,.main-nav a[aria-current="page"]{color:var(--ink); border-color:var(--burgundy);}
@@ -161,7 +161,9 @@ button{font:inherit; color:inherit;}
   border:1px solid var(--line-strong); background:rgba(255,255,255,.06);}
 .slide-olive .slide-art,.slide-burgundy .slide-art{border-color:rgba(255,255,255,.22);}
 .slide-art .icon{width:38%; height:auto; stroke-width:.9; color:var(--brass);}
+.slide-art picture{display:block; width:100%; height:100%;}
 .slide-art img{width:100%; height:100%; object-fit:cover;}
+.kennel-art img{object-position:40% 50%;}
 @media (max-width:860px){.slide-art{aspect-ratio:4/3; border-radius:18px 18px 18px 72px;} .slide-art .icon{width:26%;}}
 .slider-ui{position:absolute; left:0; right:0; bottom:clamp(18px,2.6vw,30px); pointer-events:none;}
 .slider-bar{pointer-events:auto; display:flex; align-items:center; gap:2px; width:max-content; color:var(--ink); --track:rgba(59,42,32,.2); transition:color .3s ease;}

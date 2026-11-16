@@ -14,6 +14,9 @@ SITE = os.path.join(ROOT, 'data', 'site.json')
 RENAMES = {  # поле: (старое значение, которое заменяем) — новое берётся из новой версии
     'full_name': ('Мясная лавка БРО',),  # 14.11.2026: «ПП БРО»
 }
+# Разовые добавления слайдов: (метка, art слайда). Выполняется один раз (метка пишется в _migrations) —
+# если Наталья потом удалит слайд в админке, при следующих обновлениях он не вернётся.
+ONCE_SLIDES = [('slide-kennel-2026-11', 'kennel')]
 
 new = json.load(open(sys.argv[1], encoding='utf-8'))
 cur = json.load(open(SITE, encoding='utf-8'))
@@ -24,6 +27,14 @@ for k, v in new.items():
 for k, olds in RENAMES.items():
     if cur.get(k) in olds and new.get(k) not in (None, cur.get(k)):
         cur[k] = new[k]; changed.append(f'~ {k}')
+done = cur.setdefault('_migrations', [])
+for mark, art in ONCE_SLIDES:
+    if mark in done: continue
+    slide = next((x for x in new.get('slides', []) if x.get('art') == art), None)
+    if slide and not any(x.get('art') == art for x in cur.get('slides', [])):
+        cur.setdefault('slides', []).insert(0, slide); changed.append(f'+ слайд {art}')
+    done.append(mark)
+    changed.append(f'✓ {mark}')
 if changed:
     bak = os.path.join(ROOT, 'data', 'backups'); os.makedirs(bak, exist_ok=True)
     shutil.copy2(SITE, os.path.join(bak, f'site-{datetime.datetime.now():%Y%m%d-%H%M%S}-before-update.json'))

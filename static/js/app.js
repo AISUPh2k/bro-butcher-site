@@ -131,7 +131,7 @@
     var track = $('#heroSlides', slider), ui = $('.slider-ui', slider);
     var today = new Date().toISOString().slice(0, 10);
     $$('.slide[data-until]', track).forEach(function (s) { if (s.getAttribute('data-until') < today) s.remove(); });
-    var slides = $$('.slide', track), dots = $$('.dot', slider), DELAY = 7000;
+    var slides = $$('.slide', track), dots = $$('.dot', slider), DELAY = 5000;
     $$('.dot', slider).forEach(function (d, i) { if (i >= slides.length) d.remove(); });
     dots = $$('.dot', slider);
     if (slides.length < 2 || !ui) return;

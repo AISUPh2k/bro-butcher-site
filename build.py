@@ -29,7 +29,7 @@ CATS = [  # key, название, короткое описание
     ('offal', 'Субпродукты', 'Сердце, печень, рубец'),
     ('farsh', 'Фарш', 'Рубленое мясо'),
     ('treats', 'Лакомства', 'Сушёные, для дрессировки'),
-    ('econom', 'Эконом', 'Выгодные позиции'),
+    ('econom', 'Новинки', 'Новые позиции'),  # ключ econom оставлен: старые ссылки и разделы товаров
     ('cats', 'Для кошек', 'Мясо и миксы для кошек'),
 ]
 CAT_NAME = {k: n for k, n, _ in CATS}
@@ -368,6 +368,8 @@ def slides_html():
             ext = ' target="_blank" rel="noopener"' if href.startswith('http') else ''
         if sl.get('art') == 'hotel':
             art = hotel_art(sl)
+        elif sl.get('art') == 'kennel':  # питомник: фото щенков из static/img/kennel
+            art = f'<div class="slide-art has-img kennel-art">{kennel_pic("scottie-puppies", "Щенки шотландского терьера", "(max-width:860px) 92vw, 560px")}</div>'
         elif sl.get('img'):
             art = f'<div class="slide-art has-img">{picture("", sl["img"], "", "(max-width:860px) 92vw, 560px")}</div>'
         else:
