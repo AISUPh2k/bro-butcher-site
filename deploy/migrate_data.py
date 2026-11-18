@@ -16,10 +16,7 @@ RENAMES = {  # поле: (старое значение, которое заме
 }
 # Разовые добавления слайдов: (метка, art слайда). Выполняется один раз (метка пишется в _migrations) —
 # если Наталья потом удалит слайд в админке, при следующих обновлениях он не вернётся.
-# (метка, art, photo или None, куда: 'start' | 'end')
-ONCE_SLIDES = [('slide-kennel-2026-11', 'kennel', None, 'start'),
-               ('slide-kennel-puppy-plaid-2026-11-18', 'kennel', 'puppy-plaid', 'end'),
-               ('slide-kennel-puppy-black-2026-11-18', 'kennel', 'puppy-black', 'end')]
+ONCE_SLIDES = [('slide-kennel-2026-11', 'kennel')]
 
 new = json.load(open(sys.argv[1], encoding='utf-8'))
 cur = json.load(open(SITE, encoding='utf-8'))
@@ -31,14 +28,11 @@ for k, olds in RENAMES.items():
     if cur.get(k) in olds and new.get(k) not in (None, cur.get(k)):
         cur[k] = new[k]; changed.append(f'~ {k}')
 done = cur.setdefault('_migrations', [])
-same = lambda x, art, photo: x.get('art') == art and x.get('photo') == photo
-for mark, art, photo, where in ONCE_SLIDES:
+for mark, art in ONCE_SLIDES:
     if mark in done: continue
-    slide = next((x for x in new.get('slides', []) if same(x, art, photo)), None)
-    if slide and not any(same(x, art, photo) for x in cur.get('slides', [])):
-        lst = cur.setdefault('slides', [])
-        lst.insert(0, slide) if where == 'start' else lst.append(slide)
-        changed.append(f'+ слайд {art} {photo or ""}'.strip())
+    slide = next((x for x in new.get('slides', []) if x.get('art') == art), None)
+    if slide and not any(x.get('art') == art for x in cur.get('slides', [])):
+        cur.setdefault('slides', []).insert(0, slide); changed.append(f'+ слайд {art}')
     done.append(mark)
     changed.append(f'✓ {mark}')
 if changed:

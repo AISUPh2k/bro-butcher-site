@@ -168,7 +168,6 @@ def clean_slides(items):
         if not LINK_RE.fullmatch(s['link']): raise Bad(f'Объявление {n}: неверная ссылка кнопки')
         if s['link'] == 'whatsapp': s['wa_text'] = f('wa_text', 'Текст для WhatsApp', 300)
         if d.get('art') in ('hotel', 'kennel'): s['art'] = d['art']  # hotel — арка+печать+карточки; kennel — фото щенков питомника
-        if d.get('art') == 'kennel' and re.fullmatch(r'[a-z0-9-]{1,40}', str(d.get('photo', ''))): s['photo'] = d['photo']  # какое фото питомника
         img = d.get('img') or ''
         if img:
             if not re.fullmatch(r'[a-z0-9-]+\.jpg', img) or not os.path.exists(os.path.join(PROD_IMG, img)):

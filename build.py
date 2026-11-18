@@ -369,8 +369,7 @@ def slides_html():
         if sl.get('art') == 'hotel':
             art = hotel_art(sl)
         elif sl.get('art') == 'kennel':  # питомник: фото щенков из static/img/kennel
-            ph = sl.get('photo') if sl.get('photo') in KENNEL_PHOTOS else 'scottie-puppies'
-            art = f'<div class="slide-art has-img kennel-art kennel-{ph}">{kennel_pic(ph, KENNEL_PHOTOS[ph], "(max-width:860px) 92vw, 560px")}</div>'
+            art = f'<div class="slide-art has-img kennel-art">{kennel_pic("scottie-puppies", "Щенки шотландского терьера", "(max-width:860px) 92vw, 560px")}</div>'
         elif sl.get('img'):
             art = f'<div class="slide-art has-img">{picture("", sl["img"], "", "(max-width:860px) 92vw, 560px")}</div>'
         else:
@@ -494,10 +493,6 @@ def build_home():
     page('index.html', 'ПП БРО — правильное мясо для вашего питомца: натуральное питание, зоогостиница, питомник',
          'Натуральное мясо и миксы для собак: говядина, баранина, птица, лакомства. Пилим без разморозки, рецептуры зоодиетолога. Бесплатная доставка по Москве от 5000 ₽.',
          body, 'home')
-
-# фото питомника для слайдов (поле photo у слайда с art "kennel"): имя файла в static/img/kennel → alt
-KENNEL_PHOTOS = {'scottie-puppies': 'Щенки шотландского терьера', 'puppy-plaid': 'Щенок шотландского терьера в пледе',
-                 'puppy-black': 'Чёрный щенок шотландского терьера в корзинке'}
 
 def kennel_pic(n, alt, sizes, cls=''):
     return (f'<picture><source type="image/webp" srcset="static/img/kennel/w500/{n}.webp 500w, static/img/kennel/w1000/{n}.webp 1000w" sizes="{sizes}">'

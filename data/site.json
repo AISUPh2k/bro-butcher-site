@@ -68,7 +68,7 @@
   },
   "privacy_email": "myaso-sobakam-bro@yandex.ru",
   "policy_date": "19.10.2026",
-  "slides_note": "Слайды-объявления на главной после основного баннера. theme: olive | burgundy | light | warm. link: адрес страницы или \"whatsapp\". img: фото из static/img/products (необязательно), иначе icon. until: ГГГГ-ММ-ДД — после этой даты слайд скрывается. art: \"hotel\" — оформление арка+печать+карточки (картинка, если есть, встаёт в арку); \"kennel\" — фото питомника; photo: scottie-puppies | puppy-plaid | puppy-black (по умолчанию scottie-puppies).",
+  "slides_note": "Слайды-объявления на главной после основного баннера. theme: olive | burgundy | light | warm. link: адрес страницы или \"whatsapp\". img: фото из static/img/products (необязательно), иначе icon. until: ГГГГ-ММ-ДД — после этой даты слайд скрывается. art: \"hotel\" — оформление арка+печать+карточки (картинка, если есть, встаёт в арку); \"kennel\" — фото щенков питомника.",
   "slides": [
     {
       "theme": "olive",
@@ -90,30 +90,6 @@
       "link": "hotel.html",
       "icon": "home",
       "art": "hotel"
-    },
-    {
-      "theme": "light",
-      "eyebrow": "Питомник ПП БРО",
-      "title": "Щенки скотч-терьера",
-      "text": "Спросите, кто сейчас подрастает в питомнике и когда можно познакомиться.",
-      "button": "Спросить о щенках",
-      "link": "whatsapp",
-      "wa_text": "Здравствуйте! Хочу узнать о щенках шотландского терьера.",
-      "icon": "home",
-      "art": "kennel",
-      "photo": "puppy-plaid"
-    },
-    {
-      "theme": "burgundy",
-      "eyebrow": "Питомник ПП БРО",
-      "title": "Маленький терьер — большой друг",
-      "text": "Расскажем о щенках и их родителях, ответим на вопросы.",
-      "button": "Написать нам",
-      "link": "whatsapp",
-      "wa_text": "Здравствуйте! Хочу узнать о щенках шотландского терьера.",
-      "icon": "home",
-      "art": "kennel",
-      "photo": "puppy-black"
     }
   ],
   "addons": {
